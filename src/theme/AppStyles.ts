@@ -5,9 +5,13 @@ const appStyles = StyleSheet.create({
   },
   textMedium: {
     fontSize: 17,
+    // fontFamily: 'F37 Moon',
   },
   textLarge: {
     fontSize: 30,
+  },
+  textBold: {
+    fontWeight: 'bold'
   },
   button: {
     borderRadius: 12,

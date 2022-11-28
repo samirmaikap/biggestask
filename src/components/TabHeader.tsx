@@ -1,10 +1,11 @@
 import React from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
-import {useTheme} from 'react-native-paper';
+import {View, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, useTheme} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import appStyles from '../theme/AppStyles';
 import {MenuIcon} from './icons/MenuIcon';
+import {AppText} from './AppText';
 
 const styles = StyleSheet.create({
   row: {
@@ -31,7 +32,6 @@ type Props = {
 };
 
 const TabHeader = (props: Props) => {
-  const theme = useTheme();
   const insets = useSafeAreaInsets();
   const navigation = useNavigation();
 
@@ -49,13 +49,9 @@ const TabHeader = (props: Props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
-        <Text
-          style={[
-            appStyles.textMedium,
-            {color: theme.colors.secondary, fontWeight: 'bold'},
-          ]}>
+        <AppText variant={'custom'} size={20} fontWeight={'700'}>
           {title}
-        </Text>
+        </AppText>
       </View>
       <View style={[styles.row, {minWidth: 40}]}>{actions}</View>
     </View>

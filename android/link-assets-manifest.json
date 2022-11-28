@@ -1,0 +1,89 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/fonts/anton_regular.ttf",
+      "sha1": "49243712633711db3b673d0b03536e0180cd7ddb"
+    },
+    {
+      "path": "src/assets/fonts/f37moo_lightit.otf",
+      "sha1": "598c31ad0bdb4fb4b0fe75b55b0141517f3862d6"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_black.otf",
+      "sha1": "2c7060ccb746da4bfad9f9f41ee5b896411fd4f0"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_blackit.otf",
+      "sha1": "2298fad5c52c16707c045474af0701239e8e04da"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_bold.otf",
+      "sha1": "0704f8f0e1444afca963a292e33819565c554550"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_boldit.otf",
+      "sha1": "5009ab1c63d44128fb199b36bc940703929ce09d"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_demi.otf",
+      "sha1": "9e392a13dbe1ac9f5693f141565bfb6f27cfd48e"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_demit.otf",
+      "sha1": "4402af1384898990fabace436ce284017051a64e"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_extra_bold.otf",
+      "sha1": "0e5857d9686478e03c39878eb79ee408a081fed9"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_extra_boldit.otf",
+      "sha1": "ff35efec8cae5c6f57eba10c3cf6688df4890223"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_light.otf",
+      "sha1": "258ceb78d0044ec1aefd82504c0219f4ce8239a8"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_regular.otf",
+      "sha1": "525e138b91ba5f853b904966bdd9700cae991f63"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_regularit.otf",
+      "sha1": "e39a606723fb692e591a1da09e3ba459dd87068b"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_thin.otf",
+      "sha1": "98c71be1b56489186f919d39acb8480214d6dcb9"
+    },
+    {
+      "path": "src/assets/fonts/f37moon_thinlt.otf",
+      "sha1": "73e0046b893af4a0d0524b8cf493c1dcf71704c2"
+    },
+    {
+      "path": "src/assets/fonts/moon_bold.ttf",
+      "sha1": "982dea201c2d2c2102e40a4afee1bf115b78ceb5"
+    },
+    {
+      "path": "src/assets/fonts/moon_extra_bold.ttf",
+      "sha1": "a30c6f89d485fc65adf050bcc8ad8250024b3659"
+    },
+    {
+      "path": "src/assets/fonts/moon_light.ttf",
+      "sha1": "8d25f8440cb700fc21a446edf360d3000abaf597"
+    },
+    {
+      "path": "src/assets/fonts/moon_regular.ttf",
+      "sha1": "c4bc4862ccaf0a58a60cee9801f509ffc4f0e8ec"
+    },
+    {
+      "path": "src/assets/fonts/moon_thin.ttf",
+      "sha1": "d8cd841df2ebcdd3e1cc9e4c6da6dbc3ec00fd7a"
+    },
+    {
+      "path": "src/assets/fonts/roboto_regular.ttf",
+      "sha1": "56c5c0d38bde4c1f1549dda43db37b09c608aad3"
+    }
+  ]
+}

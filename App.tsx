@@ -1,22 +1,55 @@
 import React from 'react';
 import Root from './src/screens/Root';
 import {
-  MD3DarkTheme,
   DefaultTheme,
   Provider as PaperProvider,
+  configureFonts,
   MD3LightTheme,
 } from 'react-native-paper';
-import {LogBox, useColorScheme} from 'react-native';
+import {LogBox, Platform} from 'react-native';
 import colors from './src/theme/colors';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
+import {MD3Type} from 'react-native-paper/lib/typescript/types';
+import {FONT_NAME} from './src/utils/constants';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
+// const fontConfig = {
+//   ios: {
+//     regular: {
+//       fontFamily: 'F37 Moon Regular',
+//     },
+//     medium: {
+//       fontFamily: 'F37 Moon Bold',
+//     },
+//     light: {
+//       fontFamily: 'F37 Moon Light',
+//     },
+//     thin: {
+//       fontFamily: 'F37 Moon Thin',
+//     },
+//   },
+//   android: {
+//     regular: {
+//       fontFamily: 'moon_regular',
+//     },
+//     medium: {
+//       fontFamily: 'moon_bold',
+//     },
+//     light: {
+//       fontFamily: 'moon_light',
+//     },
+//     thin: {
+//       fontFamily: 'moon_thin',
+//     },
+//   },
+// };
+
 const darkTheme = {
-  ...MD3DarkTheme,
+  ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
     ...colors.dark,
@@ -26,12 +59,16 @@ const darkTheme = {
 
 const lightTheme = {
   ...MD3LightTheme,
-
   colors: {
     ...DefaultTheme.colors,
     ...colors.light,
     background: '#f7f7f7',
   },
+  fonts: configureFonts({
+    config: {
+      fontFamily: FONT_NAME,
+    } as MD3Type,
+  }),
 };
 
 export default function App() {

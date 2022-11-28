@@ -12,8 +12,29 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		239B52AF67C6401ABB6E7CA9 /* f37moon_regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 4B5B9FD323374238961EED56 /* f37moon_regular.otf */; };
+		2C50DA2FD3264689B138FB26 /* f37moon_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5DC188EE61654A4A95D6DF40 /* f37moon_bold.otf */; };
+		34A7AA377C8343729B3B37FE /* f37moo_lightit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5B74977BEA3E489EA7452303 /* f37moo_lightit.otf */; };
+		391365F2AAD14BC99088686D /* roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4860372DC8EC4F55BDAF84C2 /* roboto_regular.ttf */; };
+		3D92448AD3B646138EF7BCAD /* f37moon_extra_boldit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3E98229CA44D46E8848F506F /* f37moon_extra_boldit.otf */; };
+		51AF5AE7F3AE4ED8ACCC0FC9 /* moon_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8715781A588D47B9A01DD051 /* moon_regular.ttf */; };
+		71685E7BE9B84DC4B277136C /* f37moon_boldit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2531E2723D2444D4B6776916 /* f37moon_boldit.otf */; };
+		7195690261454C25B3FBF1B3 /* moon_extra_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F61F2CF78264BA9988E5562 /* moon_extra_bold.ttf */; };
 		7699B88040F8A987B510C191 /* libPods-biggestask-biggestaskTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-biggestask-biggestaskTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		8B288DDC0C4C443F8C314253 /* f37moon_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D7CFF4A865BE40908C07F626 /* f37moon_black.otf */; };
+		98578844CB8B47208DEBC0A0 /* f37moon_extra_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7A50EA3CAC154D6891CA3848 /* f37moon_extra_bold.otf */; };
+		9AE7353045234E73863DD41B /* f37moon_demi.otf in Resources */ = {isa = PBXBuildFile; fileRef = A9A1EB4B79244ABD846D2D61 /* f37moon_demi.otf */; };
+		A7486AF0E81D46EB913C81E2 /* f37moon_demit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0E79833B3CE8406585B38540 /* f37moon_demit.otf */; };
+		AF1643DAB0B744E59F7E525D /* f37moon_thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBB642FA9FD7422DB2B0D48E /* f37moon_thin.otf */; };
+		BB49B8C923474D7F9EA07ABB /* f37moon_blackit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C207075C322435998DF5191 /* f37moon_blackit.otf */; };
+		C2D2739400764F6B88A65EFD /* f37moon_thinlt.otf in Resources */ = {isa = PBXBuildFile; fileRef = C69D30A01F9445C39186CC3E /* f37moon_thinlt.otf */; };
+		C4C71A88B93047028DB595FE /* moon_thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC7853589B43B5AFBE229F /* moon_thin.ttf */; };
+		CB10D1937FC04421A216652B /* f37moon_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = ECDC17EE0ABB4DCFAEF5FDFD /* f37moon_light.otf */; };
+		DA2BA0D81D4E41878EC93F53 /* anton_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6EF674346700403C947DF342 /* anton_regular.ttf */; };
+		E1E8E59EA6E54A9980219B8F /* moon_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0F3EF0E22817416898C7BBC0 /* moon_bold.ttf */; };
+		EDDF20C52C6442B79616374D /* f37moon_regularit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 5331571C14AD448AAF7B1120 /* f37moon_regularit.otf */; };
+		EEDAAA6B192C4F4F9DDF36C7 /* moon_light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B60CBA3A1D3454A84C76445 /* moon_light.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -30,6 +51,8 @@
 		00E356EE1AD99517003FC87E /* biggestaskTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = biggestaskTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* biggestaskTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = biggestaskTests.m; sourceTree = "<group>"; };
+		0E79833B3CE8406585B38540 /* f37moon_demit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_demit.otf; path = ../src/assets/fonts/f37moon_demit.otf; sourceTree = "<group>"; };
+		0F3EF0E22817416898C7BBC0 /* moon_bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = moon_bold.ttf; path = ../src/assets/fonts/moon_bold.ttf; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* biggestask.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = biggestask.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = biggestask/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = biggestask/AppDelegate.mm; sourceTree = "<group>"; };
@@ -37,12 +60,31 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = biggestask/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = biggestask/main.m; sourceTree = "<group>"; };
 		19F6CBCC0A4E27FBF8BF4A61 /* libPods-biggestask-biggestaskTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-biggestask-biggestaskTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2531E2723D2444D4B6776916 /* f37moon_boldit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_boldit.otf; path = ../src/assets/fonts/f37moon_boldit.otf; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-biggestask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask.debug.xcconfig"; path = "Target Support Files/Pods-biggestask/Pods-biggestask.debug.xcconfig"; sourceTree = "<group>"; };
+		3BAC7853589B43B5AFBE229F /* moon_thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = moon_thin.ttf; path = ../src/assets/fonts/moon_thin.ttf; sourceTree = "<group>"; };
+		3E98229CA44D46E8848F506F /* f37moon_extra_boldit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_extra_boldit.otf; path = ../src/assets/fonts/f37moon_extra_boldit.otf; sourceTree = "<group>"; };
+		4860372DC8EC4F55BDAF84C2 /* roboto_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = roboto_regular.ttf; path = ../src/assets/fonts/roboto_regular.ttf; sourceTree = "<group>"; };
+		4B5B9FD323374238961EED56 /* f37moon_regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_regular.otf; path = ../src/assets/fonts/f37moon_regular.otf; sourceTree = "<group>"; };
+		5331571C14AD448AAF7B1120 /* f37moon_regularit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_regularit.otf; path = ../src/assets/fonts/f37moon_regularit.otf; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-biggestask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask.release.xcconfig"; path = "Target Support Files/Pods-biggestask/Pods-biggestask.release.xcconfig"; sourceTree = "<group>"; };
+		5B74977BEA3E489EA7452303 /* f37moo_lightit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moo_lightit.otf; path = ../src/assets/fonts/f37moo_lightit.otf; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-biggestask-biggestaskTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask-biggestaskTests.debug.xcconfig"; path = "Target Support Files/Pods-biggestask-biggestaskTests/Pods-biggestask-biggestaskTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5DC188EE61654A4A95D6DF40 /* f37moon_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_bold.otf; path = ../src/assets/fonts/f37moon_bold.otf; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-biggestask.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-biggestask.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6C207075C322435998DF5191 /* f37moon_blackit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_blackit.otf; path = ../src/assets/fonts/f37moon_blackit.otf; sourceTree = "<group>"; };
+		6EF674346700403C947DF342 /* anton_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = anton_regular.ttf; path = ../src/assets/fonts/anton_regular.ttf; sourceTree = "<group>"; };
+		7A50EA3CAC154D6891CA3848 /* f37moon_extra_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_extra_bold.otf; path = ../src/assets/fonts/f37moon_extra_bold.otf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = biggestask/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		8715781A588D47B9A01DD051 /* moon_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = moon_regular.ttf; path = ../src/assets/fonts/moon_regular.ttf; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-biggestask-biggestaskTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask-biggestaskTests.release.xcconfig"; path = "Target Support Files/Pods-biggestask-biggestaskTests/Pods-biggestask-biggestaskTests.release.xcconfig"; sourceTree = "<group>"; };
+		8F61F2CF78264BA9988E5562 /* moon_extra_bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = moon_extra_bold.ttf; path = ../src/assets/fonts/moon_extra_bold.ttf; sourceTree = "<group>"; };
+		9B60CBA3A1D3454A84C76445 /* moon_light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = moon_light.ttf; path = ../src/assets/fonts/moon_light.ttf; sourceTree = "<group>"; };
+		A9A1EB4B79244ABD846D2D61 /* f37moon_demi.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_demi.otf; path = ../src/assets/fonts/f37moon_demi.otf; sourceTree = "<group>"; };
+		C69D30A01F9445C39186CC3E /* f37moon_thinlt.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_thinlt.otf; path = ../src/assets/fonts/f37moon_thinlt.otf; sourceTree = "<group>"; };
+		CBB642FA9FD7422DB2B0D48E /* f37moon_thin.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_thin.otf; path = ../src/assets/fonts/f37moon_thin.otf; sourceTree = "<group>"; };
+		D7CFF4A865BE40908C07F626 /* f37moon_black.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_black.otf; path = ../src/assets/fonts/f37moon_black.otf; sourceTree = "<group>"; };
+		ECDC17EE0ABB4DCFAEF5FDFD /* f37moon_light.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_light.otf; path = ../src/assets/fonts/f37moon_light.otf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -106,6 +148,35 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		30D4ABD7F5CF40B1AB6FB57E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5B74977BEA3E489EA7452303 /* f37moo_lightit.otf */,
+				D7CFF4A865BE40908C07F626 /* f37moon_black.otf */,
+				6C207075C322435998DF5191 /* f37moon_blackit.otf */,
+				5DC188EE61654A4A95D6DF40 /* f37moon_bold.otf */,
+				2531E2723D2444D4B6776916 /* f37moon_boldit.otf */,
+				A9A1EB4B79244ABD846D2D61 /* f37moon_demi.otf */,
+				0E79833B3CE8406585B38540 /* f37moon_demit.otf */,
+				7A50EA3CAC154D6891CA3848 /* f37moon_extra_bold.otf */,
+				3E98229CA44D46E8848F506F /* f37moon_extra_boldit.otf */,
+				ECDC17EE0ABB4DCFAEF5FDFD /* f37moon_light.otf */,
+				4B5B9FD323374238961EED56 /* f37moon_regular.otf */,
+				5331571C14AD448AAF7B1120 /* f37moon_regularit.otf */,
+				CBB642FA9FD7422DB2B0D48E /* f37moon_thin.otf */,
+				C69D30A01F9445C39186CC3E /* f37moon_thinlt.otf */,
+				6EF674346700403C947DF342 /* anton_regular.ttf */,
+				4860372DC8EC4F55BDAF84C2 /* roboto_regular.ttf */,
+				0F3EF0E22817416898C7BBC0 /* moon_bold.ttf */,
+				8F61F2CF78264BA9988E5562 /* moon_extra_bold.ttf */,
+				9B60CBA3A1D3454A84C76445 /* moon_light.ttf */,
+				8715781A588D47B9A01DD051 /* moon_regular.ttf */,
+				3BAC7853589B43B5AFBE229F /* moon_thin.ttf */,
+			);
+			name = Resources;
+			path = "";
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -122,6 +193,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				30D4ABD7F5CF40B1AB6FB57E /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -244,6 +316,27 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				34A7AA377C8343729B3B37FE /* f37moo_lightit.otf in Resources */,
+				8B288DDC0C4C443F8C314253 /* f37moon_black.otf in Resources */,
+				BB49B8C923474D7F9EA07ABB /* f37moon_blackit.otf in Resources */,
+				2C50DA2FD3264689B138FB26 /* f37moon_bold.otf in Resources */,
+				71685E7BE9B84DC4B277136C /* f37moon_boldit.otf in Resources */,
+				9AE7353045234E73863DD41B /* f37moon_demi.otf in Resources */,
+				A7486AF0E81D46EB913C81E2 /* f37moon_demit.otf in Resources */,
+				98578844CB8B47208DEBC0A0 /* f37moon_extra_bold.otf in Resources */,
+				3D92448AD3B646138EF7BCAD /* f37moon_extra_boldit.otf in Resources */,
+				CB10D1937FC04421A216652B /* f37moon_light.otf in Resources */,
+				239B52AF67C6401ABB6E7CA9 /* f37moon_regular.otf in Resources */,
+				EDDF20C52C6442B79616374D /* f37moon_regularit.otf in Resources */,
+				AF1643DAB0B744E59F7E525D /* f37moon_thin.otf in Resources */,
+				C2D2739400764F6B88A65EFD /* f37moon_thinlt.otf in Resources */,
+				DA2BA0D81D4E41878EC93F53 /* anton_regular.ttf in Resources */,
+				391365F2AAD14BC99088686D /* roboto_regular.ttf in Resources */,
+				E1E8E59EA6E54A9980219B8F /* moon_bold.ttf in Resources */,
+				7195690261454C25B3FBF1B3 /* moon_extra_bold.ttf in Resources */,
+				EEDAAA6B192C4F4F9DDF36C7 /* moon_light.ttf in Resources */,
+				51AF5AE7F3AE4ED8ACCC0FC9 /* moon_regular.ttf in Resources */,
+				C4C71A88B93047028DB595FE /* moon_thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
