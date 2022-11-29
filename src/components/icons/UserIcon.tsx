@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const UserIcon = (props: Props) => {
+    const {color = 'black'} = props;
   return (
     <Svg
       width={24}
@@ -21,14 +22,14 @@ export const UserIcon = (props: Props) => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M12 11.5214C10 11.5214 9 10.5214 9 8.52136C9 6.52136 10 5.52136 12 5.52136C14 5.52136 15 6.52136 15 8.52136C15 10.5214 14 11.5214 12 11.5214Z"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <Path
           d="M5 19.5214C5 16.7214 6 14.5214 12 14.5214C18 14.5214 19 16.7214 19 19.5214"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

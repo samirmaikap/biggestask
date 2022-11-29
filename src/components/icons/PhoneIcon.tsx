@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const PhoneIcon = (props: Props) => {
+    const {color = 'black'} = props;
   return (
     <Svg
       width={24}
@@ -20,7 +21,7 @@ export const PhoneIcon = (props: Props) => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M16 4.52136C14 4.52136 13 5.86436 13 7.52136C13 8.97436 14 9.52136 14 10.5214C14 11.5214 11 14.5214 10 14.5214C9 14.5214 8.454 13.5214 7 13.5214C5.343 13.5214 4 14.5214 4 16.5214C4 18.5214 6 20.5214 8 20.5214C10 20.5214 12 20.5214 16 16.5214C20 12.5214 20 10.5214 20 8.52136C20 6.52136 18 4.52136 16 4.52136Z"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

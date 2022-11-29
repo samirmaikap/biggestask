@@ -2,20 +2,14 @@ import React from 'react';
 import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
 
 type Props = {
-    size?: number;
-    color?: string;
-    fill?: string;
+  size?: number;
+  color?: string;
+  fill?: string;
 };
 
 export const UsersIcon = (props: Props) => {
   return (
-    <Svg
-      width={24}
-      height={25}
-      viewBox="0 0 24 25"
-      fill="none"
-
-      >
+    <Svg width={24} height={25} viewBox="0 0 24 25" fill="none">
       <G clipPath="url(#clip0_77_11833)">
         <Path
           fillRule="evenodd"

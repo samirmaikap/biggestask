@@ -16,7 +16,7 @@ export type NavigationKeyType =
   | 'MilestoneDetails'
   | 'Privacy'
   | 'Terms'
-  | 'DetailedSettings';
+  | 'DetailedSettings' | 'Autocomplete';
 
 const Screens: {
   AuthNavigator: string;
@@ -38,6 +38,8 @@ const Screens: {
   Privacy: string;
   Terms: string;
   DetailedSettings: string;
+  Autocomplete: string;
+  Contacts: string;
 } = {
   AuthNavigator: 'AuthNavigator',
   RootNavigator: 'RootNavigator',
@@ -58,6 +60,8 @@ const Screens: {
   Privacy: 'Privacy',
   Terms: 'Terms',
   DetailedSettings: 'DetailedSettings',
+  Autocomplete: 'Autocomplete',
+  Contacts: 'Contacts'
 };
 
 export default Screens;

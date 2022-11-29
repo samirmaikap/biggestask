@@ -1,25 +1,21 @@
 import React from 'react';
-import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
+import Svg, {Path} from 'react-native-svg';
 
 type Props = {
-    size?: number;
-    color?: string;
-    fill?: string;
+  size?: number;
+  color?: string;
+  fill?: string;
 };
 
 export const CalendarIcon = (props: Props) => {
+  const {size = 20, color = '#666463'} = props;
   return (
-    <Svg
-      width={20}
-      height={20}
-      viewBox="0 0 20 20"
-      fill="none"
-      >
+    <Svg width={size} height={size} viewBox="0 0 20 20" fill="none">
       <Path
         fillRule="evenodd"
         clipRule="evenodd"
         d="M5.0013 2.49935C5.0013 2.03911 5.3744 1.66602 5.83464 1.66602C6.29487 1.66602 6.66797 2.03911 6.66797 2.49935V3.33268H13.3346V2.49935C13.3346 2.03911 13.7077 1.66602 14.168 1.66602C14.6282 1.66602 15.0013 2.03911 15.0013 2.49935V3.33268H15.8346C17.2153 3.33268 18.3346 4.45197 18.3346 5.83268V15.8327C18.3346 17.2134 17.2153 18.3327 15.8346 18.3327H4.16797C2.78726 18.3327 1.66797 17.2134 1.66797 15.8327V5.83268C1.66797 4.45197 2.78726 3.33268 4.16797 3.33268H5.0013V2.49935Z"
-        fill="#666463"
+        fill={color}
       />
       <Path
         fillRule="evenodd"

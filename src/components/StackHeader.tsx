@@ -5,6 +5,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import appStyles from '../theme/AppStyles';
 import {ChevronLeftIcon} from './icons/ChevronLeftIcon';
+import {AppText} from './AppText';
 
 const styles = StyleSheet.create({
   row: {
@@ -14,6 +15,8 @@ const styles = StyleSheet.create({
   titleContainer: {
     marginLeft: 8,
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   button: {
     height: 40,
@@ -48,15 +51,11 @@ const StackHeader = (props: Props) => {
         </TouchableOpacity>
       </View>
       <View style={styles.titleContainer}>
-        <Text
-          style={[
-            appStyles.textMedium,
-            {color: theme.colors.secondary, fontWeight: 'bold'},
-          ]}>
+        <AppText variant={'custom'} size={20} fontWeight={'700'}>
           {title}
-        </Text>
+        </AppText>
       </View>
-      <View style={styles.row}>{actions}</View>
+      <View style={[styles.row, {minWidth: 40}]}>{actions}</View>
     </View>
   );
 };

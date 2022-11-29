@@ -1,4 +1,5 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from './colors';
 const appStyles = StyleSheet.create({
   textSmall: {
     fontSize: 12,
@@ -11,7 +12,7 @@ const appStyles = StyleSheet.create({
     fontSize: 30,
   },
   textBold: {
-    fontWeight: 'bold'
+    fontWeight: 'bold',
   },
   button: {
     borderRadius: 12,
@@ -22,7 +23,9 @@ const appStyles = StyleSheet.create({
     paddingVertical: 3,
   },
   textInput: {
-
+    backgroundColor: Colors.grey_bg,
+    borderRadius: 12,
+    borderColor: 'red',
   },
   appBarContainer: {
     flexDirection: 'row',
@@ -40,6 +43,29 @@ const appStyles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginHorizontal: 8,
+  },
+  dropdownContainerStyle: {
+    borderColor: 'white',
+    borderWidth: 0,
+    shadowColor: '#1B1956',
+    shadowOffset: {width: 0, height: 2},
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 5,
+    borderBottomLeftRadius: 8,
+    borderBottomRightRadius: 8,
+    backgroundColor: 'white',
+    overflow: 'visible',
+    zIndex: 99
+  },
+  dropdownInput: {
+    borderColor: 'white',
+    borderTopWidth: 0,
+    backgroundColor: Colors.grey_bg,
+    borderRadius: 12,
+  },
+  textArea: {
+    borderColor: 'transparent'
   },
 });
 

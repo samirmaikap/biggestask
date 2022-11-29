@@ -11,6 +11,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import DeviceInfo from 'react-native-device-info';
+import {FONT_NAME} from '../utils/constants';
 
 const styles = StyleSheet.create({
   cardStyle: {
@@ -22,7 +23,7 @@ const styles = StyleSheet.create({
     padding: 0,
     width: 40,
     height: 40,
-    borderRadius: 40 * 0.4,
+    borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -47,6 +48,10 @@ export const Tabs = (props: any) => {
           backgroundColor: 'white',
           borderColor: '#F4F5F6',
           borderTopWidth: 1,
+        },
+        tabBarLabelStyle: {
+          fontFamily: FONT_NAME,
+          fontSize: 12,
         },
         headerStyle: {
           backgroundColor: themeColors.background,

@@ -3,15 +3,16 @@ import {StyleSheet, View} from 'react-native';
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 16,
+    borderRadius: 12,
   },
   cardInner: {
-    borderRadius: 16,
+    borderRadius: 12,
     overflow: 'hidden',
   },
 });
 
 type Props = {
+  children: React.ReactNode;
   shadow?: boolean;
   padding?: number;
   backgroundColor?: string;
@@ -20,13 +21,14 @@ type Props = {
 };
 
 // @ts-ignore
-export const AppCard = ({children}, props: Props) => {
+export const AppCard = (props: Props) => {
   const {
+    children,
     shadow = true,
-    padding = 16,
+    padding = 0,
     backgroundColor = 'white',
     marginVertical = 0,
-    marginHorizontal = 16,
+    marginHorizontal = 0,
   } = props;
   return (
     <View

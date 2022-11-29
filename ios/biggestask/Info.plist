@@ -74,6 +74,8 @@
 		<string>moon_light.ttf</string>
 		<string>moon_regular.ttf</string>
 		<string>moon_thin.ttf</string>
+		<string>MaterialCommunityIcons.ttf</string>
+		<string>MaterialIcons.ttf</string>
 	</array>
 </dict>
 </plist>

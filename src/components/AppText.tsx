@@ -7,24 +7,24 @@ const styles = StyleSheet.create({
   h1: {
     fontFamily: FONT_NAME,
     fontWeight: '800',
-    fontSize: 32,
+    fontSize: 30,
     // lineHeight: 40,
   },
   h2: {
     fontFamily: FONT_NAME,
-    fontWeight: '500',
-    fontSize: 24,
+    fontWeight: '700',
+    fontSize: 22,
     // lineHeight: 32,
   },
   h3: {
     fontFamily: FONT_NAME,
-    fontWeight: '500',
-    fontSize: 22,
+    fontWeight: '700',
+    fontSize: 20,
     // lineHeight: 28,
   },
   h4: {
     fontFamily: FONT_NAME,
-    fontWeight: '500',
+    fontWeight: '700',
     fontSize: 16,
     // lineHeight: 24,
   },
@@ -52,57 +52,112 @@ type Props = {
   color?: string;
   size?: number;
   fontWeight?: string;
+  textAlign?: any;
 };
 
 const renderH1 = (props: Props, children: any) => {
-  const {color = defaultColor, textStyle = 'normal'} = props;
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+  } = props;
   return (
-    <Text style={[styles.h1, {color: color, fontStyle: textStyle}]}>
+    <Text
+      style={[
+        styles.h1,
+        {textAlign: textAlign, color: color, fontStyle: textStyle},
+      ]}>
       {children}
     </Text>
   );
 };
 
 const renderH2 = (props: Props, children: any) => {
-  const {color = defaultColor, textStyle = 'normal'} = props;
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+  } = props;
   return (
-    <Text style={[styles.h2, {color: color, fontStyle: textStyle}]}>
+    <Text
+      style={[
+        styles.h2,
+        {textAlign: textAlign, color: color, fontStyle: textStyle},
+      ]}>
       {children}
     </Text>
   );
 };
 
 const renderH3 = (props: Props, children: any) => {
-  const {color = defaultColor, textStyle = 'normal'} = props;
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+  } = props;
   return (
-    <Text style={[styles.h3, {color: color, fontStyle: textStyle}]}>
+    <Text
+      style={[
+        styles.h3,
+        {textAlign: textAlign, color: color, fontStyle: textStyle},
+      ]}>
       {children}
     </Text>
   );
 };
 
 const renderH4 = (props: Props, children: any) => {
-  const {color = defaultColor, textStyle = 'normal'} = props;
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+  } = props;
   return (
-    <Text style={[styles.h4, {color: color, fontStyle: textStyle}]}>
+    <Text
+      style={[
+        styles.h4,
+        {textAlign: textAlign, color: color, fontStyle: textStyle},
+      ]}>
       {children}
     </Text>
   );
 };
 
 const renderBody = (props: Props, children: any) => {
-  const {color = defaultColor, textStyle = 'normal'} = props;
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+    fontWeight = 'normal',
+  } = props;
   return (
-    <Text style={[styles.body, {color: color, fontStyle: textStyle}]}>
+    <Text
+      style={[
+        styles.body,
+        {
+          textAlign: textAlign,
+          color: color,
+          fontStyle: textStyle,
+          fontWeight: fontWeight as any,
+        },
+      ]}>
       {children}
     </Text>
   );
 };
 
 const renderCaption = (props: Props, children: any) => {
-  const {color = defaultColor, textStyle = 'normal'} = props;
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+  } = props;
   return (
-    <Text style={[styles.caption, {color: color, fontStyle: textStyle}]}>
+    <Text
+      style={[
+        styles.caption,
+        {textAlign: textAlign, color: color, fontStyle: textStyle},
+      ]}>
       {children}
     </Text>
   );
@@ -114,6 +169,7 @@ const renderCustom = (props: Props, children: any) => {
     textStyle = 'normal',
     size = 16,
     fontWeight = '500',
+    textAlign = 'auto',
   } = props;
   return (
     <Text
@@ -124,6 +180,7 @@ const renderCustom = (props: Props, children: any) => {
           fontStyle: textStyle,
           fontSize: size,
           fontWeight: fontWeight as any,
+          textAlign: textAlign,
         },
       ]}>
       {children}

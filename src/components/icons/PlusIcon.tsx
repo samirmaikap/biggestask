@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const PlusIcon = (props: Props) => {
+    const {color = 'black'} = props;
   return (
     <Svg
       width={24}
@@ -18,14 +19,14 @@ export const PlusIcon = (props: Props) => {
       <G clipPath="url(#clip0_77_11567)">
         <Path
           d="M9 12.5214H15"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <Path
           d="M12 9.52136V15.5214"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

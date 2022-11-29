@@ -4,7 +4,7 @@ import {
   DefaultTheme,
   Provider as PaperProvider,
   configureFonts,
-  MD3LightTheme,
+  MD3LightTheme, Surface,
 } from 'react-native-paper';
 import {LogBox, Platform} from 'react-native';
 import colors from './src/theme/colors';
@@ -73,12 +73,12 @@ const lightTheme = {
 
 export default function App() {
   return (
+      <GestureHandlerRootView style={{flex: 1}}>
     <PaperProvider theme={lightTheme}>
       <SafeAreaProvider>
-        <GestureHandlerRootView style={{flex: 1}}>
           <Root theme={lightTheme} />
-        </GestureHandlerRootView>
       </SafeAreaProvider>
     </PaperProvider>
+      </GestureHandlerRootView>
   );
 }

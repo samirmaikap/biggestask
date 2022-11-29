@@ -3,7 +3,14 @@ import {
   DrawerContentScrollView,
   DrawerItem,
 } from '@react-navigation/drawer';
-import {Alert, StyleSheet, Text, useWindowDimensions, View} from 'react-native';
+import {
+  Alert,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  useWindowDimensions,
+  View,
+} from 'react-native';
 import {AppImage} from '../components/AppImage';
 import {primaryColor} from '../theme/colors';
 import {UsersIcon} from '../components/icons/UsersIcon';
@@ -14,6 +21,10 @@ import {Switch} from 'react-native-paper';
 import {LogoutIcon} from '../components/icons/LogoutIcon';
 import React from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {AppText} from '../components/AppText';
+import {FONT_NAME, images} from '../utils/constants';
+import Screens from './Screens';
+import {NotificationsIcon} from '../components/icons/NotificationsIcon';
 
 const styles = StyleSheet.create({
   cardStyle: {
@@ -49,17 +60,20 @@ export const Drawers = (props: any) => {
     <DrawerContentScrollView
       contentContainerStyle={{minHeight: height - 32}}
       {...props}>
-      <View style={styles.profileContainer}>
-        <View>
-          <AppImage />
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => props.navigation.navigate(Screens.Profile)}>
+        <View style={styles.profileContainer}>
+          <View>
+            <AppImage uri={images.MALE} isLocal={true} />
+          </View>
+          <View style={{marginLeft: 16}}>
+            <AppText variant="h3">John Doe</AppText>
+            <AppText color={primaryColor}>Parents</AppText>
+          </View>
         </View>
-        <View style={{marginLeft: 16}}>
-          <Text style={styles.name}>MaryJane Cornahan</Text>
-          <Text style={[styles.description, {color: primaryColor}]}>
-            Parents
-          </Text>
-        </View>
-      </View>
+      </TouchableOpacity>
+
       <View style={{flex: 1}}>
         <View>
           <DrawerItem
@@ -69,7 +83,7 @@ export const Drawers = (props: any) => {
               </View>
             )}
             label="Your Surrogate Mother"
-            onPress={() => props.navigation.navigate('Home')}
+            onPress={() => props.navigation.navigate(Screens.MotherDetails)}
           />
           <DrawerItem
             icon={() => (
@@ -78,16 +92,26 @@ export const Drawers = (props: any) => {
               </View>
             )}
             label="Community"
-            onPress={() => props.navigation.navigate('Profile')}
+            onPress={() => props.navigation.navigate(Screens.CommunityPosts)}
           />
           <DrawerItem
+            labelStyle={{fontFamily: FONT_NAME}}
             icon={() => (
               <View style={{marginRight: -16}}>
                 <ContactProviderIcon />
               </View>
             )}
             label="Contact Your Provider"
-            onPress={() => props.navigation.navigate('Profile')}
+            onPress={() => props.navigation.navigate(Screens.Contacts)}
+          />
+          <DrawerItem
+            icon={() => (
+              <View style={{marginRight: -16}}>
+                <NotificationsIcon />
+              </View>
+            )}
+            label="Notifications"
+            onPress={() => props.navigation.navigate(Screens.Notifications)}
           />
           <DrawerItem
             icon={() => (
@@ -96,10 +120,10 @@ export const Drawers = (props: any) => {
               </View>
             )}
             label="Settings"
-            onPress={() => props.navigation.navigate('Settings')}
+            onPress={() => props.navigation.navigate(Screens.Settings)}
           />
           <View style={styles.switchContainer}>
-            <Text>Show Pregnancy Milestone</Text>
+            <AppText>Show Pregnancy Milestone</AppText>
             <Switch style={{transform: [{scaleX: 0.8}, {scaleY: 0.8}]}} />
           </View>
         </View>
