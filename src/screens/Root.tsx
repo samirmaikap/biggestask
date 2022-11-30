@@ -1,5 +1,5 @@
 import React from 'react';
-import {StatusBar, StyleSheet, View} from 'react-native';
+import {SafeAreaView, StatusBar, StyleSheet, View} from 'react-native';
 import GlobalNavigator from '../navigations/GlobalNavigator';
 
 const styles = StyleSheet.create({

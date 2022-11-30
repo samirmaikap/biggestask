@@ -2,6 +2,7 @@ import React from 'react';
 import {
     ImageBackground,
     KeyboardAvoidingView,
+    Platform,
     ScrollView,
     StyleSheet,
     TouchableOpacity,
@@ -63,7 +64,8 @@ export const SignupScreen = () => {
             <ImageBackground
                 style={styles.container}
                 source={images.BACKGROUND}>
-                <KeyboardAvoidingView behavior={'position'}>
+                <KeyboardAvoidingView
+                    behavior={Platform.OS === 'ios' ? 'position' : undefined}>
                     <ScrollView
                         contentContainerStyle={{flexGrow: 1}}
                         showsVerticalScrollIndicator={false}>

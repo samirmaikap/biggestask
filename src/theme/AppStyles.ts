@@ -17,19 +17,23 @@ const appStyles = StyleSheet.create({
     },
     button: {
         borderRadius: 12,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // alignItems: 'center',
+        // justifyContent: 'center',
         width: '100%',
         fontSize: 20,
+        // flexDirection: 'row',
     },
     buttonContent: {
+        padding: 0,
         paddingVertical: 4,
-        fontSize: 20,
+        width: '100%',
+        // flexDirection: 'row',
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
     textInput: {
         backgroundColor: Colors.grey_bg,
         borderRadius: 12,
-        borderColor: 'red',
     },
     appBarContainer: {
         flexDirection: 'row',

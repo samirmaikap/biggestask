@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';
 import {Button} from 'react-native-paper';
@@ -18,6 +18,9 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: Colors.grey_bg,
+        paddingVertical: Platform.OS === 'ios' ? 16 : 12,
+        paddingHorizontal: 8,
+        borderRadius: 12,
     },
     row: {
         flexDirection: 'row',
@@ -31,7 +34,8 @@ export const CommunityForm = () => {
                 <AppText variant={'title'}>Title</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    cursorColor={Colors.primary}
+                    style={[styles.input]}
                 />
             </View>
             <View style={styles.inputGroup}>
@@ -39,21 +43,24 @@ export const CommunityForm = () => {
                 <AppSpacing />
                 <BottomSheetTextInput
                     textContentType={'emailAddress'}
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    cursorColor={Colors.primary}
+                    style={[styles.input]}
                 />
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Link to Forum</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    cursorColor={Colors.primary}
+                    style={[styles.input]}
                 />
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Link to Instagram</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    cursorColor={Colors.primary}
+                    style={[styles.input]}
                 />
             </View>
             <View style={styles.inputGroup}>
@@ -79,6 +86,7 @@ export const CommunityForm = () => {
                 style={AppStyles.button}>
                 Add New Community
             </AppButton>
+            <AppSpacing gap={16} />
         </View>
     );
 };

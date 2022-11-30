@@ -26,6 +26,7 @@ import DatePicker from 'react-native-date-picker';
 import {LocationPin} from '../../components/icons/LocationPin';
 import {format} from 'date-fns';
 import AppButton from '../../components/AppButton';
+import App from '../../../App';
 
 const styles = StyleSheet.create({
     container: {
@@ -83,6 +84,12 @@ const styles = StyleSheet.create({
     },
     searchedItem: {
         paddingVertical: 8,
+    },
+    input: {
+        backgroundColor: Colors.grey_bg,
+        paddingVertical: Platform.OS === 'ios' ? 16 : 12,
+        paddingHorizontal: 8,
+        borderRadius: 12,
     },
 });
 
@@ -166,10 +173,8 @@ export const MilestoneDetailsScreen = () => {
                         <AppText variant={'title'}>Title</AppText>
                         <AppSpacing />
                         <BottomSheetTextInput
-                            style={[
-                                AppStyles.textInput,
-                                {paddingVertical: 16, paddingHorizontal: 8},
-                            ]}
+                            cursorColor={Colors.primary}
+                            style={styles.input}
                         />
                         <AppSpacing gap={16} />
                         <AppText variant={'title'}>Date & Time</AppText>
@@ -200,10 +205,8 @@ export const MilestoneDetailsScreen = () => {
                             <BottomSheetTextInput
                                 onFocus={() => setShowSearchResult(true)}
                                 onBlur={() => setShowSearchResult(false)}
-                                style={[
-                                    AppStyles.textInput,
-                                    {paddingVertical: 16, paddingHorizontal: 8},
-                                ]}
+                                cursorColor={Colors.primary}
+                                style={styles.input}
                             />
                             {showSearchResult && (
                                 <Animated.View style={styles.searchContainer}>
@@ -261,9 +264,12 @@ export const MilestoneDetailsScreen = () => {
                                     ],
                                 }}
                             />
-                            <AppText>
-                                Request a date from a gestational carrier mother
-                            </AppText>
+                            <View style={{flex: 1}}>
+                                <AppText>
+                                    Request a date from a gestational carrier
+                                    mother
+                                </AppText>
+                            </View>
                         </View>
                         <AppSpacing gap={16} />
                         <AppButton
@@ -272,6 +278,7 @@ export const MilestoneDetailsScreen = () => {
                             style={AppStyles.button}>
                             Confirm
                         </AppButton>
+                        <AppSpacing gap={16} />
                     </View>
                 </View>
             </AppBottomSheet>
@@ -288,14 +295,15 @@ export const MilestoneDetailsScreen = () => {
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}>
                     <View style={styles.innerContainer}>
-                        <View style={styles.row}>
+                        <View style={[styles.row, {alignItems: 'flex-start'}]}>
                             <View style={styles.icon}>
                                 <Image
                                     style={styles.image}
                                     source={images.PREGNANT}
                                 />
                             </View>
-                            <View style={{flex: 1, marginLeft: 8}}>
+                            <View
+                                style={{flex: 1, marginLeft: 8, marginTop: -4}}>
                                 <AppText fontWeight={'bold'}>
                                     Fertility Clinic Graduation/ultrasound
                                 </AppText>
@@ -303,7 +311,7 @@ export const MilestoneDetailsScreen = () => {
                                 {renderEditableInformation()}
                             </View>
                         </View>
-                        <AppSpacing gap={16} />
+                        <AppSpacing gap={18} />
                         {/*<View style={styles.imageContainer}>*/}
                         {/*  <Image style={styles.image} source={images.SAMPLE_UPLOAD} />*/}
                         {/*  <View style={styles.overlay}>*/}
@@ -336,9 +344,12 @@ export const MilestoneDetailsScreen = () => {
                             <AppSpacing gap={16} />
                             <View style={styles.row}>
                                 <AppButton
-                                    contentStyle={{
-                                        flexDirection: 'row-reverse',
-                                    }}
+                                    contentStyle={[
+                                        AppStyles.buttonContent,
+                                        {
+                                            flexDirection: 'row-reverse',
+                                        },
+                                    ]}
                                     mode={'contained'}
                                     icon={() => <FilePlus />}
                                     style={AppStyles.button}>
@@ -348,7 +359,7 @@ export const MilestoneDetailsScreen = () => {
                         </View>
                         <AppSpacing gap={16} />
                         <View>
-                            <AppText>Notes</AppText>
+                            <AppText variant={'title'}>Notes</AppText>
                             <AppSpacing />
                             <AppTextInput
                                 multiline={true}
@@ -376,7 +387,10 @@ export const MilestoneDetailsScreen = () => {
                         </TouchableOpacity>
                         <AppSpacing gap={16} />
                         <AppButton
-                            contentStyle={{flexDirection: 'row-reverse'}}
+                            contentStyle={[
+                                AppStyles.buttonContent,
+                                {flexDirection: 'row-reverse'},
+                            ]}
                             mode={'contained'}
                             icon={() => <CheckCircleIcon />}
                             style={AppStyles.button}>

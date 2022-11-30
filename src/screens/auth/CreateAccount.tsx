@@ -1,6 +1,7 @@
 import React from 'react';
 import {
     KeyboardAvoidingView,
+    Platform,
     ScrollView,
     StyleSheet,
     TouchableOpacity,
@@ -55,7 +56,8 @@ export const CreateAccountScreen = () => {
         <View style={styles.container}>
             <AppStatusBar />
             <AppSpacing gap={insets.top} />
-            <KeyboardAvoidingView behavior={'padding'}>
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}>

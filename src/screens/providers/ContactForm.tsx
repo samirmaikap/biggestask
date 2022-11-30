@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';
 import {Button} from 'react-native-paper';
@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
     },
     input: {
         backgroundColor: Colors.grey_bg,
+        paddingVertical: Platform.OS === 'ios' ? 16 : 12,
+        paddingHorizontal: 8,
+        borderRadius: 12,
     },
 });
 
@@ -54,22 +57,25 @@ export const ContactForm = () => {
                 <AppText variant={'title'}>Contact Rep Name</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    cursorColor={Colors.primary}
+                    style={[styles.input]}
                 />
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Contact Email</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
+                    cursorColor={Colors.primary}
                     textContentType={'emailAddress'}
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    style={[styles.input]}
                 />
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Contact phone number</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
-                    style={[AppStyles.textInput, {padding: 16}]}
+                    cursorColor={Colors.primary}
+                    style={[styles.input]}
                 />
             </View>
             <AppSpacing gap={16} />
@@ -80,6 +86,7 @@ export const ContactForm = () => {
                 style={AppStyles.button}>
                 Add New Contact
             </AppButton>
+            <AppSpacing gap={16} />
         </View>
     );
 };

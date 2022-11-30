@@ -117,7 +117,10 @@ export const MilestonesScreen = () => {
                                         Screens.MilestoneDetails,
                                     )
                                 }
-                                contentStyle={{flexDirection: 'row-reverse'}}
+                                contentStyle={[
+                                    AppStyles.buttonContent,
+                                    {flexDirection: 'row-reverse'},
+                                ]}
                                 mode={'contained'}
                                 icon={() => (
                                     <TransparentIcon

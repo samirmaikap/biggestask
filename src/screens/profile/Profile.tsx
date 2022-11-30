@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {
     Alert,
     KeyboardAvoidingView,
+    Platform,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -20,6 +21,7 @@ import {QuestionCard} from '../questions/QuestionCard';
 import {toRgba} from '../../utils/utils';
 import {CameraIcon} from '../../components/icons/CameraIcon';
 import {ProfileForm} from './ProfileForm';
+import {useHeaderHeight} from '@react-navigation/elements';
 
 const styles = StyleSheet.create({
     container: {
@@ -79,6 +81,7 @@ const styles = StyleSheet.create({
 export const ProfileScreen = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState<number>(0);
+    const headerHeight = useHeaderHeight();
 
     return (
         <View style={styles.container}>
@@ -93,7 +96,12 @@ export const ProfileScreen = () => {
                     </TouchableOpacity>,
                 ]}
             />
-            <KeyboardAvoidingView behavior="padding">
+            <KeyboardAvoidingView
+                keyboardVerticalOffset={Platform.select({
+                    ios: 0,
+                    android: headerHeight + 80,
+                })}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <ScrollView
                     contentContainerStyle={{flexGrow: 1}}
                     showsVerticalScrollIndicator={false}>
@@ -212,7 +220,7 @@ export const ProfileScreen = () => {
                                     return (
                                         <View
                                             style={{marginVertical: 8}}
-                                            key={`q-${index}`}>
+                                            key={`new-q-${index}`}>
                                             <QuestionCard
                                                 title={
                                                     'What is your favorite snack?'

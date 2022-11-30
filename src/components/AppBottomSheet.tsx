@@ -1,7 +1,12 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Keyboard, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Portal, useTheme} from 'react-native-paper';
-import BottomSheet, {BottomSheetBackdrop, BottomSheetBackdropProps, BottomSheetView} from '@gorhom/bottom-sheet';
+import BottomSheet, {
+    BottomSheetBackdrop,
+    BottomSheetBackdropProps,
+    BottomSheetScrollView,
+    BottomSheetView,
+} from '@gorhom/bottom-sheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
@@ -68,7 +73,7 @@ export const AppBottomSheet = (props: Props) => {
         [safeBottomArea],
     );
 
-    const onLayoutChange = (event: { nativeEvent: { layout: { height: any } } }) => {
+    const onLayoutChange = (event: {nativeEvent: {layout: {height: any}}}) => {
         let {height} = event.nativeEvent.layout;
         if (!isLoading && height && bottomSheetRef?.current) {
             setSnapPoints([extraPadding + height]);
@@ -99,7 +104,9 @@ export const AppBottomSheet = (props: Props) => {
     return (
         <View>
             {action && (
-                <TouchableOpacity activeOpacity={0.8} onPress={() => onButtonPress()}>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => onButtonPress()}>
                     {action}
                 </TouchableOpacity>
             )}
@@ -116,11 +123,13 @@ export const AppBottomSheet = (props: Props) => {
                     keyboardBlurBehavior={'restore'}
                     animateOnMount={true}>
                     <BottomSheetView style={contentContainerStyle}>
-                        <View
-                            style={{paddingBottom: insets.bottom}}
-                            onLayout={onLayoutChange}>
-                            {children}
-                        </View>
+                        <TouchableOpacity onPress={() => Keyboard.dismiss()}>
+                            <View
+                                style={{paddingBottom: insets.bottom}}
+                                onLayout={onLayoutChange}>
+                                {children}
+                            </View>
+                        </TouchableOpacity>
                     </BottomSheetView>
                 </BottomSheet>
             </Portal>
