@@ -1,7 +1,7 @@
 import colors, {navActiveColor} from '../theme/colors';
 import Screens from './Screens';
 import {MilestonesScreen} from '../screens/milestones/Milestones';
-import {StyleSheet, View} from 'react-native';
+import {ImageBackground, StyleSheet, View} from 'react-native';
 import {MilestonesIcon} from '../components/icons/MilestonesIcon';
 import {HomeScreen} from '../screens/home/Home';
 import {HomeIcon} from '../components/icons/HomeIcon';
@@ -11,7 +11,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import DeviceInfo from 'react-native-device-info';
-import {FONT_NAME} from '../utils/constants';
+import {FONT_NAME, images} from '../utils/constants';
 
 const styles = StyleSheet.create({
     cardStyle: {
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         opacity: 1,
     },
     tabIcon: {
-        marginBottom: -4,
         padding: 0,
         width: 40,
         height: 40,
@@ -31,11 +30,37 @@ const styles = StyleSheet.create({
 
 const Tab = createBottomTabNavigator();
 
+const renderBackgroundComponent = (focused: boolean, icon: any) => {
+    return focused ? (
+        <ImageBackground
+            style={{
+                width: 40,
+                height: 40,
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}
+            resizeMode={'contain'}
+            source={images.NAV_BACKGROUND}>
+            {icon}
+        </ImageBackground>
+    ) : (
+        <View
+            style={[
+                styles.tabIcon,
+                focused
+                    ? {backgroundColor: '#AE4B2B'}
+                    : {backgroundColor: 'transparent'},
+            ]}>
+            {icon}
+        </View>
+    );
+};
+
 export const Tabs = (props: any) => {
     const themeColors = colors.light;
     const insets = useSafeAreaInsets();
     const hasNotch = DeviceInfo.hasNotch();
-    console.log('hasNotch', hasNotch);
+    console.log('hasNotch', insets.bottom);
     return (
         <Tab.Navigator
             initialRouteName={Screens.Home}
@@ -43,8 +68,9 @@ export const Tabs = (props: any) => {
                 headerShown: false,
                 // tabBarShowLabel: false,
                 tabBarStyle: {
-                    paddingBottom: hasNotch ? insets.bottom - 8 : 8,
-                    height: 80 + (hasNotch ? 16 : 8),
+                    paddingBottom: insets.bottom - 16,
+                    // height: 80 + (hasNotch ? 16 : 8),
+                    height: 70 + (insets?.bottom ? insets.bottom - 16 : 0),
                     backgroundColor: 'white',
                     borderColor: '#F4F5F6',
                     borderTopWidth: 1,
@@ -52,6 +78,7 @@ export const Tabs = (props: any) => {
                 tabBarLabelStyle: {
                     fontFamily: FONT_NAME,
                     fontSize: 12,
+                    marginBottom: 4,
                 },
                 headerStyle: {
                     backgroundColor: themeColors.background,
@@ -68,17 +95,13 @@ export const Tabs = (props: any) => {
                 component={MilestonesScreen}
                 options={{
                     tabBarLabel: 'Milestones',
-                    tabBarIcon: ({focused}) => (
-                        <View
-                            style={[
-                                styles.tabIcon,
-                                focused
-                                    ? {backgroundColor: '#AE4B2B'}
-                                    : {backgroundColor: 'transparent'},
-                            ]}>
-                            <MilestonesIcon color={focused ? 'white' : 'black'}/>
-                        </View>
-                    ),
+                    tabBarIcon: ({focused}) =>
+                        renderBackgroundComponent(
+                            focused,
+                            <MilestonesIcon
+                                color={focused ? 'white' : 'black'}
+                            />,
+                        ),
                 }}
             />
             <Tab.Screen
@@ -86,17 +109,11 @@ export const Tabs = (props: any) => {
                 component={HomeScreen}
                 options={{
                     tabBarLabel: 'Home',
-                    tabBarIcon: ({focused}) => (
-                        <View
-                            style={[
-                                styles.tabIcon,
-                                focused
-                                    ? {backgroundColor: '#AE4B2B'}
-                                    : {backgroundColor: 'transparent'},
-                            ]}>
-                            <HomeIcon color={focused ? 'white' : 'black'}/>
-                        </View>
-                    ),
+                    tabBarIcon: ({focused}) =>
+                        renderBackgroundComponent(
+                            focused,
+                            <HomeIcon color={focused ? 'white' : 'black'} />,
+                        ),
                 }}
             />
             <Tab.Screen
@@ -104,17 +121,13 @@ export const Tabs = (props: any) => {
                 component={QuestionsScreen}
                 options={{
                     tabBarLabel: 'Questions',
-                    tabBarIcon: ({focused}) => (
-                        <View
-                            style={[
-                                styles.tabIcon,
-                                focused
-                                    ? {backgroundColor: '#AE4B2B'}
-                                    : {backgroundColor: 'transparent'},
-                            ]}>
-                            <QuestionsIcon color={focused ? 'white' : 'black'}/>
-                        </View>
-                    ),
+                    tabBarIcon: ({focused}) =>
+                        renderBackgroundComponent(
+                            focused,
+                            <QuestionsIcon
+                                color={focused ? 'white' : 'black'}
+                            />,
+                        ),
                 }}
             />
         </Tab.Navigator>

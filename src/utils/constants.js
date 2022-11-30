@@ -13,4 +13,5 @@ export const images = {
     INSTAGRAM: require('../assets/images/instagram.png'),
     WEB: require('../assets/images/web.png'),
     BACKGROUND: require('../assets/background.png'),
+    NAV_BACKGROUND: require('../assets/images/nav-bg.png'),
 };

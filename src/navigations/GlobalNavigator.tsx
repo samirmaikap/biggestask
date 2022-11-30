@@ -19,7 +19,10 @@ const GlobalNavigator = (props: any) => {
                 }}
                 initialRouteName={Screens.RootNavigator}
                 drawerContent={Drawers}>
-                <Drawer.Screen name={Screens.RootNavigator} component={RootNavigator}/>
+                <Drawer.Screen
+                    name={Screens.RootNavigator}
+                    component={RootNavigator}
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     );
