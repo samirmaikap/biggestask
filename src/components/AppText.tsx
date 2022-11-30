@@ -60,6 +60,7 @@ type Props = {
   fontWeight?: string;
   textAlign?: any;
   maxLines?: number;
+  textUnderline?: boolean;
 };
 
 const renderH1 = (props: Props, children: any) => {
@@ -140,7 +141,7 @@ const renderBody = (props: Props, children: any) => {
   } = props;
   return (
     <Text
-        numberOfLines={maxLines}
+      numberOfLines={maxLines}
       style={[
         styles.body,
         {
@@ -148,7 +149,7 @@ const renderBody = (props: Props, children: any) => {
           color: color,
           fontStyle: textStyle,
           fontWeight: fontWeight as any,
-        }
+        },
       ]}>
       {children}
     </Text>
@@ -196,6 +197,7 @@ const renderCustom = (props: Props, children: any) => {
     size = 16,
     fontWeight = '500',
     textAlign = 'auto',
+    textUnderline = false,
   } = props;
   return (
     <Text
@@ -207,6 +209,7 @@ const renderCustom = (props: Props, children: any) => {
           fontSize: size,
           fontWeight: fontWeight as any,
           textAlign: textAlign,
+          textDecorationLine: textUnderline ? 'underline' : 'none',
         },
       ]}>
       {children}

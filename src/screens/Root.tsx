@@ -3,23 +3,23 @@ import {StatusBar, StyleSheet, View} from 'react-native';
 import GlobalNavigator from '../navigations/GlobalNavigator';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
+    container: {
+        flex: 1,
+    },
 });
 
 type Props = {
-  theme: any;
+    theme: any;
 };
 
 const Root = (props: Props) => {
-  const {theme} = props;
-  return (
-    <View style={styles.container}>
-      <StatusBar />
-      <GlobalNavigator theme={theme} />
-    </View>
-  );
+    const {theme} = props;
+    return (
+        <View style={styles.container}>
+            <StatusBar/>
+            <GlobalNavigator theme={theme}/>
+        </View>
+    );
 };
 
 export default Root;

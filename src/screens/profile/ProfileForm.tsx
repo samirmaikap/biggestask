@@ -114,7 +114,10 @@ export const ProfileForm = () => {
         />
       </View>
       <View style={styles.inputGroup}>
-        <Button style={AppStyles.button} mode={'contained'}>
+        <Button
+          contentStyle={AppStyles.buttonContent}
+          style={AppStyles.button}
+          mode={'contained'}>
           Save Editing
         </Button>
       </View>

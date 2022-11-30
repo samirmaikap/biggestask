@@ -9,57 +9,57 @@ import {AppSpacing} from '../../components/AppSpacing';
 import {CommunityForm} from './CommunityForm';
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-  innerContainer: {
-    padding: 16,
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  centeredContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
+    container: {
+        flex: 1,
+        backgroundColor: 'white',
+    },
+    innerContainer: {
+        padding: 16,
+    },
+    row: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    centeredContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
 });
 
 export const PostsScreen = () => {
-  const [openSheet, setOpenSheet] = useState(false);
+    const [openSheet, setOpenSheet] = useState(false);
 
-  const renderBottomSheet = () => {
+    const renderBottomSheet = () => {
+        return (
+            <AppBottomSheet isOpen={openSheet} onClose={() => setOpenSheet(false)}>
+                <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <AppText variant={'h2'}>Create Community</AppText>
+                </View>
+                <AppSpacing gap={16}/>
+                <CommunityForm/>
+            </AppBottomSheet>
+        );
+    };
+
     return (
-      <AppBottomSheet isOpen={openSheet} onClose={() => setOpenSheet(false)}>
-        <View style={{alignItems: 'center', justifyContent: 'center'}}>
-          <AppText variant={'h2'}>Create Community</AppText>
+        <View style={styles.container}>
+            <StatusBar/>
+            <StackHeader
+                title={'Community'}
+                actions={[
+                    <TouchableOpacity onPress={() => setOpenSheet(true)}>
+                        <PlusCircleIcon/>
+                    </TouchableOpacity>,
+                ]}
+            />
+            <ScrollView
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{flexGrow: 1}}>
+                <View style={styles.innerContainer}>
+                    <CommunityCard/>
+                </View>
+            </ScrollView>
+            {renderBottomSheet()}
         </View>
-        <AppSpacing gap={16} />
-        <CommunityForm />
-      </AppBottomSheet>
     );
-  };
-
-  return (
-    <View style={styles.container}>
-      <StatusBar />
-      <StackHeader
-        title={'Community'}
-        actions={[
-          <TouchableOpacity onPress={() => setOpenSheet(true)}>
-            <PlusCircleIcon />
-          </TouchableOpacity>,
-        ]}
-      />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{flexGrow: 1}}>
-        <View style={styles.innerContainer}>
-          <CommunityCard />
-        </View>
-      </ScrollView>
-      {renderBottomSheet()}
-    </View>
-  );
 };

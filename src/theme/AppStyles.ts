@@ -19,9 +19,10 @@ const appStyles = StyleSheet.create({
     borderRadius: 12,
     alignItems: 'center',
     justifyContent: 'center',
+    width: '100%',
   },
   buttonContent: {
-    paddingVertical: 3,
+    paddingVertical: 4,
   },
   textInput: {
     backgroundColor: Colors.grey_bg,
@@ -57,7 +58,7 @@ const appStyles = StyleSheet.create({
     borderBottomRightRadius: 8,
     backgroundColor: 'white',
     overflow: 'visible',
-    zIndex: 99
+    zIndex: 99,
   },
   dropdownInput: {
     borderColor: 'white',
@@ -66,7 +67,7 @@ const appStyles = StyleSheet.create({
     borderRadius: 12,
   },
   textArea: {
-    borderColor: 'transparent'
+    borderColor: 'transparent',
   },
 });
 

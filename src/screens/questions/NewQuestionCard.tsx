@@ -68,6 +68,7 @@ export const NewQuestionCard = () => {
           <Button
             textColor={theme.colors.primary}
             mode="contained"
+            contentStyle={AppStyles.buttonContent}
             style={[AppStyles.button, {backgroundColor: 'white'}]}>
             Answer the Question
           </Button>
@@ -102,7 +103,10 @@ export const NewQuestionCard = () => {
             dropDownContainerStyle={AppStyles.dropdownContainerStyle}
           />
           <AppSpacing gap={16} />
-          <Button mode="contained" style={[AppStyles.button]}>
+          <Button
+            contentStyle={AppStyles.buttonContent}
+            mode="contained"
+            style={[AppStyles.button]}>
             Add Answer
           </Button>
         </View>

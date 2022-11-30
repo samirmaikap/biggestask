@@ -12,4 +12,5 @@ export const images = {
   TWITTER: require('../assets/images/twitter.png'),
   INSTAGRAM: require('../assets/images/instagram.png'),
   WEB: require('../assets/images/web.png'),
+  BACKGROUND: require('../assets/background.png'),
 };

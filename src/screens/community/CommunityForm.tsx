@@ -62,6 +62,7 @@ export const CommunityForm = () => {
       </View>
       <AppSpacing gap={16} />
       <Button
+        contentStyle={AppStyles.buttonContent}
         mode={'contained'}
         icon={() => <PlusIcon color={'white'} />}
         style={AppStyles.button}>

@@ -8,6 +8,7 @@ export const Colors = {
   grey_bg: '#F4F4F4',
   secondary: '#AE4B2B',
   primary: primary,
+  dark_grey: '#75818F',
 };
 
 export default {
