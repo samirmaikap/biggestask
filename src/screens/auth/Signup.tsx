@@ -125,7 +125,7 @@ export const SignupScreen = () => {
                                 </View>
                                 <AppSpacing gap={16} />
                                 <View>
-                                    <AppText>Email</AppText>
+                                    <AppText variant={'title'}>Email</AppText>
                                     <TextInput
                                         mode={'outlined'}
                                         outlineStyle={{

@@ -1,6 +1,7 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {
     Alert,
+    Platform,
     StyleSheet,
     TouchableOpacity,
     useWindowDimensions,
@@ -130,7 +131,12 @@ export const Drawers = (props: any) => {
                     <View style={styles.switchContainer}>
                         <AppText>Show Pregnancy Milestone</AppText>
                         <Switch
-                            style={{transform: [{scaleX: 0.8}, {scaleY: 0.8}]}}
+                            style={{
+                                transform: [
+                                    {scaleX: Platform?.OS === 'ios' ? 0.7 : 1},
+                                    {scaleY: Platform?.OS === 'ios' ? 0.7 : 1},
+                                ],
+                            }}
                         />
                     </View>
                 </View>

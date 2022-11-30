@@ -27,14 +27,14 @@ export const CommunityForm = () => {
     return (
         <View style={{backgroundColor: 'white'}}>
             <View style={styles.inputGroup}>
-                <AppText>Title</AppText>
+                <AppText variant={'title'}>Title</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     style={[AppStyles.textInput, {padding: 16}]}
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Description</AppText>
+                <AppText variant={'title'}>Description</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     textContentType={'emailAddress'}
@@ -42,14 +42,14 @@ export const CommunityForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Link to Forum</AppText>
+                <AppText variant={'title'}>Link to Forum</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     style={[AppStyles.textInput, {padding: 16}]}
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Link to Instagram</AppText>
+                <AppText variant={'title'}>Link to Instagram</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     style={[AppStyles.textInput, {padding: 16}]}

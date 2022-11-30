@@ -162,7 +162,7 @@ export const MilestoneDetailsScreen = () => {
                     </View>
                     <AppSpacing gap={16} />
                     <View>
-                        <AppText>Title</AppText>
+                        <AppText variant={'title'}>Title</AppText>
                         <AppSpacing />
                         <BottomSheetTextInput
                             style={[
@@ -171,7 +171,7 @@ export const MilestoneDetailsScreen = () => {
                             ]}
                         />
                         <AppSpacing gap={16} />
-                        <AppText>Date & Time</AppText>
+                        <AppText variant={'title'}>Date & Time</AppText>
                         <AppSpacing />
                         <TouchableOpacity
                             onPress={() => setOpenDatepicker(true)}>
@@ -193,7 +193,7 @@ export const MilestoneDetailsScreen = () => {
                             </View>
                         </TouchableOpacity>
                         <AppSpacing gap={16} />
-                        <AppText>Location</AppText>
+                        <AppText variant={'title'}>Location</AppText>
                         <AppSpacing />
                         <View>
                             <BottomSheetTextInput
@@ -244,7 +244,20 @@ export const MilestoneDetailsScreen = () => {
                         <View style={[styles.row, {alignItems: 'center'}]}>
                             <Switch
                                 style={{
-                                    transform: [{scaleX: 0.7}, {scaleY: 0.7}],
+                                    transform: [
+                                        {
+                                            scaleX:
+                                                Platform?.OS === 'ios'
+                                                    ? 0.7
+                                                    : 1,
+                                        },
+                                        {
+                                            scaleY:
+                                                Platform?.OS === 'ios'
+                                                    ? 0.7
+                                                    : 1,
+                                        },
+                                    ],
                                 }}
                             />
                             <AppText>

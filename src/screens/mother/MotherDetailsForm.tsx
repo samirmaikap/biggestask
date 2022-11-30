@@ -35,7 +35,7 @@ export const MotherDetailsForm = () => {
     return (
         <View>
             <View style={styles.inputGroup}>
-                <AppText>Full name</AppText>
+                <AppText variant={'title'}>Full name</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -68,7 +68,7 @@ export const MotherDetailsForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Phone number</AppText>
+                <AppText variant={'title'}>Phone number</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -82,7 +82,7 @@ export const MotherDetailsForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Email</AppText>
+                <AppText variant={'title'}>Email</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -96,7 +96,7 @@ export const MotherDetailsForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Home Address</AppText>
+                <AppText variant={'title'}>Home Address</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -110,7 +110,7 @@ export const MotherDetailsForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Your date of birth</AppText>
+                <AppText variant={'title'}>Your date of birth</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={

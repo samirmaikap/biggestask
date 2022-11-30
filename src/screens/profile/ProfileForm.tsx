@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {Colors} from '../../theme/colors';
-import {Button, TextInput} from 'react-native-paper';
+import {Button, RadioButton, TextInput} from 'react-native-paper';
 import {AppText} from '../../components/AppText';
 import {PhoneIcon} from '../../components/icons/PhoneIcon';
 import {EmailIcon} from '../../components/icons/EmailIcon';
@@ -10,6 +10,7 @@ import {CalendarIcon} from '../../components/icons/CalendarIcon';
 import {UserIcon} from '../../components/icons/UserIcon';
 import AppStyles from '../../theme/AppStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
+import {AppSpacing} from '../../components/AppSpacing';
 
 const styles = StyleSheet.create({
     container: {
@@ -31,11 +32,12 @@ export const ProfileForm = () => {
         {label: 'Male', value: '1'},
         {label: 'Female', value: '2'},
     ]);
+    const [gender, setGender] = useState('male');
 
     return (
         <View>
             <View style={styles.inputGroup}>
-                <AppText>Full name</AppText>
+                <AppText variant={'title'}>Full name</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -49,26 +51,32 @@ export const ProfileForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Gender</AppText>
-                <DropDownPicker
-                    open={open}
-                    value={value}
-                    items={items}
-                    setOpen={setOpen}
-                    setValue={setValue}
-                    setItems={setItems}
-                    placeholder="Select gender"
-                    style={AppStyles.dropdownInput}
-                    containerStyle={{
-                        height: 40,
-                        marginTop: 10,
-                        marginBottom: 10,
-                    }}
-                    dropDownContainerStyle={AppStyles.dropdownContainerStyle}
-                />
+                <AppText variant={'title'}>Gender</AppText>
+                <AppSpacing gap={8} />
+                <View style={styles.row}>
+                    <View style={styles.row}>
+                        <RadioButton.Android
+                            value="male"
+                            status={gender === 'male' ? 'checked' : 'unchecked'}
+                            onPress={() => setGender('male')}
+                        />
+                        <AppText>Male</AppText>
+                    </View>
+                    <AppSpacing gap={16} isHorizontal={true} />
+                    <View style={styles.row}>
+                        <RadioButton.Android
+                            value="female"
+                            status={
+                                gender === 'female' ? 'checked' : 'unchecked'
+                            }
+                            onPress={() => setGender('female')}
+                        />
+                        <AppText>Female</AppText>
+                    </View>
+                </View>
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Phone number</AppText>
+                <AppText variant={'title'}>Phone number</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -82,7 +90,7 @@ export const ProfileForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Email</AppText>
+                <AppText variant={'title'}>Email</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -96,7 +104,7 @@ export const ProfileForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Home Address</AppText>
+                <AppText variant={'title'}>Home Address</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={
@@ -110,7 +118,7 @@ export const ProfileForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Your date of birth</AppText>
+                <AppText variant={'title'}>Your date of birth</AppText>
                 <TextInput
                     mode={'outlined'}
                     right={

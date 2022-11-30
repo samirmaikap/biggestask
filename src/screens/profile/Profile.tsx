@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
     Alert,
+    KeyboardAvoidingView,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -92,141 +93,143 @@ export const ProfileScreen = () => {
                     </TouchableOpacity>,
                 ]}
             />
-            <ScrollView
-                contentContainerStyle={{flexGrow: 1}}
-                showsVerticalScrollIndicator={false}>
-                <View style={styles.innerContainer}>
-                    {/*<KeyboardAvoidingView*/}
-                    {/*  behavior="position"*/}
-                    {/*  keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>*/}
-                    <View style={styles.centeredContainer}>
-                        <View style={styles.row}>
-                            <View style={{marginRight: 8}}>
-                                <TouchableOpacity
-                                    onPress={() => setSelectedProfile(0)}>
-                                    <AppImage
-                                        size={100}
-                                        uri={images.MALE}
-                                        isLocal={true}
-                                    />
-                                    {selectedProfile !== 0 && (
-                                        <View style={styles.imageOverlay} />
-                                    )}
-                                    {isEditing && selectedProfile === 0 && (
-                                        <TouchableOpacity
-                                            activeOpacity={0.8}
-                                            style={styles.imageButton}
-                                            onPress={() =>
-                                                Alert.alert('select image')
-                                            }>
-                                            <CameraIcon color={'white'} />
-                                        </TouchableOpacity>
-                                    )}
-                                    <View style={styles.indicatorContainer}>
-                                        {selectedProfile === 0 && (
-                                            <View style={styles.triangle} />
-                                        )}
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                            <View style={{marginLeft: 8}}>
-                                <TouchableOpacity
-                                    onPress={() => setSelectedProfile(1)}>
-                                    <AppImage
-                                        size={100}
-                                        uri={images.FEMALE}
-                                        isLocal={true}
-                                    />
-                                    {selectedProfile !== 1 && (
-                                        <View style={styles.imageOverlay} />
-                                    )}
-                                    {isEditing && selectedProfile === 1 && (
-                                        <TouchableOpacity
-                                            activeOpacity={0.8}
-                                            style={styles.imageButton}
-                                            onPress={() =>
-                                                Alert.alert('select image')
-                                            }>
-                                            <CameraIcon color={'white'} />
-                                        </TouchableOpacity>
-                                    )}
-                                    <View style={styles.indicatorContainer}>
-                                        {selectedProfile === 1 && (
-                                            <View style={styles.triangle} />
-                                        )}
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-
-                    <AppSpacing gap={16} />
-
-                    {isEditing && <ProfileForm />}
-                    {/*</KeyboardAvoidingView>*/}
-
-                    {!isEditing && (
+            <KeyboardAvoidingView behavior="padding">
+                <ScrollView
+                    contentContainerStyle={{flexGrow: 1}}
+                    showsVerticalScrollIndicator={false}>
+                    <View style={styles.innerContainer}>
                         <View style={styles.centeredContainer}>
-                            <AppText variant={'h2'}>Mark Baggins</AppText>
-                            <AppSpacing />
                             <View style={styles.row}>
-                                <AppText color={Colors.grey_3}>
-                                    01/02/1988{' '}
-                                </AppText>
-                                <AppSpacing isHorizontal={true} />
-                                <AppText>(37 Year)</AppText>
-                            </View>
-                            <AppSpacing gap={16} />
-                            <Divider
-                                style={{
-                                    backgroundColor: Colors.grey_bg,
-                                    height: 2,
-                                    width: 50,
-                                }}
-                            />
-                            <AppSpacing gap={16} />
-                            <AppText>888 Main St, Seattle, WA 98006</AppText>
-                            <AppSpacing gap={16} />
-                            <AppText color={Colors.primary}>
-                                +880 9589876
-                            </AppText>
-                            <AppSpacing gap={16} />
-                            <AppText>marktvan@gmail.ua</AppText>
-                        </View>
-                    )}
-
-                    <AppSpacing gap={16} />
-
-                    {isEditing && (
-                        <View>
-                            <AppText fontWeight={'700'}>
-                                Existing questions in the profile
-                            </AppText>
-                            <AppSpacing gap={8} />
-                        </View>
-                    )}
-
-                    <View>
-                        <View>
-                            {[1, 2, 3].map((item, index) => {
-                                return (
-                                    <View
-                                        style={{marginVertical: 8}}
-                                        key={`q-${index}`}>
-                                        <QuestionCard
-                                            title={
-                                                'What is your favorite snack?'
-                                            }
-                                            user={'Martha Smith'}
-                                            answer={'Chocolate all the way!!'}
+                                <View style={{marginRight: 8}}>
+                                    <TouchableOpacity
+                                        onPress={() => setSelectedProfile(0)}>
+                                        <AppImage
+                                            size={100}
+                                            uri={images.MALE}
+                                            isLocal={true}
                                         />
-                                    </View>
-                                );
-                            })}
+                                        {selectedProfile !== 0 && (
+                                            <View style={styles.imageOverlay} />
+                                        )}
+                                        {isEditing && selectedProfile === 0 && (
+                                            <TouchableOpacity
+                                                activeOpacity={0.8}
+                                                style={styles.imageButton}
+                                                onPress={() =>
+                                                    Alert.alert('select image')
+                                                }>
+                                                <CameraIcon color={'white'} />
+                                            </TouchableOpacity>
+                                        )}
+                                        <View style={styles.indicatorContainer}>
+                                            {selectedProfile === 0 && (
+                                                <View style={styles.triangle} />
+                                            )}
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                                <View style={{marginLeft: 8}}>
+                                    <TouchableOpacity
+                                        onPress={() => setSelectedProfile(1)}>
+                                        <AppImage
+                                            size={100}
+                                            uri={images.FEMALE}
+                                            isLocal={true}
+                                        />
+                                        {selectedProfile !== 1 && (
+                                            <View style={styles.imageOverlay} />
+                                        )}
+                                        {isEditing && selectedProfile === 1 && (
+                                            <TouchableOpacity
+                                                activeOpacity={0.8}
+                                                style={styles.imageButton}
+                                                onPress={() =>
+                                                    Alert.alert('select image')
+                                                }>
+                                                <CameraIcon color={'white'} />
+                                            </TouchableOpacity>
+                                        )}
+                                        <View style={styles.indicatorContainer}>
+                                            {selectedProfile === 1 && (
+                                                <View style={styles.triangle} />
+                                            )}
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
+                            </View>
+                        </View>
+
+                        <AppSpacing gap={16} />
+
+                        {isEditing && <ProfileForm />}
+
+                        {!isEditing && (
+                            <View style={styles.centeredContainer}>
+                                <AppText variant={'h2'}>Mark Baggins</AppText>
+                                <AppSpacing />
+                                <View style={styles.row}>
+                                    <AppText color={Colors.grey_3}>
+                                        01/02/1988{' '}
+                                    </AppText>
+                                    <AppSpacing isHorizontal={true} />
+                                    <AppText>(37 Year)</AppText>
+                                </View>
+                                <AppSpacing gap={16} />
+                                <Divider
+                                    style={{
+                                        backgroundColor: Colors.grey_bg,
+                                        height: 2,
+                                        width: 50,
+                                    }}
+                                />
+                                <AppSpacing gap={16} />
+                                <AppText>
+                                    888 Main St, Seattle, WA 98006
+                                </AppText>
+                                <AppSpacing gap={16} />
+                                <AppText color={Colors.primary}>
+                                    +880 9589876
+                                </AppText>
+                                <AppSpacing gap={16} />
+                                <AppText>marktvan@gmail.ua</AppText>
+                            </View>
+                        )}
+
+                        <AppSpacing gap={16} />
+
+                        {isEditing && (
+                            <View>
+                                <AppText fontWeight={'700'}>
+                                    Existing questions in the profile
+                                </AppText>
+                                <AppSpacing gap={8} />
+                            </View>
+                        )}
+
+                        <View>
+                            <View>
+                                {[1, 2, 3].map((item, index) => {
+                                    return (
+                                        <View
+                                            style={{marginVertical: 8}}
+                                            key={`q-${index}`}>
+                                            <QuestionCard
+                                                title={
+                                                    'What is your favorite snack?'
+                                                }
+                                                user={'Martha Smith'}
+                                                answer={
+                                                    'Chocolate all the way!!'
+                                                }
+                                            />
+                                        </View>
+                                    );
+                                })}
+                            </View>
                         </View>
                     </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </View>
     );
 };

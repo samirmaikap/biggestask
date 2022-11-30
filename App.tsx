@@ -1,10 +1,11 @@
 import React from 'react';
 import Root from './src/screens/Root';
 import {
-  DefaultTheme,
-  Provider as PaperProvider,
-  configureFonts,
-  MD3LightTheme, Surface,
+    DefaultTheme,
+    Provider as PaperProvider,
+    configureFonts,
+    MD3LightTheme,
+    Surface,
 } from 'react-native-paper';
 import {LogBox, Platform} from 'react-native';
 import colors from './src/theme/colors';
@@ -49,36 +50,36 @@ LogBox.ignoreLogs(['Remote debugger is in a']);
 // };
 
 const darkTheme = {
-  ...DefaultTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    ...colors.dark,
-    background: 'white',
-  },
+    ...DefaultTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        ...colors.dark,
+        background: 'white',
+    },
 };
 
 const lightTheme = {
-  ...MD3LightTheme,
-  colors: {
-    ...DefaultTheme.colors,
-    ...colors.light,
-    background: 'white',
-  },
-  fonts: configureFonts({
-    config: {
-      fontFamily: FONT_NAME,
-    } as MD3Type,
-  }),
+    ...MD3LightTheme,
+    colors: {
+        ...DefaultTheme.colors,
+        ...colors.light,
+        background: 'white',
+    },
+    fonts: configureFonts({
+        config: {
+            fontFamily: FONT_NAME,
+        } as MD3Type,
+    }),
 };
 
 export default function App() {
-  return (
-      <GestureHandlerRootView style={{flex: 1}}>
-    <PaperProvider theme={lightTheme}>
-      <SafeAreaProvider>
-          <Root theme={lightTheme} />
-      </SafeAreaProvider>
-    </PaperProvider>
-      </GestureHandlerRootView>
-  );
+    return (
+        <GestureHandlerRootView style={{flex: 1}}>
+            <PaperProvider theme={lightTheme}>
+                <SafeAreaProvider>
+                    <Root theme={lightTheme} />
+                </SafeAreaProvider>
+            </PaperProvider>
+        </GestureHandlerRootView>
+    );
 }

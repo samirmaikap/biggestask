@@ -50,7 +50,7 @@ export const AppTextInput = (props: Props) => {
         <View>
             {label && (
                 <View style={{marginBottom: 4}}>
-                    <AppText>{label}</AppText>
+                    <AppText variant={'title'}>{label}</AppText>
                 </View>
             )}
             <TextInput

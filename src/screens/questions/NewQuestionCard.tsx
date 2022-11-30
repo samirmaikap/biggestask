@@ -81,7 +81,7 @@ export const NewQuestionCard = () => {
                         </AppText>
                     </View>
                     <AppSpacing gap={16} />
-                    <AppText fontWeight={'bold'}>Answer</AppText>
+                    <AppText variant={'title'}>Answer</AppText>
                     <AppSpacing gap={4} />
                     <BottomSheetTextInput
                         multiline={true}
@@ -91,7 +91,7 @@ export const NewQuestionCard = () => {
                         ]}
                     />
                     <AppSpacing gap={16} />
-                    <AppText fontWeight={'bold'}>Parents</AppText>
+                    <AppText variant={'title'}>Parents</AppText>
                     <AppSpacing gap={4} />
                     <DropDownPicker
                         open={open}

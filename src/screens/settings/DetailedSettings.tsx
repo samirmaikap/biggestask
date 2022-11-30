@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Platform,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -102,8 +103,18 @@ export const DetailedSettingsScreen = () => {
                                     value={true}
                                     style={{
                                         transform: [
-                                            {scaleX: 0.7},
-                                            {scaleY: 0.7},
+                                            {
+                                                scaleX:
+                                                    Platform?.OS === 'ios'
+                                                        ? 0.7
+                                                        : 1,
+                                            },
+                                            {
+                                                scaleY:
+                                                    Platform?.OS === 'ios'
+                                                        ? 0.7
+                                                        : 1,
+                                            },
                                         ],
                                     }}
                                 />
@@ -131,8 +142,18 @@ export const DetailedSettingsScreen = () => {
                                     value={true}
                                     style={{
                                         transform: [
-                                            {scaleX: 0.7},
-                                            {scaleY: 0.7},
+                                            {
+                                                scaleX:
+                                                    Platform?.OS === 'ios'
+                                                        ? 0.7
+                                                        : 1,
+                                            },
+                                            {
+                                                scaleY:
+                                                    Platform?.OS === 'ios'
+                                                        ? 0.7
+                                                        : 1,
+                                            },
                                         ],
                                     }}
                                 />

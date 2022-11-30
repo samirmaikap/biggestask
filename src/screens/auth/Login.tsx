@@ -95,7 +95,7 @@ export const LoginScreen = () => {
                             <AppSpacing gap={32} />
                             <View>
                                 <View>
-                                    <AppText>Email</AppText>
+                                    <AppText variant={'title'}>Email</AppText>
                                     <TextInput
                                         mode={'outlined'}
                                         outlineStyle={{borderColor: 'white'}}
@@ -109,7 +109,9 @@ export const LoginScreen = () => {
                                         theme={{roundness: 12}}
                                     />
                                     <AppSpacing gap={16} />
-                                    <AppText>Password</AppText>
+                                    <AppText variant={'title'}>
+                                        Password
+                                    </AppText>
                                     <TextInput
                                         mode={'outlined'}
                                         secureTextEntry={true}

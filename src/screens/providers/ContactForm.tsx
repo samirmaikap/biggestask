@@ -12,7 +12,7 @@ import {PlusIcon} from '../../components/icons/PlusIcon';
 const styles = StyleSheet.create({
     inputGroup: {
         marginVertical: 8,
-        zIndex: -1,
+        zIndex: 0,
     },
     input: {
         backgroundColor: Colors.grey_bg,
@@ -31,12 +31,14 @@ export const ContactForm = () => {
 
     return (
         <View style={{backgroundColor: 'white'}}>
-            <View style={styles.inputGroup}>
-                <AppText>Title</AppText>
+            <View style={[styles.inputGroup, {zIndex: 999}]}>
+                <AppText variant={'title'}>Title</AppText>
                 <AppSpacing />
                 <DropDownPicker
                     open={open}
                     value={value}
+                    zIndex={3000}
+                    zIndexInverse={1000}
                     items={items}
                     setOpen={setOpen}
                     setValue={setValue}
@@ -48,14 +50,14 @@ export const ContactForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Contact Rep Name</AppText>
+                <AppText variant={'title'}>Contact Rep Name</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     style={[AppStyles.textInput, {padding: 16}]}
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Contact Email</AppText>
+                <AppText variant={'title'}>Contact Email</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     textContentType={'emailAddress'}
@@ -63,7 +65,7 @@ export const ContactForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <AppText>Contact phone number</AppText>
+                <AppText variant={'title'}>Contact phone number</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
                     style={[AppStyles.textInput, {padding: 16}]}

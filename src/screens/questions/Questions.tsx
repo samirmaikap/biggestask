@@ -24,7 +24,7 @@ export const QuestionsScreen = () => {
     const [items, setItems] = useState([
         {label: 'Every day', value: '1'},
         {label: 'Every 3 days', value: '2'},
-        {label: 'Every Week', value: '2'},
+        {label: 'Every Week', value: '3'},
     ]);
 
     return (
@@ -45,11 +45,13 @@ export const QuestionsScreen = () => {
                         question
                     </AppText>
                     <AppSpacing gap={16} />
-                    <AppText variant={'custom'} fontWeight={'800'} size={16}>
+                    <AppText variant={'h3'}>
                         New questions in the profile
                     </AppText>
                     <AppSpacing gap={16} />
-                    <AppText>Frequency of the questions:</AppText>
+                    <AppText variant={'title'}>
+                        Frequency of the questions:
+                    </AppText>
                     <DropDownPicker
                         open={openDropdown}
                         value={value}
@@ -59,6 +61,8 @@ export const QuestionsScreen = () => {
                         setItems={setItems}
                         placeholder="Select Frequency"
                         style={AppStyles.dropdownInput}
+                        zIndex={3000}
+                        zIndexInverse={1000}
                         containerStyle={{
                             height: 40,
                             marginTop: 10,
@@ -71,7 +75,7 @@ export const QuestionsScreen = () => {
                     <AppSpacing gap={16} />
                     <NewQuestionCard />
                     <AppSpacing gap={16} />
-                    <AppText variant={'custom'} fontWeight={'800'} size={16}>
+                    <AppText variant={'h3'}>
                         Existing questions in the profile
                     </AppText>
                     <AppSpacing gap={8} />

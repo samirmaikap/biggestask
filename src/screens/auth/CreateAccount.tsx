@@ -52,7 +52,7 @@ export const CreateAccountScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     return (
-        <View>
+        <View style={styles.container}>
             <AppStatusBar />
             <AppSpacing gap={insets.top} />
             <KeyboardAvoidingView behavior={'padding'}>
@@ -66,9 +66,10 @@ export const CreateAccountScreen = () => {
                         <AppSpacing gap={32} />
                         <View>
                             <View style={styles.inputGroup}>
-                                <AppText>
+                                <AppText variant={'title'}>
                                     Who are you in this surrogacy journey?
                                 </AppText>
+                                <AppSpacing gap={8} />
                                 <View style={styles.row}>
                                     <RadioButton.Android
                                         value="first"
@@ -95,7 +96,7 @@ export const CreateAccountScreen = () => {
                                 </View>
                             </View>
                             <View style={styles.inputGroup}>
-                                <AppText>Full Name</AppText>
+                                <AppText variant={'title'}>Full Name</AppText>
                                 <TextInput
                                     mode={'outlined'}
                                     outlineStyle={{borderColor: Colors.grey_bg}}
@@ -110,7 +111,7 @@ export const CreateAccountScreen = () => {
                                 />
                             </View>
                             <View style={styles.inputGroup}>
-                                <AppText>Email</AppText>
+                                <AppText variant={'title'}>Email</AppText>
                                 <TextInput
                                     mode={'outlined'}
                                     outlineStyle={{borderColor: Colors.grey_bg}}
@@ -125,7 +126,8 @@ export const CreateAccountScreen = () => {
                                 />
                             </View>
                             <View style={styles.inputGroup}>
-                                <AppText>Gender</AppText>
+                                <AppText variant={'title'}>Gender</AppText>
+                                <AppSpacing gap={8} />
                                 <View style={styles.row}>
                                     <View style={styles.row}>
                                         <RadioButton.Android
@@ -155,7 +157,7 @@ export const CreateAccountScreen = () => {
                                 </View>
                             </View>
                             <View style={styles.inputGroup}>
-                                <AppText>Password</AppText>
+                                <AppText variant={'title'}>Password</AppText>
                                 <TextInput
                                     secureTextEntry={true}
                                     mode={'outlined'}
@@ -171,7 +173,9 @@ export const CreateAccountScreen = () => {
                                 />
                             </View>
                             <View style={styles.inputGroup}>
-                                <AppText>Re-Enter Password</AppText>
+                                <AppText variant={'title'}>
+                                    Re-Enter Password
+                                </AppText>
                                 <TextInput
                                     secureTextEntry={true}
                                     mode={'outlined'}

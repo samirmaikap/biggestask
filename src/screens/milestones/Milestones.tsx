@@ -21,10 +21,12 @@ import {Colors} from '../../theme/colors';
 import Screens from '../../navigations/Screens';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {MilestoneCard} from './MilestoneCard';
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#f7f7f7',
     },
     innerContainer: {
         flex: 1,
@@ -145,51 +147,7 @@ export const MilestonesScreen = () => {
                                     }
                                     activeOpacity={0.8}
                                     key={`ca-${index}`}>
-                                    <AppCard padding={16} marginVertical={8}>
-                                        <AppText variant={'h2'}>
-                                            {item?.name}
-                                        </AppText>
-                                        <AppSpacing gap={24} />
-                                        <View
-                                            style={[
-                                                styles.row,
-                                                {
-                                                    justifyContent:
-                                                        'space-between',
-                                                    alignItems: 'flex-start',
-                                                },
-                                            ]}>
-                                            <View
-                                                style={[styles.row, {flex: 1}]}>
-                                                <CalendarIcon
-                                                    color={Colors.grey_3}
-                                                />
-                                                <AppSpacing
-                                                    isHorizontal={true}
-                                                />
-                                                {item?.date &&
-                                                item?.location ? (
-                                                    <AppText
-                                                        color={Colors.grey_3}>
-                                                        {item?.date}
-                                                    </AppText>
-                                                ) : (
-                                                    <AppText>
-                                                        Not Yet Scheduled
-                                                    </AppText>
-                                                )}
-                                            </View>
-                                            <View
-                                                style={[
-                                                    styles.centeredContainer,
-                                                    {marginLeft: 16},
-                                                ]}>
-                                                <LocationPin
-                                                    color={Colors.grey_3}
-                                                />
-                                            </View>
-                                        </View>
-                                    </AppCard>
+                                    <MilestoneCard item={item} />
                                 </TouchableOpacity>
                             );
                         })}

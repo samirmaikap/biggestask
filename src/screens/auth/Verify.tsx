@@ -125,7 +125,7 @@ export const VerifyScreen = () => {
                                 </View>
                                 <AppSpacing gap={16} />
                                 <View>
-                                    <AppText>Code</AppText>
+                                    <AppText variant={'title'}>Code</AppText>
                                     <TextInput
                                         secureTextEntry={true}
                                         placeholder="* * * *"

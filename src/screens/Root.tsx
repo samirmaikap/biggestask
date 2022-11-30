@@ -16,8 +16,8 @@ const Root = (props: Props) => {
     const {theme} = props;
     return (
         <View style={styles.container}>
-            <StatusBar/>
-            <GlobalNavigator theme={theme}/>
+            <StatusBar backgroundColor="white" barStyle="dark-content" />
+            <GlobalNavigator theme={theme} />
         </View>
     );
 };
