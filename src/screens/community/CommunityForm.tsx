@@ -9,6 +9,7 @@ import {AppSpacing} from '../../components/AppSpacing';
 import {PlusIcon} from '../../components/icons/PlusIcon';
 import {AppImage} from '../../components/AppImage';
 import {images} from '../../utils/constants';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     inputGroup: {
@@ -71,13 +72,13 @@ export const CommunityForm = () => {
                 </View>
             </View>
             <AppSpacing gap={16} />
-            <Button
+            <AppButton
                 contentStyle={AppStyles.buttonContent}
                 mode={'contained'}
                 icon={() => <PlusIcon color={'white'} />}
                 style={AppStyles.button}>
                 Add New Community
-            </Button>
+            </AppButton>
         </View>
     );
 };

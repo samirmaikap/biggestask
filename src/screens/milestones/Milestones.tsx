@@ -22,6 +22,7 @@ import Screens from '../../navigations/Screens';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {MilestoneCard} from './MilestoneCard';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -110,7 +111,7 @@ export const MilestonesScreen = () => {
                         </AppText>
                         <AppSpacing gap={16} />
                         <View style={[styles.row, styles.centeredContainer]}>
-                            <Button
+                            <AppButton
                                 onPress={() =>
                                     navigation.navigate(
                                         Screens.MilestoneDetails,
@@ -127,7 +128,7 @@ export const MilestonesScreen = () => {
                                 )}
                                 style={AppStyles.button}>
                                 Add New Milestone
-                            </Button>
+                            </AppButton>
                         </View>
                         <AppSpacing gap={8} />
                     </View>

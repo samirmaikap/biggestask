@@ -25,6 +25,7 @@ import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 import DatePicker from 'react-native-date-picker';
 import {LocationPin} from '../../components/icons/LocationPin';
 import {format} from 'date-fns';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -265,12 +266,12 @@ export const MilestoneDetailsScreen = () => {
                             </AppText>
                         </View>
                         <AppSpacing gap={16} />
-                        <Button
+                        <AppButton
                             contentStyle={AppStyles.buttonContent}
                             mode={'contained'}
                             style={AppStyles.button}>
                             Confirm
-                        </Button>
+                        </AppButton>
                     </View>
                 </View>
             </AppBottomSheet>
@@ -334,7 +335,7 @@ export const MilestoneDetailsScreen = () => {
                             </View>
                             <AppSpacing gap={16} />
                             <View style={styles.row}>
-                                <Button
+                                <AppButton
                                     contentStyle={{
                                         flexDirection: 'row-reverse',
                                     }}
@@ -342,7 +343,7 @@ export const MilestoneDetailsScreen = () => {
                                     icon={() => <FilePlus />}
                                     style={AppStyles.button}>
                                     Upload Picture
-                                </Button>
+                                </AppButton>
                             </View>
                         </View>
                         <AppSpacing gap={16} />
@@ -374,13 +375,13 @@ export const MilestoneDetailsScreen = () => {
                             <AppText>Share with the Biggest Ask</AppText>
                         </TouchableOpacity>
                         <AppSpacing gap={16} />
-                        <Button
+                        <AppButton
                             contentStyle={{flexDirection: 'row-reverse'}}
                             mode={'contained'}
                             icon={() => <CheckCircleIcon />}
                             style={AppStyles.button}>
                             Update Milestone
-                        </Button>
+                        </AppButton>
                         <AppSpacing gap={16} />
                     </View>
                 </ScrollView>

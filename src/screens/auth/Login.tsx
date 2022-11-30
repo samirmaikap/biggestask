@@ -19,6 +19,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -144,7 +145,7 @@ export const LoginScreen = () => {
                                 </View>
                                 <AppSpacing gap={16} />
                                 <View>
-                                    <Button
+                                    <AppButton
                                         contentStyle={AppStyles.buttonContent}
                                         onPress={() =>
                                             navigation.navigate('Tabs')
@@ -152,7 +153,7 @@ export const LoginScreen = () => {
                                         style={AppStyles.button}
                                         mode={'contained'}>
                                         Login
-                                    </Button>
+                                    </AppButton>
                                 </View>
                             </View>
                         </View>

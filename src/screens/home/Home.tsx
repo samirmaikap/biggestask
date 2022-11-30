@@ -13,6 +13,7 @@ import {Colors} from '../../theme/colors';
 import {QuestionCard} from '../questions/QuestionCard';
 import {NewQuestionCard} from '../questions/NewQuestionCard';
 import {StackNavigationProp} from '@react-navigation/stack';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -122,7 +123,7 @@ export const HomeScreen = () => {
                             </AppText>
                         </View>
                         <AppSpacing gap={16} />
-                        <Button
+                        <AppButton
                             contentStyle={AppStyles.buttonContent}
                             textColor={Colors.grey_2}
                             style={[
@@ -131,7 +132,7 @@ export const HomeScreen = () => {
                             ]}
                             mode={'outlined'}>
                             Ask Gestational Carrier
-                        </Button>
+                        </AppButton>
                     </AppCard>
                     {/*Section Last Questions*/}
                     <View style={styles.title}>

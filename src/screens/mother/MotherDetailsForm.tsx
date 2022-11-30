@@ -10,6 +10,7 @@ import {CalendarIcon} from '../../components/icons/CalendarIcon';
 import {UserIcon} from '../../components/icons/UserIcon';
 import AppStyles from '../../theme/AppStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -124,12 +125,12 @@ export const MotherDetailsForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <Button
+                <AppButton
                     contentStyle={AppStyles.buttonContent}
                     style={AppStyles.button}
                     mode={'contained'}>
                     Save Editing
-                </Button>
+                </AppButton>
             </View>
         </View>
     );

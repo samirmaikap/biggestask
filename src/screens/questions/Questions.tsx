@@ -32,6 +32,7 @@ export const QuestionsScreen = () => {
             <StatusBar />
             <TabHeader title={'Question Bank'} />
             <ScrollView
+                nestedScrollEnabled={true}
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
@@ -62,6 +63,7 @@ export const QuestionsScreen = () => {
                         placeholder="Select Frequency"
                         style={AppStyles.dropdownInput}
                         zIndex={3000}
+                        listMode="SCROLLVIEW"
                         zIndexInverse={1000}
                         containerStyle={{
                             height: 40,
@@ -72,6 +74,7 @@ export const QuestionsScreen = () => {
                             AppStyles.dropdownContainerStyle
                         }
                     />
+
                     <AppSpacing gap={16} />
                     <NewQuestionCard />
                     <AppSpacing gap={16} />

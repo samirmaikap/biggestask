@@ -57,7 +57,7 @@ export const ProvidersScreen = () => {
                         return (
                             <View
                                 style={{marginVertical: 8}}
-                                key={`card-${index}`}>
+                                key={`contacts-${index}`}>
                                 <ContactCard
                                     onEditPress={() => handleOnEditPress()}
                                 />

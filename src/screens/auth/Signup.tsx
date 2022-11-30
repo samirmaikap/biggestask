@@ -20,6 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -143,7 +144,7 @@ export const SignupScreen = () => {
                                 </View>
                                 <AppSpacing gap={16} />
                                 <View>
-                                    <Button
+                                    <AppButton
                                         contentStyle={AppStyles.buttonContent}
                                         onPress={() =>
                                             navigation.navigate(Screens.Verify)
@@ -151,7 +152,7 @@ export const SignupScreen = () => {
                                         style={AppStyles.button}
                                         mode={'contained'}>
                                         Verify
-                                    </Button>
+                                    </AppButton>
                                 </View>
                                 <AppSpacing gap={16 + insets.bottom} />
                             </View>

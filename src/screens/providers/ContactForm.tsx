@@ -8,6 +8,7 @@ import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 import {AppSpacing} from '../../components/AppSpacing';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {PlusIcon} from '../../components/icons/PlusIcon';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     inputGroup: {
@@ -72,13 +73,13 @@ export const ContactForm = () => {
                 />
             </View>
             <AppSpacing gap={16} />
-            <Button
+            <AppButton
                 contentStyle={AppStyles.buttonContent}
                 mode={'contained'}
                 icon={() => <PlusIcon color={'white'} />}
                 style={AppStyles.button}>
                 Add New Contact
-            </Button>
+            </AppButton>
         </View>
     );
 };

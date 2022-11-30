@@ -8,6 +8,7 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {AppBottomSheet} from '../../components/AppBottomSheet';
 import React, {useState} from 'react';
 import {AppCard} from '../../components/AppCard';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -65,13 +66,13 @@ export const NewQuestionCard = () => {
             <AppSpacing gap={16} />
             <AppBottomSheet
                 action={
-                    <Button
+                    <AppButton
                         textColor={theme.colors.primary}
                         mode="contained"
                         contentStyle={AppStyles.buttonContent}
                         style={[AppStyles.button, {backgroundColor: 'white'}]}>
                         Answer the Question
-                    </Button>
+                    </AppButton>
                 }>
                 <View style={{backgroundColor: 'white'}}>
                     <View style={styles.centerContainer}>
@@ -112,12 +113,12 @@ export const NewQuestionCard = () => {
                         }
                     />
                     <AppSpacing gap={16} />
-                    <Button
+                    <AppButton
                         contentStyle={AppStyles.buttonContent}
                         mode="contained"
                         style={[AppStyles.button]}>
                         Add Answer
-                    </Button>
+                    </AppButton>
                 </View>
             </AppBottomSheet>
         </AppCard>

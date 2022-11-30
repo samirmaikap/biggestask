@@ -11,6 +11,7 @@ import {UserIcon} from '../../components/icons/UserIcon';
 import AppStyles from '../../theme/AppStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {AppSpacing} from '../../components/AppSpacing';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -132,12 +133,12 @@ export const ProfileForm = () => {
                 />
             </View>
             <View style={styles.inputGroup}>
-                <Button
+                <AppButton
                     contentStyle={AppStyles.buttonContent}
                     style={AppStyles.button}
                     mode={'contained'}>
                     Save Editing
-                </Button>
+                </AppButton>
             </View>
         </View>
     );

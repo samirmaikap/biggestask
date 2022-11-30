@@ -20,9 +20,11 @@ const appStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
+        fontSize: 20,
     },
     buttonContent: {
         paddingVertical: 4,
+        fontSize: 20,
     },
     textInput: {
         backgroundColor: Colors.grey_bg,

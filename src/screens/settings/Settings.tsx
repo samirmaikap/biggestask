@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Linking,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -17,6 +18,7 @@ import {Button, Divider} from 'react-native-paper';
 import {AppText} from '../../components/AppText';
 import AppStyles from '../../theme/AppStyles';
 import {StackNavigationProp} from '@react-navigation/stack';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     container: {
@@ -43,7 +45,7 @@ const menus = [
     {
         name: 'Help',
         icon: <HelpIcon />,
-        link: Screens.Help,
+        link: 'https://thebiggestask.com/the-biggest-ask-surrogacy-service/',
     },
     {
         name: 'About',
@@ -80,13 +82,22 @@ export const SettingsScreen = () => {
                     <View>
                         {menus.map((item, index) => {
                             return (
-                                <>
+                                <View key={`me-${index}`}>
                                     <TouchableOpacity
-                                        key={`m-${index}`}
                                         activeOpacity={0.8}
-                                        onPress={() =>
-                                            navigation.navigate(item?.link)
-                                        }>
+                                        onPress={() => {
+                                            if (index === 0) {
+                                                Linking.canOpenURL(item?.link)
+                                                    .then(() =>
+                                                        Linking.openURL(
+                                                            item?.link,
+                                                        ),
+                                                    )
+                                                    .catch(e => console.log(e));
+                                            } else {
+                                                navigation.navigate(item?.link);
+                                            }
+                                        }}>
                                         <View
                                             style={[
                                                 styles.row,
@@ -105,18 +116,18 @@ export const SettingsScreen = () => {
                                         </View>
                                     </TouchableOpacity>
                                     {index + 1 !== menus.length && <Divider />}
-                                </>
+                                </View>
                             );
                         })}
                     </View>
                     <AppSpacing gap={16} />
                     <View>
-                        <Button
+                        <AppButton
                             contentStyle={AppStyles.buttonContent}
                             style={AppStyles.button}
                             mode={'contained'}>
                             Reset Milestones
-                        </Button>
+                        </AppButton>
                     </View>
                 </View>
             </ScrollView>

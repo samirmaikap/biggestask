@@ -10,6 +10,7 @@ import {AppStatusBar} from '../../components/AppStatusBar';
 import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
+import AppButton from '../../components/AppButton';
 
 const styles = StyleSheet.create({
     buttonCircle: {
@@ -90,22 +91,22 @@ export const IntroScreen = () => {
     };
     const _renderNextButton = () => {
         return (
-            <Button
+            <AppButton
                 contentStyle={AppStyles.buttonContent}
                 mode={'contained'}
                 style={AppStyles.button}>
                 Next
-            </Button>
+            </AppButton>
         );
     };
     const _renderDoneButton = () => {
         return (
-            <Button
+            <AppButton
                 contentStyle={AppStyles.buttonContent}
                 mode={'contained'}
                 style={AppStyles.button}>
                 Get Started
-            </Button>
+            </AppButton>
         );
     };
 
