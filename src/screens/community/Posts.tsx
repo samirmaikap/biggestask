@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import {CommunityCard} from './CommunityCard';
 import StackHeader from '../../components/StackHeader';
 import {PlusCircleIcon} from '../../components/icons/PlusCircleIcon';
@@ -31,24 +37,26 @@ export const PostsScreen = () => {
 
     const renderBottomSheet = () => {
         return (
-            <AppBottomSheet isOpen={openSheet} onClose={() => setOpenSheet(false)}>
+            <AppBottomSheet
+                isOpen={openSheet}
+                onClose={() => setOpenSheet(false)}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
                     <AppText variant={'h2'}>Create Community</AppText>
                 </View>
-                <AppSpacing gap={16}/>
-                <CommunityForm/>
+                <AppSpacing gap={16} />
+                <CommunityForm />
             </AppBottomSheet>
         );
     };
 
     return (
         <View style={styles.container}>
-            <StatusBar/>
+            <StatusBar />
             <StackHeader
                 title={'Community'}
                 actions={[
                     <TouchableOpacity onPress={() => setOpenSheet(true)}>
-                        <PlusCircleIcon/>
+                        <PlusCircleIcon />
                     </TouchableOpacity>,
                 ]}
             />
@@ -56,7 +64,7 @@ export const PostsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    <CommunityCard/>
+                    <CommunityCard />
                 </View>
             </ScrollView>
             {renderBottomSheet()}

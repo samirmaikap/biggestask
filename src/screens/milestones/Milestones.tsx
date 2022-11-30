@@ -103,7 +103,7 @@ export const MilestonesScreen = () => {
                 <View style={styles.innerContainer}>
                     <View style={[styles.centeredContainer, {padding: 16}]}>
                         <AppText textAlign={'center'}>
-                            Check back as your surrogate updated her
+                            Check back as your gestational carrier updated her
                             appointments along with the surrogacy journey
                         </AppText>
                         <AppSpacing gap={16} />
@@ -169,15 +169,15 @@ export const MilestonesScreen = () => {
                                                 />
                                                 {item?.date &&
                                                 item?.location ? (
-                                                        <AppText
-                                                            color={Colors.grey_3}>
-                                                            {item?.date}
-                                                        </AppText>
-                                                    ) : (
-                                                        <AppText>
+                                                    <AppText
+                                                        color={Colors.grey_3}>
+                                                        {item?.date}
+                                                    </AppText>
+                                                ) : (
+                                                    <AppText>
                                                         Not Yet Scheduled
-                                                        </AppText>
-                                                    )}
+                                                    </AppText>
+                                                )}
                                             </View>
                                             <View
                                                 style={[

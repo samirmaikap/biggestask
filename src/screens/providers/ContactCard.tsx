@@ -30,8 +30,8 @@ const styles = StyleSheet.create({
 });
 
 type Props = {
-    onEditPress: Function
-}
+    onEditPress: Function;
+};
 
 export const ContactCard = (props: Props) => {
     const {onEditPress} = props;
@@ -40,54 +40,53 @@ export const ContactCard = (props: Props) => {
         <AppCard>
             <View style={[styles.row, {alignItems: 'flex-start', padding: 16}]}>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={images.AVOCADO}/>
+                    <Image style={styles.image} source={images.AVOCADO} />
                 </View>
                 <View style={{flex: 1, marginLeft: 16}}>
-                    <View style={[styles.row, {justifyContent: 'space-between'}]}>
+                    <View
+                        style={[styles.row, {justifyContent: 'space-between'}]}>
                         <AppText fontWeight={'600'}>Fertility Doctor</AppText>
                         <TouchableOpacity onPress={() => onEditPress()}>
-                            <PencilIcon/>
+                            <PencilIcon />
                         </TouchableOpacity>
                     </View>
-                    <AppSpacing gap={8}/>
+                    <AppSpacing gap={8} />
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
                             Contact Rep Name
                         </AppText>
-                        <AppSpacing/>
+                        <AppSpacing />
                         <AppText>John Doe</AppText>
                     </View>
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
                             Agency Email
                         </AppText>
-                        <AppSpacing/>
+                        <AppSpacing />
                         <AppText>happyagency@mail.ua</AppText>
                     </View>
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
                             Agency phone number
                         </AppText>
-                        <AppSpacing/>
+                        <AppSpacing />
                         <AppText>(222)-333-4444</AppText>
                     </View>
                 </View>
             </View>
-            <Divider style={{backgroundColor: Colors.grey_bg, height: 1}}/>
+            <Divider style={{backgroundColor: Colors.grey_bg, height: 1}} />
             <View style={[styles.row, {alignItems: 'center', padding: 16}]}>
                 <View style={{flex: 1, marginRight: 8}}>
                     <AppCompactButton
                         color={Colors.grey_bg}
                         textColor={Colors.grey_3}
-                        onPress={() => {
-                        }}
+                        onPress={() => {}}
                         name={'Share'}
                         outlined={true}
                     />
                 </View>
                 <View style={{flex: 1, marginLeft: 8}}>
-                    <AppCompactButton onPress={() => {
-                    }} name={'Call'}/>
+                    <AppCompactButton onPress={() => {}} name={'Call'} />
                 </View>
             </View>
         </AppCard>

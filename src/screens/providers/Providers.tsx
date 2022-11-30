@@ -23,12 +23,14 @@ export const ProvidersScreen = () => {
 
     const renderBottomSheet = () => {
         return (
-            <AppBottomSheet isOpen={openSheet} onClose={() => setOpenSheet(false)}>
+            <AppBottomSheet
+                isOpen={openSheet}
+                onClose={() => setOpenSheet(false)}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
                     <AppText variant={'h2'}>Create Contact</AppText>
                 </View>
-                <AppSpacing gap={16}/>
-                <ContactForm/>
+                <AppSpacing gap={16} />
+                <ContactForm />
             </AppBottomSheet>
         );
     };
@@ -43,7 +45,7 @@ export const ProvidersScreen = () => {
                 title={'Your Contacts'}
                 actions={[
                     <TouchableOpacity onPress={() => setOpenSheet(true)}>
-                        <PlusCircleIcon/>
+                        <PlusCircleIcon />
                     </TouchableOpacity>,
                 ]}
             />
@@ -53,8 +55,12 @@ export const ProvidersScreen = () => {
                 <View style={styles.innerContainer}>
                     {[1, 2, 3, 4, 5, 6].map((item, index) => {
                         return (
-                            <View style={{marginVertical: 8}} key={`card-${index}`}>
-                                <ContactCard onEditPress={() => handleOnEditPress()}/>
+                            <View
+                                style={{marginVertical: 8}}
+                                key={`card-${index}`}>
+                                <ContactCard
+                                    onEditPress={() => handleOnEditPress()}
+                                />
                             </View>
                         );
                     })}

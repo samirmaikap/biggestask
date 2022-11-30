@@ -1,5 +1,11 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
-import {Alert, StyleSheet, TouchableOpacity, useWindowDimensions, View} from 'react-native';
+import {
+    Alert,
+    StyleSheet,
+    TouchableOpacity,
+    useWindowDimensions,
+    View,
+} from 'react-native';
 import {AppImage} from '../components/AppImage';
 import {primaryColor} from '../theme/colors';
 import {UsersIcon} from '../components/icons/UsersIcon';
@@ -54,7 +60,7 @@ export const Drawers = (props: any) => {
                 onPress={() => props.navigation.navigate(Screens.Profile)}>
                 <View style={styles.profileContainer}>
                     <View>
-                        <AppImage uri={images.MALE} isLocal={true}/>
+                        <AppImage uri={images.MALE} isLocal={true} />
                     </View>
                     <View style={{marginLeft: 16}}>
                         <AppText variant="h3">John Doe</AppText>
@@ -68,52 +74,64 @@ export const Drawers = (props: any) => {
                     <DrawerItem
                         icon={() => (
                             <View style={{marginRight: -16}}>
-                                <UsersIcon/>
+                                <UsersIcon />
                             </View>
                         )}
-                        label="Your Surrogate Mother"
-                        onPress={() => props.navigation.navigate(Screens.MotherDetails)}
+                        label="Your Gestational Carrier"
+                        onPress={() =>
+                            props.navigation.navigate(Screens.MotherDetails)
+                        }
                     />
                     <DrawerItem
                         icon={() => (
                             <View style={{marginRight: -16}}>
-                                <CommunityIcon/>
+                                <CommunityIcon />
                             </View>
                         )}
                         label="Community"
-                        onPress={() => props.navigation.navigate(Screens.CommunityPosts)}
+                        onPress={() =>
+                            props.navigation.navigate(Screens.CommunityPosts)
+                        }
                     />
                     <DrawerItem
                         labelStyle={{fontFamily: FONT_NAME}}
                         icon={() => (
                             <View style={{marginRight: -16}}>
-                                <ContactProviderIcon/>
+                                <ContactProviderIcon />
                             </View>
                         )}
                         label="Contact Your Provider"
-                        onPress={() => props.navigation.navigate(Screens.Contacts)}
+                        onPress={() =>
+                            props.navigation.navigate(Screens.Contacts)
+                        }
                     />
                     <DrawerItem
                         icon={() => (
                             <View style={{marginRight: -16}}>
-                                <NotificationsIcon/>
+                                <NotificationsIcon />
                             </View>
                         )}
                         label="Notifications"
-                        onPress={() => props.navigation.navigate(Screens.Notifications)}
+                        onPress={() =>
+                            props.navigation.navigate(Screens.Notifications)
+                        }
                     />
                     <DrawerItem
                         icon={() => (
                             <View style={{marginRight: -16}}>
-                                <SettingsIcon/>
+                                <SettingsIcon />
                             </View>
                         )}
                         label="Settings"
-                        onPress={() => props.navigation.navigate(Screens.Settings)}
+                        onPress={() =>
+                            props.navigation.navigate(Screens.Settings)
+                        }
                     />
                     <View style={styles.switchContainer}>
                         <AppText>Show Pregnancy Milestone</AppText>
-                        <Switch style={{transform: [{scaleX: 0.8}, {scaleY: 0.8}]}}/>
+                        <Switch
+                            style={{transform: [{scaleX: 0.8}, {scaleY: 0.8}]}}
+                        />
                     </View>
                 </View>
             </View>
@@ -121,13 +139,13 @@ export const Drawers = (props: any) => {
                 <DrawerItem
                     icon={() => (
                         <View style={{marginRight: -16}}>
-                            <LogoutIcon/>
+                            <LogoutIcon />
                         </View>
                     )}
                     label="Logout"
                     onPress={() => Alert.alert('Logout')}
                 />
-                <View style={{marginBottom: insets.bottom}}/>
+                <View style={{marginBottom: insets.bottom}} />
             </View>
         </DrawerContentScrollView>
     );

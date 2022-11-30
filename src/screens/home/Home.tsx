@@ -130,7 +130,7 @@ export const HomeScreen = () => {
                                 {borderColor: Colors.grey_4},
                             ]}
                             mode={'outlined'}>
-                            Ask Surrogate
+                            Ask Gestational Carrier
                         </Button>
                     </AppCard>
                     {/*Section Last Questions*/}
@@ -149,7 +149,7 @@ export const HomeScreen = () => {
                             variant={'custom'}
                             fontWeight={'800'}
                             size={16}>
-                            Your Surrogate
+                            Your Gestational Carrier
                         </AppText>
                     </View>
                     <QuestionCard

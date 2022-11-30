@@ -24,21 +24,21 @@ const styles = StyleSheet.create({
 export const NotificationsScreen = () => {
     return (
         <View style={styles.container}>
-            <StatusBar/>
-            <StackHeader title={'Notifications'} showSearch={true}/>
+            <StatusBar />
+            <StackHeader title={'Notifications'} showSearch={true} />
             <ScrollView
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {
-                        ([1, 2, 3, 4, 5, 6, 7, 8]).map((item, index) => {
-                            return (
-                                <View key={`notification-${index}`} style={{marginVertical: 8}}>
-                                    <NotificationCard/>
-                                </View>
-                            );
-                        })
-                    }
+                    {[1, 2, 3, 4, 5, 6, 7, 8].map((item, index) => {
+                        return (
+                            <View
+                                key={`notification-${index}`}
+                                style={{marginVertical: 8}}>
+                                <NotificationCard />
+                            </View>
+                        );
+                    })}
                 </View>
             </ScrollView>
         </View>

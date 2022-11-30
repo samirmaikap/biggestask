@@ -82,7 +82,7 @@ export const MotherDetailsScreen = () => {
         <View style={styles.container}>
             <StatusBar />
             <StackHeader
-                title={'Your Surrogate Mother'}
+                title={'Your Gestational Carrier'}
                 // actions={[
                 //     <TouchableOpacity
                 //         activeOpacity={0.8}
@@ -101,8 +101,13 @@ export const MotherDetailsScreen = () => {
                     <View style={styles.centeredContainer}>
                         <View style={styles.row}>
                             <View style={{marginRight: 8}}>
-                                <TouchableOpacity onPress={() => setSelectedProfile(0)}>
-                                    <AppImage size={100} uri={images.FEMALE} isLocal={true} />
+                                <TouchableOpacity
+                                    onPress={() => setSelectedProfile(0)}>
+                                    <AppImage
+                                        size={100}
+                                        uri={images.FEMALE}
+                                        isLocal={true}
+                                    />
                                     {selectedProfile !== 0 && (
                                         <View style={styles.imageOverlay} />
                                     )}
@@ -110,7 +115,9 @@ export const MotherDetailsScreen = () => {
                                         <TouchableOpacity
                                             activeOpacity={0.8}
                                             style={styles.imageButton}
-                                            onPress={() => Alert.alert('select image')}>
+                                            onPress={() =>
+                                                Alert.alert('select image')
+                                            }>
                                             <CameraIcon color={'white'} />
                                         </TouchableOpacity>
                                     )}
@@ -129,7 +136,9 @@ export const MotherDetailsScreen = () => {
                             <AppText variant={'h2'}>Mark Baggins</AppText>
                             <AppSpacing />
                             <View style={styles.row}>
-                                <AppText color={Colors.grey_3}>01/02/1988 </AppText>
+                                <AppText color={Colors.grey_3}>
+                                    01/02/1988{' '}
+                                </AppText>
                                 <AppSpacing isHorizontal={true} />
                                 <AppText>(37 Year)</AppText>
                             </View>
@@ -144,7 +153,9 @@ export const MotherDetailsScreen = () => {
                             <AppSpacing gap={16} />
                             <AppText>888 Main St, Seattle, WA 98006</AppText>
                             <AppSpacing gap={16} />
-                            <AppText color={Colors.primary}>+880 9589876</AppText>
+                            <AppText color={Colors.primary}>
+                                +880 9589876
+                            </AppText>
                             <AppSpacing gap={16} />
                             <AppText>marktvan@gmail.ua</AppText>
                         </View>
@@ -155,7 +166,7 @@ export const MotherDetailsScreen = () => {
                     {isEditing && (
                         <View>
                             <AppText fontWeight={'700'}>
-                Existing questions in the profile
+                                Existing questions in the profile
                             </AppText>
                             <AppSpacing gap={8} />
                         </View>
@@ -165,9 +176,13 @@ export const MotherDetailsScreen = () => {
                         <View>
                             {[1, 2, 3].map((item, index) => {
                                 return (
-                                    <View style={{marginVertical: 8}} key={`q-${index}`}>
+                                    <View
+                                        style={{marginVertical: 8}}
+                                        key={`q-${index}`}>
                                         <QuestionCard
-                                            title={'What is your favorite snack?'}
+                                            title={
+                                                'What is your favorite snack?'
+                                            }
                                             user={'Martha Smith'}
                                             answer={'Chocolate all the way!!'}
                                         />

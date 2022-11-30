@@ -1,3 +1,4 @@
+import React from 'react';
 import {AppCard} from '../../components/AppCard';
 import {StyleSheet, View} from 'react-native';
 import {AppText} from '../../components/AppText';
@@ -30,10 +31,10 @@ export const NotificationCard = () => {
             <View style={[styles.row, {alignItems: 'flex-start'}]}>
                 <View>
                     <TransparentIcon color={'#FDD200'}>
-                        <DocumentIcon color={'#FDD200'}/>
+                        <DocumentIcon color={'#FDD200'} />
                     </TransparentIcon>
                 </View>
-                <AppSpacing gap={16} isHorizontal={true}/>
+                <AppSpacing gap={16} isHorizontal={true} />
                 <View style={{flex: 1}}>
                     <View
                         style={[
@@ -49,7 +50,7 @@ export const NotificationCard = () => {
                             1 Day ago
                         </AppText>
                     </View>
-                    <AppSpacing gap={8}/>
+                    <AppSpacing gap={8} />
                     <AppText color={Colors.grey_2}>
                         Your order has been shipped into your address
                     </AppText>

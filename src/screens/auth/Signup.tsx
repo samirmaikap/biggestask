@@ -4,7 +4,6 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     useWindowDimensions,
     View,

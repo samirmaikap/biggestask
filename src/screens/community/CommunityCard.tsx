@@ -48,25 +48,25 @@ export const CommunityCard = (props: Props) => {
                 </View>
                 <View style={{flex: 1, marginLeft: 16}}>
                     <AppText fontWeight={'600'}>Biggest Ask</AppText>
-                    <AppSpacing gap={8}/>
-                    <AppText color={Colors.grey_3}>Your Surrogacy Community</AppText>
+                    <AppSpacing gap={8} />
+                    <AppText color={Colors.grey_3}>
+                        Your Surrogacy Community
+                    </AppText>
                 </View>
             </View>
-            <Divider style={{backgroundColor: Colors.grey_bg, height: 1}}/>
+            <Divider style={{backgroundColor: Colors.grey_bg, height: 1}} />
             <View style={[styles.row, {alignItems: 'center', padding: 16}]}>
                 <View style={{flex: 1, marginRight: 8}}>
                     <AppCompactButton
                         color={Colors.grey_bg}
                         textColor={Colors.grey_3}
-                        onPress={() => {
-                        }}
+                        onPress={() => {}}
                         name={'Instagram'}
                         outlined={true}
                     />
                 </View>
                 <View style={{flex: 1, marginLeft: 8}}>
-                    <AppCompactButton onPress={() => {
-                    }} name={'To Forum'}/>
+                    <AppCompactButton onPress={() => {}} name={'To Forum'} />
                 </View>
             </View>
         </AppCard>

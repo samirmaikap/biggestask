@@ -248,7 +248,7 @@ export const MilestoneDetailsScreen = () => {
                                 }}
                             />
                             <AppText>
-                                Request a date from a surrogate mother
+                                Request a date from a gestational carrier mother
                             </AppText>
                         </View>
                         <AppSpacing gap={16} />

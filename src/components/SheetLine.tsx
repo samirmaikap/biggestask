@@ -1,3 +1,4 @@
+import React from 'react';
 import {StyleSheet, View} from 'react-native';
 
 const styles = StyleSheet.create({
@@ -17,7 +18,7 @@ const styles = StyleSheet.create({
 export const SheetLine = () => {
     return (
         <View style={styles.container}>
-            <View style={styles.line}/>
+            <View style={styles.line} />
         </View>
     );
 };

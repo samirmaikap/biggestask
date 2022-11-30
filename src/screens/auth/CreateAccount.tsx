@@ -3,7 +3,6 @@ import {
     KeyboardAvoidingView,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     View,
 } from 'react-native';
@@ -14,7 +13,6 @@ import {AppStatusBar} from '../../components/AppStatusBar';
 import {AppSpacing} from '../../components/AppSpacing';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import AppStyles from '../../theme/AppStyles';
-import Screens from '../../navigations/Screens';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 
@@ -93,7 +91,7 @@ export const CreateAccountScreen = () => {
                                         }
                                         onPress={() => setChecked('second')}
                                     />
-                                    <AppText>Surrogate</AppText>
+                                    <AppText>Gestational Carrier</AppText>
                                 </View>
                             </View>
                             <View style={styles.inputGroup}>
