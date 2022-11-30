@@ -8,7 +8,7 @@ type Props = {
 };
 
 export const LocationPin = (props: Props) => {
-  const {color} = props;
+  const {color = 'black'} = props;
   return (
     <Svg width={24} height={25} viewBox="0 0 24 25" fill="none">
       <G clipPath="url(#clip0_77_11420)">

@@ -1,5 +1,4 @@
 import React from 'react';
-import Svg, {ClipPath, Defs, G, Path, Rect} from 'react-native-svg';
 import {Text, View} from 'react-native';
 
 type Props = {

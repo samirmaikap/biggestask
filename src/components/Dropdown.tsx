@@ -1,15 +1,9 @@
 import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import BottomSheet, {
-  BottomSheetBackgroundProps,
-  BottomSheetView,
-} from '@gorhom/bottom-sheet';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
+import BottomSheet, {BottomSheetBackgroundProps, BottomSheetView} from '@gorhom/bottom-sheet';
 import {Portal, useTheme} from 'react-native-paper';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import Animated, {
-  useAnimatedStyle,
-  interpolateColor,
-} from 'react-native-reanimated';
+import Animated, {interpolateColor, useAnimatedStyle} from 'react-native-reanimated';
 
 const styles = StyleSheet.create({
   contentContainer: {

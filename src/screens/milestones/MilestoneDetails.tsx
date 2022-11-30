@@ -24,6 +24,8 @@ import {useRoute} from '@react-navigation/native';
 import {AppBottomSheet} from '../../components/AppBottomSheet';
 import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 import DatePicker from 'react-native-date-picker';
+import {LocationPin} from '../../components/icons/LocationPin';
+import {format} from 'date-fns';
 
 const styles = StyleSheet.create({
   container: {
@@ -108,11 +110,26 @@ export const MilestoneDetailsScreen = () => {
   };
 
   const locations = [
-    'Dummy Location 1, from google, CA',
-    'Extra locaton 1, from search, CA',
-    '11, dummu reado, from google, CA',
-    'Dummy Location 1, from google, CA',
-    'Dummy Location 1, from google, CA',
+    {
+      name: 'Grand Rapids',
+      address: ' 3230 Eagle Park Drive NE, Suite 100',
+    },
+    {
+      name: 'Grand Rapids',
+      address: ' 3230 Eagle Park Drive NE, Suite 100',
+    },
+    {
+      name: 'Grand Rapids',
+      address: ' 3230 Eagle Park Drive NE, Suite 100',
+    },
+    {
+      name: 'Grand Rapids',
+      address: ' 3230 Eagle Park Drive NE, Suite 100',
+    },
+    {
+      name: 'Grand Rapids',
+      address: ' 3230 Eagle Park Drive NE, Suite 100',
+    }
   ];
 
   const renderAutoCompleteSheet = () => {
@@ -187,7 +204,17 @@ export const MilestoneDetailsScreen = () => {
                       <TouchableOpacity
                         onPress={() => setShowSearchResult(false)}
                         style={styles.searchedItem}>
-                        <AppText>{item}</AppText>
+                        <View style={styles.row}>
+                          <View>
+                            <LocationPin />
+                          </View>
+                          <AppSpacing gap={8} isHorizontal={true} />
+                          <View style={{flex: 1}}>
+                            <AppText>{item?.name}</AppText>
+                            <AppSpacing />
+                            <AppText color={Colors.grey_3}>{item?.address}</AppText>
+                          </View>
+                        </View>
                       </TouchableOpacity>
                     );
                   })}

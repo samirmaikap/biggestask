@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Colors} from './colors';
+
 const appStyles = StyleSheet.create({
   textSmall: {
     fontSize: 12,

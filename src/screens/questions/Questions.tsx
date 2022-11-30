@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {ScrollView, StatusBar, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import TabHeader from '../../components/TabHeader';
 import {AppText} from '../../components/AppText';
 import {AppSpacing} from '../../components/AppSpacing';

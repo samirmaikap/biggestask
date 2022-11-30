@@ -53,7 +53,7 @@ const darkTheme = {
   colors: {
     ...DefaultTheme.colors,
     ...colors.dark,
-    background: '#f7f7f7',
+    background: 'white',
   },
 };
 
@@ -62,7 +62,7 @@ const lightTheme = {
   colors: {
     ...DefaultTheme.colors,
     ...colors.light,
-    background: '#f7f7f7',
+    background: 'white',
   },
   fonts: configureFonts({
     config: {

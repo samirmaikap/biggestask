@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
+import React from 'react';
+import {StyleSheet, View} from 'react-native';
 import {TextInput, useTheme} from 'react-native-paper';
 import {AppText} from './AppText';
 import {Colors} from '../theme/colors';

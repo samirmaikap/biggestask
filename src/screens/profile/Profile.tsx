@@ -1,24 +1,12 @@
 import React, {useState} from 'react';
-import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {Alert, ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 import StackHeader from '../../components/StackHeader';
-import {AppCard} from '../../components/AppCard';
 import {AppImage} from '../../components/AppImage';
 import {images} from '../../utils/constants';
 import {PencilIcon} from '../../components/icons/PencilIcon';
 import {AppText} from '../../components/AppText';
 import {AppSpacing} from '../../components/AppSpacing';
 import {Colors} from '../../theme/colors';
-import {SheetLine} from '../../components/SheetLine';
 import {Divider} from 'react-native-paper';
 import {QuestionCard} from '../questions/QuestionCard';
 import {toRgba} from '../../utils/utils';

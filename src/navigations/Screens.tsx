@@ -33,6 +33,7 @@ const Screens: {
   Questions: string;
   Settings: string;
   Help: string;
+  About: string;
   Milestones: string;
   MilestoneDetails: string;
   Privacy: string;
@@ -55,6 +56,7 @@ const Screens: {
   Questions: 'Questions',
   Settings: 'Settings',
   Help: 'Help',
+  About: 'About',
   Milestones: 'Milestones',
   MilestoneDetails: 'MilestoneDetails',
   Privacy: 'Privacy',

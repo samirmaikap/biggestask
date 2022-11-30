@@ -1,16 +1,5 @@
-import {
-  createDrawerNavigator,
-  DrawerContentScrollView,
-  DrawerItem,
-} from '@react-navigation/drawer';
-import {
-  Alert,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  useWindowDimensions,
-  View,
-} from 'react-native';
+import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
+import {Alert, StyleSheet, TouchableOpacity, useWindowDimensions, View} from 'react-native';
 import {AppImage} from '../components/AppImage';
 import {primaryColor} from '../theme/colors';
 import {UsersIcon} from '../components/icons/UsersIcon';

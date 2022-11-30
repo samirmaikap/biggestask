@@ -8,6 +8,7 @@ type Props = {
 };
 
 export const DocumentIcon = (props: Props) => {
+    const {color = 'black'} = props;
   return (
     <Svg
       width={24}
@@ -20,28 +21,28 @@ export const DocumentIcon = (props: Props) => {
           fillRule="evenodd"
           clipRule="evenodd"
           d="M12 21.5214C5.934 21.5214 5 19.2714 5 12.5214C5 5.77136 5.934 3.52136 12 3.52136C18.066 3.52136 19 5.77136 19 12.5214C19 19.2714 18.066 21.5214 12 21.5214Z"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <Path
           d="M14 3.62683V8.52183H18.797"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <Path
           d="M9 12.5214H15"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"
         />
         <Path
           d="M9 15.5214H12"
-          stroke="black"
+          stroke={color}
           strokeWidth={2}
           strokeLinecap="round"
           strokeLinejoin="round"

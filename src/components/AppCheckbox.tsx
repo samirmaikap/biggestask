@@ -1,9 +1,7 @@
-import React, {useState} from 'react';
-import {View, TouchableOpacity} from 'react-native';
+import React from 'react';
+import {TouchableOpacity, View} from 'react-native';
 import CheckBox from '@react-native-community/checkbox';
 import {AppText} from './AppText';
-import App from '../../App';
-import {Colors} from '../theme/colors';
 
 type Props = {
   label: any;

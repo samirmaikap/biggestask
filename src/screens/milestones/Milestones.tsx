@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Image,
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import {ScrollView, StatusBar, StyleSheet, TouchableOpacity, View} from 'react-native';
 import TabHeader from '../../components/TabHeader';
 import {AppText} from '../../components/AppText';
 import {Button} from 'react-native-paper';
@@ -18,7 +10,6 @@ import {AppSpacing} from '../../components/AppSpacing';
 import {AppCard} from '../../components/AppCard';
 import {CalendarIcon} from '../../components/icons/CalendarIcon';
 import {LocationPin} from '../../components/icons/LocationPin';
-import {images} from '../../utils/constants';
 import {SheetLine} from '../../components/SheetLine';
 import {Colors} from '../../theme/colors';
 import Screens from '../../navigations/Screens';
@@ -111,6 +102,7 @@ export const MilestonesScreen = () => {
             <AppSpacing gap={16} />
             <View style={[styles.row, styles.centeredContainer]}>
               <Button
+                onPress={() => navigation.navigate(Screens.MilestoneDetails)}
                 contentStyle={{flexDirection: 'row-reverse'}}
                 mode={'contained'}
                 icon={() => (

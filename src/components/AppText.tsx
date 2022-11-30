@@ -8,35 +8,41 @@ const styles = StyleSheet.create({
     fontFamily: FONT_NAME,
     fontWeight: '800',
     fontSize: 30,
-    // lineHeight: 40,
+    lineHeight: 40,
   },
   h2: {
     fontFamily: FONT_NAME,
     fontWeight: '700',
     fontSize: 22,
-    // lineHeight: 32,
+    lineHeight: 32,
   },
   h3: {
     fontFamily: FONT_NAME,
     fontWeight: '700',
     fontSize: 20,
-    // lineHeight: 28,
+    lineHeight: 28,
   },
   h4: {
     fontFamily: FONT_NAME,
     fontWeight: '700',
     fontSize: 16,
-    // lineHeight: 24,
+    lineHeight: 24,
   },
   body: {
     fontFamily: FONT_NAME,
     fontSize: 16,
-    // lineHeight: 24,
+    lineHeight: 24,
   },
   caption: {
     fontFamily: FONT_NAME,
     fontSize: 12,
-    // lineHeight: 16,
+    lineHeight: 16,
+  },
+  title: {
+    fontFamily: FONT_NAME,
+    fontSize: 14,
+    lineHeight: 16,
+    fontWeight: '700',
   },
   custom: {
     fontFamily: FONT_NAME,
@@ -47,12 +53,13 @@ const defaultColor = 'black';
 
 type Props = {
   children: React.ReactNode;
-  variant?: 'body' | 'h1' | 'h2' | 'h3' | 'h4' | 'custom' | 'caption';
+  variant?: 'body' | 'h1' | 'h2' | 'h3' | 'h4' | 'custom' | 'caption' | 'title';
   textStyle?: 'italic' | 'normal';
   color?: string;
   size?: number;
   fontWeight?: string;
   textAlign?: any;
+  maxLines?: number;
 };
 
 const renderH1 = (props: Props, children: any) => {
@@ -129,9 +136,11 @@ const renderBody = (props: Props, children: any) => {
     textStyle = 'normal',
     textAlign = 'auto',
     fontWeight = 'normal',
+    maxLines = undefined,
   } = props;
   return (
     <Text
+        numberOfLines={maxLines}
       style={[
         styles.body,
         {
@@ -139,7 +148,7 @@ const renderBody = (props: Props, children: any) => {
           color: color,
           fontStyle: textStyle,
           fontWeight: fontWeight as any,
-        },
+        }
       ]}>
       {children}
     </Text>
@@ -156,6 +165,23 @@ const renderCaption = (props: Props, children: any) => {
     <Text
       style={[
         styles.caption,
+        {textAlign: textAlign, color: color, fontStyle: textStyle},
+      ]}>
+      {children}
+    </Text>
+  );
+};
+
+const renderTitle = (props: Props, children: any) => {
+  const {
+    color = defaultColor,
+    textStyle = 'normal',
+    textAlign = 'auto',
+  } = props;
+  return (
+    <Text
+      style={[
+        styles.title,
         {textAlign: textAlign, color: color, fontStyle: textStyle},
       ]}>
       {children}
@@ -203,6 +229,8 @@ export const AppText = (props: Props) => {
       return renderCustom(props, children);
     case 'caption':
       return renderCaption(props, children);
+    case 'title':
+      return renderTitle(props, children);
     default:
       return renderBody(props, children);
   }

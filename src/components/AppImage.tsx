@@ -1,13 +1,12 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {ActivityIndicator} from 'react-native-paper';
-import {Colors} from '../theme/colors';
 
 const styles = StyleSheet.create({
   container: {
     overflow: 'hidden',
     borderRadius: 12,
-    backgroundColor: Colors.grey_bg,
+    backgroundColor: 'transparent',
   },
   image: {
     width: '100%',

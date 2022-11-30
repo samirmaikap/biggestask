@@ -1,28 +1,15 @@
 import React, {useState} from 'react';
 import {Image, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {AppCard} from '../../components/AppCard';
-import {
-  Button,
-  MD3Colors,
-  Surface,
-  Text,
-  TextInput,
-  useTheme,
-} from 'react-native-paper';
-import {useNavigation, DrawerActions} from '@react-navigation/native';
+import {Button, useTheme} from 'react-native-paper';
+import {useNavigation} from '@react-navigation/native';
 import TabHeader from '../../components/TabHeader';
 import {AppText} from '../../components/AppText';
 import {images} from '../../utils/constants';
 import {CalendarIcon} from '../../components/icons/CalendarIcon';
 import {AppSpacing} from '../../components/AppSpacing';
 import AppStyles from '../../theme/AppStyles';
-import {Colors, primaryColor} from '../../theme/colors';
-import {TransparentIcon} from '../../components/TransparentIcon';
-import {MilestonesIcon} from '../../components/icons/MilestonesIcon';
-import {AppBottomSheet} from '../../components/AppBottomSheet';
-import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
-import DropDown from 'react-native-paper-dropdown';
-import DropDownPicker from 'react-native-dropdown-picker';
+import {Colors} from '../../theme/colors';
 import {QuestionCard} from '../questions/QuestionCard';
 import {NewQuestionCard} from '../questions/NewQuestionCard';
 

@@ -1,6 +1,5 @@
 import React from 'react';
-import {View, TouchableOpacity, StyleSheet} from 'react-native';
-import {Text, useTheme} from 'react-native-paper';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import appStyles from '../theme/AppStyles';
