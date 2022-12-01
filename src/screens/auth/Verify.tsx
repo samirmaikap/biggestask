@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Image,
     ImageBackground,
     KeyboardAvoidingView,
     Platform,
@@ -52,6 +53,10 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 12,
         borderTopRightRadius: 12,
     },
+    image: {
+        width: '100%',
+        resizeMode: 'contain',
+    },
 });
 
 export const VerifyScreen = () => {
@@ -61,111 +66,79 @@ export const VerifyScreen = () => {
 
     return (
         <View style={styles.container}>
-            <ImageBackground
-                style={styles.container}
-                source={images.BACKGROUND}>
-                <KeyboardAvoidingView
-                    behavior={Platform.OS === 'ios' ? 'position' : undefined}>
-                    <ScrollView
-                        contentContainerStyle={{flexGrow: 1}}
-                        showsVerticalScrollIndicator={false}>
-                        <View
-                            style={[
-                                styles.innerContainer,
-                                {minHeight: height},
-                            ]}>
-                            <View style={{height: insets.top, width: '100%'}} />
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    width: '100%',
-                                    alignItems: 'flex-end',
-                                    justifyContent: 'flex-end',
-                                    padding: 16,
-                                }}>
-                                <TouchableOpacity
-                                    onPress={() =>
-                                        navigation.navigate(Screens.Login)
-                                    }
-                                    activeOpacity={0.8}>
-                                    <AppText fontWeight={'600'}>Login</AppText>
-                                </TouchableOpacity>
-                            </View>
-                            <View
-                                style={{
-                                    paddingTop: insets.top + 32,
-                                    flexDirection: 'column',
-                                    // justifyContent: 'space-between',
-                                    alignItems: 'center',
-                                }}>
-                                <AppText variant={'h3'}>Verify Code</AppText>
-                                <Logo size={150} />
+            <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'position' : undefined}>
+                <ScrollView
+                    contentContainerStyle={{flexGrow: 1}}
+                    showsVerticalScrollIndicator={false}>
+                    <View style={[styles.innerContainer, {minHeight: height}]}>
+                        <View style={{paddingHorizontal: 16}}>
+                            <Image
+                                style={[
+                                    styles.image,
+                                    {
+                                        height: height * 0.5,
+                                    },
+                                ]}
+                                source={images.VERIFY}
+                            />
+                        </View>
+                        <AppSpacing gap={32} />
+
+                        <View style={styles.lowerContainer}>
+                            {/*<SheetLine />*/}
+                            <AppSpacing gap={16} />
+                            <View>
+                                <AppText textAlign={'center'} variant={'h3'}>
+                                    Verify Your Email
+                                </AppText>
+                                <AppSpacing gap={8} />
                                 <AppText
                                     textAlign={'center'}
-                                    variant={'h1'}
-                                    color={Colors.primary}>
-                                    {'Welcome to\nThe Biggest Ask'}
+                                    color={Colors.grey_3}>
+                                    Enter the code you've received via your
+                                    email
                                 </AppText>
                             </View>
                             <AppSpacing gap={32} />
-                            <View style={{flex: 1}} />
-                            <View style={styles.lowerContainer}>
-                                <SheetLine />
-                                <AppSpacing gap={16} />
-                                <View>
-                                    <AppText
-                                        textAlign={'center'}
-                                        variant={'h3'}>
-                                        Enter Your Code
-                                    </AppText>
-                                    <AppSpacing gap={8} />
-                                    <AppText
-                                        textAlign={'center'}
-                                        color={Colors.grey_3}>
-                                        Enter the code you've received via your
-                                        email
-                                    </AppText>
-                                </View>
-                                <AppSpacing gap={16} />
-                                <View>
-                                    <AppText variant={'title'}>Code</AppText>
-                                    <TextInput
-                                        secureTextEntry={true}
-                                        placeholder="* * * *"
-                                        mode={'outlined'}
-                                        outlineStyle={{
-                                            borderColor: Colors.grey_bg,
-                                        }}
-                                        style={[
-                                            styles.input,
-                                            {
-                                                backgroundColor: Colors.grey_bg,
-                                                borderRadius: 12,
-                                            },
-                                        ]}
-                                        theme={{roundness: 12}}
-                                    />
-                                </View>
-                                <AppSpacing gap={16} />
-                                <View>
-                                    <AppButton
-                                        contentStyle={AppStyles.buttonContent}
-                                        onPress={() =>
-                                            navigation.navigate(
-                                                Screens.AccountSetup,
-                                            )
-                                        }
-                                        style={AppStyles.button}
-                                        mode={'contained'}>
-                                        Continue
-                                    </AppButton>
-                                </View>
-                                <AppSpacing gap={16 + insets.bottom} />
+                            <View>
+                                <AppText variant={'title'}>Code</AppText>
+                                <TextInput
+                                    secureTextEntry={true}
+                                    placeholder="* * * *"
+                                    mode={'outlined'}
+                                    outlineStyle={{
+                                        borderColor: Colors.grey_bg,
+                                    }}
+                                    style={[
+                                        styles.input,
+                                        {
+                                            backgroundColor: Colors.grey_bg,
+                                            borderRadius: 12,
+                                        },
+                                    ]}
+                                    theme={{roundness: 12}}
+                                />
                             </View>
+                            <AppSpacing gap={16} />
+                            <View>
+                                <AppButton
+                                    contentStyle={AppStyles.buttonContent}
+                                    onPress={() =>
+                                        navigation.navigate(
+                                            Screens.AccountSetup,
+                                        )
+                                    }
+                                    style={AppStyles.button}
+                                    mode={'contained'}>
+                                    Continue
+                                </AppButton>
+                            </View>
+                            <AppSpacing gap={16 + insets.bottom} />
                         </View>
-                    </ScrollView>
-                </KeyboardAvoidingView>
-            </ImageBackground>
+                    </View>
+                </ScrollView>
+            </KeyboardAvoidingView>
         </View>
     );
 };

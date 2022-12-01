@@ -14,4 +14,5 @@ export const images = {
     WEB: require('../assets/images/web.png'),
     BACKGROUND: require('../assets/background.png'),
     NAV_BACKGROUND: require('../assets/images/nav-bg.png'),
+    VERIFY: require('../assets/images/1.webp'),
 };
