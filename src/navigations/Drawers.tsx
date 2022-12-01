@@ -101,7 +101,7 @@ export const Drawers = (props: any) => {
                                 <ContactProviderIcon />
                             </View>
                         )}
-                        label="Contact Your Provider"
+                        label="Contact Your Providers"
                         onPress={() =>
                             props.navigation.navigate(Screens.Contacts)
                         }

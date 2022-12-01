@@ -140,7 +140,7 @@ export const MotherDetailsScreen = () => {
                                     01/02/1988{' '}
                                 </AppText>
                                 <AppSpacing isHorizontal={true} />
-                                <AppText>(37 Year)</AppText>
+                                <AppText>(37 Years Old)</AppText>
                             </View>
                             <AppSpacing gap={16} />
                             <Divider

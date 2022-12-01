@@ -140,7 +140,7 @@ export const HomeScreen = () => {
                             variant={'custom'}
                             fontWeight={'800'}
                             size={16}>
-                            Your last questions
+                            Your latest questions
                         </AppText>
                     </View>
                     <NewQuestionCard />

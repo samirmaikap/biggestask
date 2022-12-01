@@ -62,6 +62,12 @@ const slides = [
         text: 'As the journey unfolds, answer important and personal questions about yourself which will then be shared with your surrogacy partner to help establish a meaningful, special bond',
         image: require('../../assets/images/3.webp'),
     },
+    {
+        key: 4,
+        title: 'Join a Community',
+        text: "Either through The Biggest Ask community or through your agency's community, stay connected and ask our members any questions you have about the journey. ",
+        image: require('../../assets/images/4.webp'),
+    },
 ];
 
 export const IntroScreen = () => {

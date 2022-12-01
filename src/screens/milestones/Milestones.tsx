@@ -106,7 +106,7 @@ export const MilestonesScreen = () => {
                 <View style={styles.innerContainer}>
                     <View style={[styles.centeredContainer, {padding: 16}]}>
                         <AppText textAlign={'center'}>
-                            Check back as your gestational carrier updated her
+                            Check back as your gestational carrier updates her
                             appointments along with the surrogacy journey
                         </AppText>
                         <AppSpacing gap={16} />
