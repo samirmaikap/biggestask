@@ -4,7 +4,16 @@ import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
 import com.facebook.react.ReactRootView;
 
+import android.os.Bundle;
+import com.zoontek.rnbootsplash.RNBootSplash;
+
 public class MainActivity extends ReactActivity {
+
+   @Override
+        protected void onCreate(Bundle savedInstanceState) {
+          RNBootSplash.init(this);
+          super.onCreate(savedInstanceState);
+        }
 
   /**
    * Returns the name of the main component registered from JavaScript. This is used to schedule
@@ -44,5 +53,6 @@ public class MainActivity extends ReactActivity {
       // More on this on https://reactjs.org/blog/2022/03/29/react-v18.html
       return BuildConfig.IS_NEW_ARCHITECTURE_ENABLED;
     }
+
   }
 }

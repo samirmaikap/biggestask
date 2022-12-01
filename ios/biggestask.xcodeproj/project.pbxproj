@@ -18,6 +18,7 @@
 		391365F2AAD14BC99088686D /* roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4860372DC8EC4F55BDAF84C2 /* roboto_regular.ttf */; };
 		3D92448AD3B646138EF7BCAD /* f37moon_extra_boldit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3E98229CA44D46E8848F506F /* f37moon_extra_boldit.otf */; };
 		51AF5AE7F3AE4ED8ACCC0FC9 /* moon_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8715781A588D47B9A01DD051 /* moon_regular.ttf */; };
+		5934966429387A8F00193C50 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5934966329387A8E00193C50 /* BootSplash.storyboard */; };
 		597FA8FA2936199C004955F7 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8EA2936199C004955F7 /* Fontisto.ttf */; };
 		597FA8FB2936199C004955F7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8EB2936199C004955F7 /* Octicons.ttf */; };
 		597FA8FC2936199C004955F7 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8EC2936199C004955F7 /* Feather.ttf */; };
@@ -84,6 +85,7 @@
 		4B5B9FD323374238961EED56 /* f37moon_regular.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_regular.otf; path = ../src/assets/fonts/f37moon_regular.otf; sourceTree = "<group>"; };
 		5331571C14AD448AAF7B1120 /* f37moon_regularit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_regularit.otf; path = ../src/assets/fonts/f37moon_regularit.otf; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-biggestask.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask.release.xcconfig"; path = "Target Support Files/Pods-biggestask/Pods-biggestask.release.xcconfig"; sourceTree = "<group>"; };
+		5934966329387A8E00193C50 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = biggestask/BootSplash.storyboard; sourceTree = "<group>"; };
 		597FA8EA2936199C004955F7 /* Fontisto.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Fontisto.ttf; sourceTree = "<group>"; };
 		597FA8EB2936199C004955F7 /* Octicons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Octicons.ttf; sourceTree = "<group>"; };
 		597FA8EC2936199C004955F7 /* Feather.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Feather.ttf; sourceTree = "<group>"; };
@@ -161,6 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
+				5934966329387A8E00193C50 /* BootSplash.storyboard */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
@@ -405,6 +408,7 @@
 				597FA9002936199C004955F7 /* AntDesign.ttf in Resources */,
 				597FA8FC2936199C004955F7 /* Feather.ttf in Resources */,
 				EEDAAA6B192C4F4F9DDF36C7 /* moon_light.ttf in Resources */,
+				5934966429387A8F00193C50 /* BootSplash.storyboard in Resources */,
 				51AF5AE7F3AE4ED8ACCC0FC9 /* moon_regular.ttf in Resources */,
 				597FA8FD2936199C004955F7 /* Entypo.ttf in Resources */,
 				597FA9042936199C004955F7 /* FontAwesome5_Regular.ttf in Resources */,
@@ -649,6 +653,7 @@
 			baseConfigurationReference = 3B4392A12AC88292D35C810B /* Pods-biggestask.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
@@ -675,6 +680,7 @@
 			baseConfigurationReference = 5709B34CF0A7D63546082F79 /* Pods-biggestask.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = biggestask/Info.plist;

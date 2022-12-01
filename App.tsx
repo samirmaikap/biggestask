@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Root from './src/screens/Root';
 import {
     DefaultTheme,
@@ -15,6 +15,7 @@ import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {MD3Type} from 'react-native-paper/lib/typescript/types';
 import {FONT_NAME} from './src/utils/constants';
+import RNBootSplash from 'react-native-bootsplash';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
@@ -73,6 +74,17 @@ const lightTheme = {
 };
 
 export default function App() {
+    useEffect(() => {
+        const init = async () => {
+            // …do multiple sync or async tasks
+        };
+
+        init().finally(async () => {
+            await RNBootSplash.hide({fade: true});
+            console.log('Bootsplash has been hidden successfully');
+        });
+    }, []);
+
     return (
         <GestureHandlerRootView style={{flex: 1}}>
             <PaperProvider theme={lightTheme}>
