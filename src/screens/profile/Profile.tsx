@@ -173,14 +173,24 @@ export const ProfileScreen = () => {
 
                         {!isEditing && (
                             <View style={styles.centeredContainer}>
-                                <AppText variant={'h2'}>Mark Baggins</AppText>
+                                <AppText variant={'h2'}>
+                                    {selectedProfile === 0
+                                        ? 'Mark Baggins'
+                                        : 'Martha Smith'}
+                                </AppText>
                                 <AppSpacing />
                                 <View style={styles.row}>
                                     <AppText color={Colors.grey_3}>
-                                        01/02/1988{' '}
+                                        {selectedProfile === 0
+                                            ? '01/02/1988'
+                                            : '01/02/1990'}
                                     </AppText>
                                     <AppSpacing isHorizontal={true} />
-                                    <AppText>(37 Years Old)</AppText>
+                                    <AppText>
+                                        {selectedProfile === 0
+                                            ? '(37 Years Old)'
+                                            : '(35 Years Old)'}
+                                    </AppText>
                                 </View>
                                 <AppSpacing gap={16} />
                                 <Divider
@@ -196,7 +206,9 @@ export const ProfileScreen = () => {
                                 </AppText>
                                 <AppSpacing gap={16} />
                                 <AppText color={Colors.primary}>
-                                    +880 9589876
+                                    {selectedProfile === 0
+                                        ? '+880 9589876'
+                                        : '+880 9589878'}
                                 </AppText>
                                 <AppSpacing gap={16} />
                                 <AppText>marktvan@gmail.ua</AppText>

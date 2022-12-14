@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     ScrollView,
     StatusBar,
@@ -95,6 +95,45 @@ const milestones = [
 
 export const MilestonesScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const [selectedItem, setSelectedItems] = useState<any>([]);
+    const [selectionVisible, setSelectionVisible] = useState(false);
+
+    useEffect(() => {
+        if (selectedItem.length > 0) {
+            setSelectionVisible(true);
+        } else {
+            setSelectionVisible(false);
+        }
+    }, [selectedItem]);
+
+    const toggleSelectAll = () => {
+        if (milestones.length === selectedItem.length) {
+            setSelectedItems([]);
+        } else {
+            const items = milestones.map((item, index) => index);
+            setSelectedItems([...items]);
+        }
+    };
+
+    const updateSelection = (item: any) => {
+        const updatedItems = selectedItem;
+        if (selectedItem.includes(item)) {
+            const index = updatedItems.indexOf(item);
+            updatedItems.splice(index, 1);
+            setSelectedItems([...updatedItems]);
+        } else {
+            setSelectedItems((prevState: any) => [...prevState, item]);
+        }
+    };
+
+    const removeSelection = (item: number) => {
+        const updatedItems = selectedItem;
+        const index = updatedItems.indexOf(item);
+        updatedItems.splice(index, 1);
+        setSelectedItems([...updatedItems]);
+    };
+
+    console.log('m check', milestones.length, selectedItem.length);
 
     return (
         <View style={styles.container}>
@@ -141,20 +180,68 @@ export const MilestonesScreen = () => {
                     <View style={styles.milestonesContainer}>
                         <SheetLine />
                         <AppSpacing gap={8} />
+                        {selectionVisible && (
+                            <View
+                                style={[
+                                    styles.row,
+                                    {
+                                        justifyContent: 'flex-end',
+                                        marginVertical: 8,
+                                    },
+                                ]}>
+                                <TouchableOpacity
+                                    onPress={() => toggleSelectAll()}
+                                    activeOpacity={0.8}>
+                                    <AppText
+                                        variant={'custom'}
+                                        fontWeight={'700'}
+                                        color={Colors.primary}>
+                                        {milestones.length ===
+                                        selectedItem.length
+                                            ? 'Unselect All'
+                                            : 'Select All'}
+                                    </AppText>
+                                </TouchableOpacity>
+                            </View>
+                        )}
+
                         {milestones.map((item, index) => {
                             return (
                                 <TouchableOpacity
-                                    onPress={() =>
-                                        navigation.navigate(
-                                            Screens.MilestoneDetails,
-                                        )
-                                    }
+                                    onLongPress={() => updateSelection(index)}
+                                    onPress={() => {
+                                        if (selectionVisible) {
+                                            updateSelection(index);
+                                        } else {
+                                            navigation.navigate(
+                                                Screens.MilestoneDetails,
+                                            );
+                                        }
+                                    }}
                                     activeOpacity={0.8}
                                     key={`ca-${index}`}>
-                                    <MilestoneCard item={item} />
+                                    <MilestoneCard
+                                        isSelected={selectedItem.includes(
+                                            index,
+                                        )}
+                                        onRemoveSelection={() =>
+                                            removeSelection(index)
+                                        }
+                                        item={item}
+                                    />
                                 </TouchableOpacity>
                             );
                         })}
+                        {selectionVisible && (
+                            <View>
+                                <AppSpacing gap={8} />
+                                <View>
+                                    <AppButton mode={'contained'}>
+                                        Reset Milestones
+                                    </AppButton>
+                                </View>
+                            </View>
+                        )}
                     </View>
                 </View>
             </ScrollView>

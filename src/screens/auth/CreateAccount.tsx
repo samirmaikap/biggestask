@@ -16,6 +16,7 @@ import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import AppStyles from '../../theme/AppStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
+import Screens from '../../navigations/Screens';
 
 const styles = StyleSheet.create({
     container: {
@@ -210,7 +211,12 @@ export const CreateAccountScreen = () => {
                                     <AppSpacing isHorizontal={true} />
                                     <View style={styles.row}>
                                         <AppText>I Accept </AppText>
-                                        <TouchableOpacity>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    Screens.Terms,
+                                                )
+                                            }>
                                             <AppText
                                                 textUnderline={true}
                                                 variant={'custom'}

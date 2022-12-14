@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {StrictMode, useEffect} from 'react';
 import Root from './src/screens/Root';
 import {
     DefaultTheme,
@@ -16,6 +16,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {MD3Type} from 'react-native-paper/lib/typescript/types';
 import {FONT_NAME} from './src/utils/constants';
 import RNBootSplash from 'react-native-bootsplash';
+import {AppProvider} from './src/contexts/AppContext';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
@@ -89,7 +90,9 @@ export default function App() {
         <GestureHandlerRootView style={{flex: 1}}>
             <PaperProvider theme={lightTheme}>
                 <SafeAreaProvider>
-                    <Root theme={lightTheme} />
+                    <AppProvider>
+                        <Root theme={lightTheme} />
+                    </AppProvider>
                 </SafeAreaProvider>
             </PaperProvider>
         </GestureHandlerRootView>

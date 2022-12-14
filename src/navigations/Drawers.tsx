@@ -64,7 +64,7 @@ export const Drawers = (props: any) => {
                         <AppImage uri={images.MALE} isLocal={true} />
                     </View>
                     <View style={{marginLeft: 16}}>
-                        <AppText variant="h3">John Doe</AppText>
+                        <AppText variant="h3">Mark Baggins</AppText>
                         <AppText color={primaryColor}>Parents</AppText>
                     </View>
                 </View>

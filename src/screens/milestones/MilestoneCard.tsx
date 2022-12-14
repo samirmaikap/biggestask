@@ -31,39 +31,57 @@ const styles = StyleSheet.create({
         flex: 1,
         padding: 16,
     },
+    cardWrapper: {
+        borderWidth: 1,
+        borderRadius: 12,
+        borderColor: 'white',
+        marginVertical: 8,
+    },
 });
 
 type Props = {
     item: any;
+    isSelected: boolean;
+    onRemoveSelection: Function;
 };
 
 export const MilestoneCard = (props: Props) => {
-    const {item} = props;
+    const {item, isSelected, onRemoveSelection} = props;
     return (
-        <AppCard padding={16} marginVertical={8}>
-            <AppText variant={'h4'}>{item?.name}</AppText>
-            <AppSpacing gap={24} />
-            <View
-                style={[
-                    styles.row,
-                    {
-                        justifyContent: 'space-between',
-                        alignItems: 'flex-start',
-                    },
-                ]}>
-                <View style={[styles.row, {flex: 1}]}>
-                    <CalendarIcon color={Colors.grey_3} />
-                    <AppSpacing isHorizontal={true} />
-                    {item?.date && item?.location ? (
-                        <AppText color={Colors.grey_3}>{item?.date}</AppText>
-                    ) : (
-                        <AppText>Not Yet Scheduled</AppText>
-                    )}
+        <View
+            style={[
+                styles.cardWrapper,
+                isSelected
+                    ? {borderColor: Colors.primary}
+                    : {borderColor: 'white'},
+            ]}>
+            <AppCard padding={16}>
+                <AppText variant={'h4'}>{item?.name}</AppText>
+                <AppSpacing gap={24} />
+                <View
+                    style={[
+                        styles.row,
+                        {
+                            justifyContent: 'space-between',
+                            alignItems: 'flex-start',
+                        },
+                    ]}>
+                    <View style={[styles.row, {flex: 1}]}>
+                        <CalendarIcon color={Colors.grey_3} />
+                        <AppSpacing isHorizontal={true} />
+                        {item?.date && item?.location ? (
+                            <AppText color={Colors.grey_3}>
+                                {item?.date}
+                            </AppText>
+                        ) : (
+                            <AppText>Not Yet Scheduled</AppText>
+                        )}
+                    </View>
+                    <View style={[styles.centeredContainer, {marginLeft: 16}]}>
+                        <LocationPin color={Colors.grey_3} />
+                    </View>
                 </View>
-                <View style={[styles.centeredContainer, {marginLeft: 16}]}>
-                    <LocationPin color={Colors.grey_3} />
-                </View>
-            </View>
-        </AppCard>
+            </AppCard>
+        </View>
     );
 };

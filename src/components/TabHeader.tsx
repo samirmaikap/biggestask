@@ -6,6 +6,7 @@ import appStyles from '../theme/AppStyles';
 import {MenuIcon} from './icons/MenuIcon';
 import {AppText} from './AppText';
 import {StackNavigationProp} from '@react-navigation/stack';
+import {setUser} from '../contexts/actions';
 
 const styles = StyleSheet.create({
     row: {
@@ -38,7 +39,7 @@ const TabHeader = (props: Props) => {
     const {title, actions} = props;
 
     const openMenu = () => {
-        navigation.dispatch(DrawerActions.openDrawer());
+        navigation.dispatch(setUser({name: 'Samir M'}));
     };
 
     return (

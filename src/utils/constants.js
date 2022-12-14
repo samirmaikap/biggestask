@@ -15,4 +15,6 @@ export const images = {
     BACKGROUND: require('../assets/background.png'),
     NAV_BACKGROUND: require('../assets/images/nav-bg.png'),
     VERIFY: require('../assets/images/1.webp'),
+    ADD_SURROGATE: require('../assets/images/add-surrogate.webp'),
+    WAITING_SURROGATE: require('../assets/images/waiting-mother.webp'),
 };

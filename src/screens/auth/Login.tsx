@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     ImageBackground,
     KeyboardAvoidingView,
@@ -20,6 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
+import useAuth from '../../hooks/useAuth';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,6 +51,18 @@ export const LoginScreen = () => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [emailError, setEmailError] = useState(false);
+    const [passwordError, setPasswordError] = useState(false);
+    const {login, register} = useAuth();
+
+    const onSubmit = () => {
+        // if (email && password) {
+        // }
+        login();
+        // navigation.navigate('Tabs')
+    };
 
     return (
         <View style={styles.container}>
@@ -98,6 +111,13 @@ export const LoginScreen = () => {
                                 <View>
                                     <AppText variant={'title'}>Email</AppText>
                                     <TextInput
+                                        autoComplete={'email'}
+                                        autoCapitalize={'none'}
+                                        autoCorrect={false}
+                                        value={email}
+                                        error={emailError}
+                                        onBlur={() => setEmailError(!email)}
+                                        onChangeText={value => setEmail(value)}
                                         mode={'outlined'}
                                         outlineStyle={{borderColor: 'white'}}
                                         style={[
@@ -114,6 +134,14 @@ export const LoginScreen = () => {
                                         Password
                                     </AppText>
                                     <TextInput
+                                        value={password}
+                                        onChangeText={value =>
+                                            setPassword(value)
+                                        }
+                                        onBlur={() =>
+                                            setPasswordError(!password)
+                                        }
+                                        error={passwordError}
                                         mode={'outlined'}
                                         secureTextEntry={true}
                                         autoCorrect={false}
@@ -147,9 +175,7 @@ export const LoginScreen = () => {
                                 <View>
                                     <AppButton
                                         contentStyle={AppStyles.buttonContent}
-                                        onPress={() =>
-                                            navigation.navigate('Tabs')
-                                        }
+                                        onPress={onSubmit}
                                         style={AppStyles.button}
                                         mode={'contained'}>
                                         Login
