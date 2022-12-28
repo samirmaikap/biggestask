@@ -17,6 +17,8 @@ import {MD3Type} from 'react-native-paper/lib/typescript/types';
 import {FONT_NAME} from './src/utils/constants';
 import RNBootSplash from 'react-native-bootsplash';
 import {AppProvider} from './src/contexts/AppContext';
+import {ToastProvider} from 'react-native-toast-notifications';
+import {apiInstance} from './src/utils/service';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
@@ -89,11 +91,13 @@ export default function App() {
     return (
         <GestureHandlerRootView style={{flex: 1}}>
             <PaperProvider theme={lightTheme}>
-                <SafeAreaProvider>
-                    <AppProvider>
-                        <Root theme={lightTheme} />
-                    </AppProvider>
-                </SafeAreaProvider>
+                <ToastProvider offsetBottom={40}>
+                    <SafeAreaProvider>
+                        <AppProvider>
+                            <Root theme={lightTheme} />
+                        </AppProvider>
+                    </SafeAreaProvider>
+                </ToastProvider>
             </PaperProvider>
         </GestureHandlerRootView>
     );

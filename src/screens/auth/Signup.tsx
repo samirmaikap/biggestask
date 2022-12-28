@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     ImageBackground,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
     StyleSheet,
+    Text,
     TouchableOpacity,
     useWindowDimensions,
     View,
@@ -22,6 +23,8 @@ import Screens from '../../navigations/Screens';
 import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
+import useAuthQuery from '../../hooks/useAuthQuery';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -58,6 +61,32 @@ export const SignupScreen = () => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const {sendOtp} = useAuthQuery();
+    const toast = useToast();
+
+    const [email, setEmail] = useState('');
+    const [emailError, setEmailError] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleOtpSend = async () => {
+        if (!email) {
+            setEmailError("Email can't be empty");
+            return;
+        }
+
+        setEmailError('');
+        setLoading(true);
+        const response = await sendOtp({email: email});
+        setLoading(false);
+
+        if (response?.error) {
+            toast.show(response?.message);
+            return;
+        }
+
+        toast.show(response?.message);
+        navigation.push(Screens.Verify);
+    };
 
     return (
         <View style={styles.container}>
@@ -130,6 +159,11 @@ export const SignupScreen = () => {
                                 <View>
                                     <AppText variant={'title'}>Email</AppText>
                                     <TextInput
+                                        autoCorrect={false}
+                                        autoComplete="email"
+                                        autoCapitalize={'none'}
+                                        error={!emailError}
+                                        onChangeText={v => setEmail(v)}
                                         mode={'outlined'}
                                         outlineStyle={{
                                             borderColor: Colors.grey_bg,
@@ -144,13 +178,18 @@ export const SignupScreen = () => {
                                         theme={{roundness: 12}}
                                     />
                                 </View>
+                                {emailError && (
+                                    <AppText color={'red'}>
+                                        {emailError}
+                                    </AppText>
+                                )}
                                 <AppSpacing gap={16} />
                                 <View>
                                     <AppButton
+                                        loading={loading}
+                                        disabled={loading}
                                         contentStyle={AppStyles.buttonContent}
-                                        onPress={() =>
-                                            navigation.navigate(Screens.Verify)
-                                        }
+                                        onPress={handleOtpSend}
                                         style={AppStyles.button}
                                         mode={'contained'}>
                                         Verify

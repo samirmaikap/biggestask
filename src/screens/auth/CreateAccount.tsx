@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     KeyboardAvoidingView,
     Platform,
@@ -17,6 +17,7 @@ import AppStyles from '../../theme/AppStyles';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Screens from '../../navigations/Screens';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -47,11 +48,60 @@ const styles = StyleSheet.create({
 });
 
 export const CreateAccountScreen = () => {
-    const [checked, setChecked] = React.useState('first');
     const insets = useSafeAreaInsets();
-    const [gender, setGender] = React.useState('male');
     const [acceptTerms, setAcceptTerms] = React.useState(false);
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const toast = useToast();
+
+    const [formData, setFormData] = useState({
+        type: '',
+        name: '',
+        email: '',
+        gender: 'male',
+        password: '',
+        password_confirmation: '',
+    });
+
+    const [loading, setLoading] = useState(false);
+
+    const handleInputChange = (v: string, field: string) => {
+        setFormData({
+            ...formData,
+            [field]: v,
+        });
+    };
+
+    const handleRegister = () => {
+        if (!formData?.type) {
+            toast.show('Please choose a valid user type');
+            return;
+        }
+
+        if (!formData?.gender) {
+            toast.show('Please choose a valid user gender');
+            return;
+        }
+
+        if (!formData?.email) {
+            toast.show("Email can't be empty");
+            return;
+        }
+
+        if (!formData?.password) {
+            toast.show("Password can't be empty");
+            return;
+        }
+
+        if (!formData?.password_confirmation) {
+            toast.show("Confirm password can't be empty");
+            return;
+        }
+
+        if (formData?.password !== formData?.password_confirmation) {
+            toast.show('Password & Confirm password does not match');
+            return;
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -75,25 +125,32 @@ export const CreateAccountScreen = () => {
                                 <AppSpacing gap={8} />
                                 <View style={styles.row}>
                                     <RadioButton.Android
-                                        value="first"
+                                        value={formData?.type}
                                         status={
-                                            checked === 'first'
+                                            formData?.type === 'parent'
                                                 ? 'checked'
                                                 : 'unchecked'
                                         }
-                                        onPress={() => setChecked('first')}
+                                        onPress={() =>
+                                            handleInputChange('parent', 'type')
+                                        }
                                     />
                                     <AppText>Intended Parent</AppText>
                                 </View>
                                 <View style={styles.row}>
                                     <RadioButton.Android
-                                        value="second"
+                                        value={formData?.type}
                                         status={
-                                            checked === 'second'
+                                            formData?.type === 'surrogate'
                                                 ? 'checked'
                                                 : 'unchecked'
                                         }
-                                        onPress={() => setChecked('second')}
+                                        onPress={() =>
+                                            handleInputChange(
+                                                'surrogate',
+                                                'type',
+                                            )
+                                        }
                                     />
                                     <AppText>Gestational Carrier</AppText>
                                 </View>
@@ -111,11 +168,16 @@ export const CreateAccountScreen = () => {
                                         },
                                     ]}
                                     theme={{roundness: 12}}
+                                    value={formData?.name}
+                                    onChangeText={v =>
+                                        handleInputChange(v, 'name')
+                                    }
                                 />
                             </View>
                             <View style={styles.inputGroup}>
                                 <AppText variant={'title'}>Email</AppText>
                                 <TextInput
+                                    disabled={true}
                                     mode={'outlined'}
                                     outlineStyle={{borderColor: Colors.grey_bg}}
                                     style={[
@@ -126,6 +188,7 @@ export const CreateAccountScreen = () => {
                                         },
                                     ]}
                                     theme={{roundness: 12}}
+                                    value={formData?.email}
                                 />
                             </View>
                             <View style={styles.inputGroup}>
@@ -134,26 +197,36 @@ export const CreateAccountScreen = () => {
                                 <View style={styles.row}>
                                     <View style={styles.row}>
                                         <RadioButton.Android
-                                            value="male"
+                                            value={formData?.gender}
                                             status={
-                                                gender === 'male'
+                                                formData?.gender === 'male'
                                                     ? 'checked'
                                                     : 'unchecked'
                                             }
-                                            onPress={() => setGender('male')}
+                                            onPress={() =>
+                                                handleInputChange(
+                                                    'male',
+                                                    'gender',
+                                                )
+                                            }
                                         />
                                         <AppText>Male</AppText>
                                     </View>
                                     <AppSpacing gap={16} isHorizontal={true} />
                                     <View style={styles.row}>
                                         <RadioButton.Android
-                                            value="female"
+                                            value={formData?.gender}
                                             status={
-                                                gender === 'female'
+                                                formData?.gender === 'female'
                                                     ? 'checked'
                                                     : 'unchecked'
                                             }
-                                            onPress={() => setGender('female')}
+                                            onPress={() =>
+                                                handleInputChange(
+                                                    'female',
+                                                    'gender',
+                                                )
+                                            }
                                         />
                                         <AppText>Female</AppText>
                                     </View>
@@ -173,6 +246,10 @@ export const CreateAccountScreen = () => {
                                         },
                                     ]}
                                     theme={{roundness: 12}}
+                                    value={formData?.password}
+                                    onChangeText={v =>
+                                        handleInputChange(v, 'password')
+                                    }
                                 />
                             </View>
                             <View style={styles.inputGroup}>
@@ -191,6 +268,13 @@ export const CreateAccountScreen = () => {
                                         },
                                     ]}
                                     theme={{roundness: 12}}
+                                    value={formData?.password_confirmation}
+                                    onChangeText={v =>
+                                        handleInputChange(
+                                            v,
+                                            'password_confirmation',
+                                        )
+                                    }
                                 />
                             </View>
                             <View style={styles.inputGroup}>
@@ -229,6 +313,8 @@ export const CreateAccountScreen = () => {
                             </View>
                             <View style={styles.inputGroup}>
                                 <Button
+                                    loading={loading}
+                                    disabled={loading}
                                     contentStyle={AppStyles.buttonContent}
                                     onPress={() => navigation.navigate('Tabs')}
                                     style={AppStyles.button}

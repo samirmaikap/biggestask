@@ -20,7 +20,7 @@ import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
-import useAuth from '../../hooks/useAuth';
+import useAuth from '../../hooks/useAuthQuery';
 
 const styles = StyleSheet.create({
     container: {

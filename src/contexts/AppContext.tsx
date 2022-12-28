@@ -1,12 +1,19 @@
-import React, {createContext, useContext, useEffect, useReducer} from 'react';
+import React, {createContext, useEffect, useReducer} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {apiInstance} from '../utils/service';
 
 type InitialStateType = {
+    loginInfo: any;
+    tempEmail: any;
+    tempEmailVerified: boolean;
     user: any;
 };
 
 const initialState = {
+    loginInfo: {},
     user: {},
+    tempEmail: '',
+    tempEmailVerified: false,
 };
 
 const AppContext = createContext<{
@@ -17,9 +24,32 @@ const AppContext = createContext<{
     dispatch: () => null,
 });
 
+const setLoginParams = (loginInfo: any) => {
+    apiInstance.defaults.params.user_id = loginInfo?.user_id;
+    apiInstance.defaults.params.type = loginInfo?.type;
+    apiInstance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+};
+
+const unsetLoginParams = () => {
+    apiInstance.defaults.params.user_id = '';
+};
+
 function appReducer(prevState: any, action: {type: any; payload: any}) {
     switch (action.type) {
+        case 'SET_LOGIN':
+            setLoginParams(action.payload);
+            return {
+                ...prevState,
+                loginInfo: action.payload,
+            };
+        case 'UNSET_LOGIN':
+            unsetLoginParams();
+            return {
+                ...prevState,
+                loginInfo: action.payload,
+            };
         case 'SET_USER':
+            setLoginParams(action.payload);
             return {
                 ...prevState,
                 user: action.payload,
@@ -28,6 +58,16 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
             return {
                 ...prevState,
                 user: null,
+            };
+        case 'SET_EMAIL':
+            return {
+                ...prevState,
+                tempEmail: action.payload,
+            };
+        case 'SET_EMAIL_VERIFIED':
+            return {
+                ...prevState,
+                tempEmail: action.payload,
             };
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
@@ -45,16 +85,16 @@ const AppProvider = (props: Props) => {
     useEffect(() => {
         (async () => {
             try {
-                const userFromStorage = await AsyncStorage.getItem('user');
-                const user = userFromStorage
+                const userFromStorage = await AsyncStorage.getItem('loginInfo');
+                const loginInfo = userFromStorage
                     ? JSON.parse(userFromStorage)
                     : null;
 
-                if (user) {
-                    initialState.user = user;
+                if (loginInfo) {
+                    initialState.loginInfo = loginInfo;
                     dispatch({
-                        type: 'SET_USER',
-                        payload: user,
+                        type: 'SET_LOGIN',
+                        payload: loginInfo,
                     });
                 }
             } catch (e) {

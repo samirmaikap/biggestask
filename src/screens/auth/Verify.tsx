@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useState} from 'react';
 import {
     Image,
     ImageBackground,
@@ -23,6 +23,9 @@ import Screens from '../../navigations/Screens';
 import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
+import useAuthQuery from '../../hooks/useAuthQuery';
+import {AppContext} from '../../contexts/AppContext';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -62,7 +65,40 @@ const styles = StyleSheet.create({
 export const VerifyScreen = () => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
+    const {state} = useContext(AppContext);
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const toast = useToast();
+    const {verifyOtp} = useAuthQuery();
+
+    const [code, setCode] = useState('');
+    const [loading, setLoading] = useState(false);
+
+    const handleVerify = async () => {
+        if (!state?.tempEmail) {
+            toast.show('Invalid email address');
+            return;
+        }
+
+        if (!code) {
+            toast.show('Please enter a valid otp');
+            return;
+        }
+        setLoading(true);
+
+        const response = await verifyOtp({
+            email: state.tempEmail,
+            otp: code,
+        });
+        setLoading(false);
+
+        if (response?.error) {
+            toast.show(response?.message);
+            return;
+        }
+
+        toast.show('Email verified');
+        navigation.navigate(Screens.AccountSetup);
+    };
 
     return (
         <View style={styles.container}>
@@ -104,6 +140,7 @@ export const VerifyScreen = () => {
                             <View>
                                 <AppText variant={'title'}>Code</AppText>
                                 <TextInput
+                                    onChangeText={v => setCode(v)}
                                     secureTextEntry={true}
                                     placeholder="* * * *"
                                     mode={'outlined'}
@@ -123,12 +160,10 @@ export const VerifyScreen = () => {
                             <AppSpacing gap={16} />
                             <View>
                                 <AppButton
+                                    loading={loading}
+                                    disabled={loading}
                                     contentStyle={AppStyles.buttonContent}
-                                    onPress={() =>
-                                        navigation.navigate(
-                                            Screens.AccountSetup,
-                                        )
-                                    }
+                                    onPress={handleVerify}
                                     style={AppStyles.button}
                                     mode={'contained'}>
                                     Continue
