@@ -1,19 +1,30 @@
 import React, {createContext, useEffect, useReducer} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {apiInstance} from '../utils/service';
+import useAuthQuery from '../hooks/useAuthQuery';
 
 type InitialStateType = {
-    loginInfo: any;
+    authToken: any;
     tempEmail: any;
     tempEmailVerified: boolean;
     user: any;
+    questions: any;
+    milestones: any;
+    communities: any;
+    weeklyUpdate: any;
+    contacts: any;
 };
 
 const initialState = {
-    loginInfo: {},
-    user: {},
-    tempEmail: '',
+    authToken: null,
+    user: null,
+    tempEmail: null,
     tempEmailVerified: false,
+    questions: null,
+    milestones: null,
+    communities: null,
+    weeklyUpdate: null,
+    contacts: null,
 };
 
 const AppContext = createContext<{
@@ -24,40 +35,36 @@ const AppContext = createContext<{
     dispatch: () => null,
 });
 
-const setLoginParams = (loginInfo: any) => {
-    apiInstance.defaults.params.user_id = loginInfo?.user_id;
-    apiInstance.defaults.params.type = loginInfo?.type;
+const setLoginParams = async (token: any) => {
     apiInstance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
+    apiInstance.defaults.headers.common.Authorization = token
+        ? `Bearer ${token}`
+        : null;
 };
 
-const unsetLoginParams = () => {
-    apiInstance.defaults.params.user_id = '';
+const unsetLoginParams = async () => {
+    await AsyncStorage.removeItem('token');
 };
 
 function appReducer(prevState: any, action: {type: any; payload: any}) {
     switch (action.type) {
-        case 'SET_LOGIN':
+        case 'SET_TOKEN':
             setLoginParams(action.payload);
             return {
                 ...prevState,
-                loginInfo: action.payload,
+                authToken: action.payload,
             };
-        case 'UNSET_LOGIN':
+        case 'UNSET_TOKEN':
             unsetLoginParams();
             return {
                 ...prevState,
-                loginInfo: action.payload,
+                authToken: null,
             };
         case 'SET_USER':
-            setLoginParams(action.payload);
+            console.log('set user called', action.payload);
             return {
                 ...prevState,
                 user: action.payload,
-            };
-        case 'UNSET_USER':
-            return {
-                ...prevState,
-                user: null,
             };
         case 'SET_EMAIL':
             return {
@@ -67,7 +74,32 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
         case 'SET_EMAIL_VERIFIED':
             return {
                 ...prevState,
-                tempEmail: action.payload,
+                tempEmailVerified: action.payload,
+            };
+        case 'SET_COMMUNITIES':
+            return {
+                ...prevState,
+                communities: action.payload,
+            };
+        case 'SET_CONTACTS':
+            return {
+                ...prevState,
+                contacts: action.payload,
+            };
+        case 'SET_WEEKLY_UPDATE':
+            return {
+                ...prevState,
+                weeklyUpdate: action.payload,
+            };
+        case 'SET_MILESTONES':
+            return {
+                ...prevState,
+                milestones: action.payload,
+            };
+        case 'SET_QUESTIONS':
+            return {
+                ...prevState,
+                questions: action.payload,
             };
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
@@ -81,27 +113,42 @@ type Props = {
 
 const AppProvider = (props: Props) => {
     const {children} = props;
+    const {getMe} = useAuthQuery();
 
     useEffect(() => {
         (async () => {
-            try {
-                const userFromStorage = await AsyncStorage.getItem('loginInfo');
-                const loginInfo = userFromStorage
-                    ? JSON.parse(userFromStorage)
-                    : null;
+            if (!initialState.authToken) {
+                try {
+                    const tokenFromStorage = await AsyncStorage.getItem(
+                        'token',
+                    );
+                    const authToken = tokenFromStorage
+                        ? JSON.parse(tokenFromStorage)
+                        : null;
 
-                if (loginInfo) {
-                    initialState.loginInfo = loginInfo;
-                    dispatch({
-                        type: 'SET_LOGIN',
-                        payload: loginInfo,
-                    });
+                    if (authToken) {
+                        await setLoginParams(authToken);
+                        const response = await getMe();
+                        if (!response?.error) {
+                            dispatch({
+                                type: 'SET_USER',
+                                payload: response,
+                            });
+                            initialState.user = response;
+                        }
+
+                        initialState.authToken = authToken;
+                        dispatch({
+                            type: 'SET_TOKEN',
+                            payload: authToken,
+                        });
+                    }
+                } catch (e) {
+                    console.warn(e);
                 }
-            } catch (e) {
-                console.warn(e);
             }
         })();
-    }, []);
+    }, [getMe]);
 
     const [state, dispatch] = useReducer(appReducer, initialState);
 

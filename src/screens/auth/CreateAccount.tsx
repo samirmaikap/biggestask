@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     KeyboardAvoidingView,
     Platform,
@@ -18,6 +18,8 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Screens from '../../navigations/Screens';
 import {useToast} from 'react-native-toast-notifications';
+import {AppContext} from '../../contexts/AppContext';
+import useAuthQuery from '../../hooks/useAuthQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -52,11 +54,13 @@ export const CreateAccountScreen = () => {
     const [acceptTerms, setAcceptTerms] = React.useState(false);
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
+    const {state} = useContext(AppContext);
+
+    const {register} = useAuthQuery();
 
     const [formData, setFormData] = useState({
         type: '',
         name: '',
-        email: '',
         gender: 'male',
         password: '',
         password_confirmation: '',
@@ -71,7 +75,12 @@ export const CreateAccountScreen = () => {
         });
     };
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
+        if (!state?.tempEmailVerified) {
+            toast.show('Email not verified');
+            return;
+        }
+
         if (!formData?.type) {
             toast.show('Please choose a valid user type');
             return;
@@ -82,7 +91,7 @@ export const CreateAccountScreen = () => {
             return;
         }
 
-        if (!formData?.email) {
+        if (!state?.tempEmail) {
             toast.show("Email can't be empty");
             return;
         }
@@ -101,6 +110,22 @@ export const CreateAccountScreen = () => {
             toast.show('Password & Confirm password does not match');
             return;
         }
+
+        const payload = {
+            ...formData,
+            email: state.tempEmail,
+        };
+
+        setLoading(true);
+        const response = await register(payload);
+        setLoading(false);
+
+        if (response?.error) {
+            toast.show(response?.message);
+            return;
+        }
+
+        toast.show('Account Created');
     };
 
     return (
@@ -188,7 +213,7 @@ export const CreateAccountScreen = () => {
                                         },
                                     ]}
                                     theme={{roundness: 12}}
-                                    value={formData?.email}
+                                    value={state?.tempEmail}
                                 />
                             </View>
                             <View style={styles.inputGroup}>
@@ -314,9 +339,9 @@ export const CreateAccountScreen = () => {
                             <View style={styles.inputGroup}>
                                 <Button
                                     loading={loading}
-                                    disabled={loading}
+                                    disabled={loading || !acceptTerms}
                                     contentStyle={AppStyles.buttonContent}
-                                    onPress={() => navigation.navigate('Tabs')}
+                                    onPress={handleRegister}
                                     style={AppStyles.button}
                                     mode={'contained'}>
                                     Complete

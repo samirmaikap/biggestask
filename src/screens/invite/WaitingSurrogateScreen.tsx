@@ -1,13 +1,12 @@
-import React from 'react';
-import {Image, ImageBackground, StyleSheet, View} from 'react-native';
-import {AppText} from '../../components/AppText';
-import {Button} from 'react-native-paper';
-import {HeartIcon} from '../../components/icons/HeartIcon';
+import {Image, StyleSheet, View} from 'react-native';
 import {images} from '../../utils/constants';
-import {UnknownIcon} from '../../components/icons/UnknowIcon';
 import {AppSpacing} from '../../components/AppSpacing';
-import AppButton from '../../components/AppButton';
+import {UnknownIcon} from '../../components/icons/UnknowIcon';
+import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';
+import AppButton from '../../components/AppButton';
+import {HeartIcon} from '../../components/icons/HeartIcon';
+import React from 'react';
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -33,7 +32,7 @@ const styles = StyleSheet.create({
     },
 });
 
-export const WaitingSurrogate = () => {
+export const WaitingSurrogateScreen = () => {
     return (
         <View style={styles.container}>
             <Image
@@ -41,7 +40,7 @@ export const WaitingSurrogate = () => {
                 source={images.WAITING_SURROGATE}
             />
             <View style={styles.overlay}>
-                <AppSpacing gap={16} />
+                <AppSpacing gap={80} />
                 <UnknownIcon size={88} />
                 <AppSpacing gap={32} />
                 <View style={{paddingVertical: 16, paddingHorizontal: 32}}>

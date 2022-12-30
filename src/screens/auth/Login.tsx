@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {AppText} from '../../components/AppText';
 import {Logo} from '../../components/icons/Logo';
-import {Button, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {AppSpacing} from '../../components/AppSpacing';
 import AppStyles from '../../theme/AppStyles';
 import {images} from '../../utils/constants';
@@ -21,6 +21,7 @@ import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
 import useAuth from '../../hooks/useAuthQuery';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -51,17 +52,35 @@ export const LoginScreen = () => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation<StackNavigationProp<any>>();
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [loading, setLoading] = useState(false);
+    const [email, setEmail] = useState('maikap.samir@gmail.com');
+    const [password, setPassword] = useState('secret');
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const {login, register} = useAuth();
+    const {login} = useAuth();
+    const toast = useToast();
 
-    const onSubmit = () => {
-        // if (email && password) {
-        // }
-        login();
-        // navigation.navigate('Tabs')
+    const onSubmit = async () => {
+        if (!email) {
+            toast.show('Please enter correct email');
+            return;
+        }
+
+        if (!password) {
+            toast.show("Password can't be empty");
+            return;
+        }
+
+        setLoading(true);
+        const response = await login({
+            email: email,
+            password: password,
+        });
+
+        setLoading(false);
+        if (response?.error) {
+            toast.show(response?.message);
+        }
     };
 
     return (
@@ -174,6 +193,8 @@ export const LoginScreen = () => {
                                 <AppSpacing gap={16} />
                                 <View>
                                     <AppButton
+                                        loading={loading}
+                                        disabled={loading}
                                         contentStyle={AppStyles.buttonContent}
                                         onPress={onSubmit}
                                         style={AppStyles.button}

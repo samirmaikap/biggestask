@@ -39,7 +39,7 @@ const TabHeader = (props: Props) => {
     const {title, actions} = props;
 
     const openMenu = () => {
-        navigation.dispatch(setUser({name: 'Samir M'}));
+        navigation.dispatch(DrawerActions.openDrawer);
     };
 
     return (

@@ -1,23 +1,28 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {
     Image,
-    ImageBackground,
     Keyboard,
     Platform,
+    SafeAreaView,
+    StatusBar,
     StyleSheet,
+    Text,
     View,
 } from 'react-native';
-import {AppText} from '../../components/AppText';
-import {Button} from 'react-native-paper';
-import {HeartIcon} from '../../components/icons/HeartIcon';
-import {images} from '../../utils/constants';
-import {UnknownIcon} from '../../components/icons/UnknowIcon';
-import {AppSpacing} from '../../components/AppSpacing';
-import AppButton from '../../components/AppButton';
+import useInvitationQuery from '../../hooks/useInvitationQuery';
+import {useToast} from 'react-native-toast-notifications';
+import useAuthQuery from '../../hooks/useAuthQuery';
 import {AppBottomSheet} from '../../components/AppBottomSheet';
+import {AppText} from '../../components/AppText';
+import {AppSpacing} from '../../components/AppSpacing';
 import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 import {Colors} from '../../theme/colors';
+import AppButton from '../../components/AppButton';
 import AppStyles from '../../theme/AppStyles';
+import {images} from '../../utils/constants';
+import {UnknownIcon} from '../../components/icons/UnknowIcon';
+import {HeartIcon} from '../../components/icons/HeartIcon';
+import {AppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -49,14 +54,48 @@ const styles = StyleSheet.create({
     },
 });
 
-type Props = {
-    onPressAdd: Function;
-};
-
-export const AddSurrogate = (props: Props) => {
-    const {onPressAdd} = props;
+export const SurrogateInviteScreen = () => {
+    const {state} = useContext(AppContext);
+    const {sendInvitation} = useInvitationQuery();
+    const {getMe, logout} = useAuthQuery();
+    const toast = useToast();
+    const [loading, setLoading] = useState(false);
 
     const [openSheet, setOpenSheet] = useState(false);
+    const [email, setEmail] = useState('');
+
+    const handleInvitePress = async () => {
+        if (!email) {
+            toast.show('Email address is required', {placement: 'top'});
+            return;
+        }
+
+        setLoading(true);
+
+        const response = await sendInvitation({
+            email: email,
+            type: 'surrogate',
+        });
+
+        setLoading(false);
+
+        if (response?.error) {
+            toast.show(response?.message, {placement: 'top'});
+            return;
+        }
+
+        await getMe();
+
+        Keyboard.dismiss();
+        setTimeout(() => {
+            setOpenSheet(false);
+        }, 300);
+        toast.show('Invitation sent', {placement: 'top'});
+    };
+
+    const onLogoutPress = async () => {
+        await logout();
+    };
 
     const renderBottomSheet = () => {
         return (
@@ -64,27 +103,29 @@ export const AddSurrogate = (props: Props) => {
                 isOpen={openSheet}
                 onClose={() => setOpenSheet(false)}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <AppText variant={'h2'}>
-                        Invite Gestational Carrier{' '}
-                    </AppText>
+                    <AppText variant={'h2'}>Invite Gestational Carrier</AppText>
                 </View>
                 <AppSpacing gap={16} />
                 <AppText variant={'title'}>
-                    Gestational Carrier's Phone Number
+                    Gestational Carrier's Email Address
                 </AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
-                    keyboardType={'phone-pad'}
-                    textContentType={'telephoneNumber'}
+                    autoCapitalize={'none'}
+                    autoComplete={'email'}
+                    autoCorrect={false}
+                    keyboardType={'email-address'}
+                    textContentType={'emailAddress'}
                     cursorColor={Colors.primary}
                     style={[styles.sheetInput]}
+                    onChangeText={e => setEmail(e)}
                 />
                 <AppSpacing gap={16} />
                 <AppButton
-                    onPress={() => {
-                        onPressAdd();
-                        Keyboard.dismiss();
-                        setOpenSheet(false);
+                    loading={loading}
+                    disabled={loading}
+                    onPress={async () => {
+                        await handleInvitePress();
                     }}
                     contentStyle={AppStyles.buttonContent}
                     mode={'contained'}
@@ -103,7 +144,7 @@ export const AddSurrogate = (props: Props) => {
                 source={images.ADD_SURROGATE}
             />
             <View style={styles.overlay}>
-                <AppSpacing gap={16} />
+                <AppSpacing gap={70} />
                 <UnknownIcon size={88} />
                 <View style={{paddingVertical: 16, paddingHorizontal: 32}}>
                     <AppText textAlign={'center'} variant={'h2'}>
@@ -120,6 +161,8 @@ export const AddSurrogate = (props: Props) => {
                         Add Gestational Carrier
                     </AppButton>
                 </View>
+                <AppSpacing gap={16} />
+                <AppButton onPress={() => onLogoutPress()}>Logout</AppButton>
                 <AppSpacing gap={32} />
             </View>
             {renderBottomSheet()}

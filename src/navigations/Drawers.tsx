@@ -15,12 +15,16 @@ import {ContactProviderIcon} from '../components/icons/ContactProviderIcons';
 import {SettingsIcon} from '../components/icons/SettingsIcon';
 import {Switch} from 'react-native-paper';
 import {LogoutIcon} from '../components/icons/LogoutIcon';
-import React from 'react';
+import React, {useContext} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {AppText} from '../components/AppText';
 import {FONT_NAME, images} from '../utils/constants';
 import Screens from './Screens';
 import {NotificationsIcon} from '../components/icons/NotificationsIcon';
+import useAuthQuery from '../hooks/useAuthQuery';
+import {DrawerActions, useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import {AppContext} from '../contexts/AppContext';
 
 const styles = StyleSheet.create({
     cardStyle: {
@@ -51,6 +55,8 @@ const styles = StyleSheet.create({
 export const Drawers = (props: any) => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
+    const {logout} = useAuthQuery();
+    const {state} = useContext(AppContext);
 
     return (
         <DrawerContentScrollView
@@ -61,11 +67,13 @@ export const Drawers = (props: any) => {
                 onPress={() => props.navigation.navigate(Screens.Profile)}>
                 <View style={styles.profileContainer}>
                     <View>
-                        <AppImage uri={images.MALE} isLocal={true} />
+                        <AppImage uri={state.user?.avatar} />
                     </View>
                     <View style={{marginLeft: 16}}>
-                        <AppText variant="h3">Mark Baggins</AppText>
-                        <AppText color={primaryColor}>Parents</AppText>
+                        <AppText variant="h3">{state.user?.name}</AppText>
+                        <AppText color={primaryColor}>
+                            {state.user.user_type}
+                        </AppText>
                     </View>
                 </View>
             </TouchableOpacity>
@@ -149,7 +157,10 @@ export const Drawers = (props: any) => {
                         </View>
                     )}
                     label="Logout"
-                    onPress={() => Alert.alert('Logout')}
+                    onPress={async () => {
+                        props.navigation.dispatch(DrawerActions.closeDrawer);
+                        await logout();
+                    }}
                 />
                 <View style={{marginBottom: insets.bottom}} />
             </View>

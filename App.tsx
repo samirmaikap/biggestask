@@ -84,21 +84,20 @@ export default function App() {
 
         init().finally(async () => {
             await RNBootSplash.hide({fade: true});
-            console.log('Bootsplash has been hidden successfully');
         });
     }, []);
 
     return (
-        <GestureHandlerRootView style={{flex: 1}}>
-            <PaperProvider theme={lightTheme}>
-                <ToastProvider offsetBottom={40}>
+        <ToastProvider offsetBottom={40} offsetTop={40}>
+            <GestureHandlerRootView style={{flex: 1}}>
+                <PaperProvider theme={lightTheme}>
                     <SafeAreaProvider>
                         <AppProvider>
                             <Root theme={lightTheme} />
                         </AppProvider>
                     </SafeAreaProvider>
-                </ToastProvider>
-            </PaperProvider>
-        </GestureHandlerRootView>
+                </PaperProvider>
+            </GestureHandlerRootView>
+        </ToastProvider>
     );
 }

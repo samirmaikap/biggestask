@@ -69,6 +69,7 @@ export const VerifyScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
     const {verifyOtp} = useAuthQuery();
+    console.log('state', state);
 
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
