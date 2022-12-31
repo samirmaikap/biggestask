@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import {
     Alert,
+    Keyboard,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
@@ -18,10 +19,23 @@ import {AppSpacing} from '../../components/AppSpacing';
 import {Colors} from '../../theme/colors';
 import {Divider} from 'react-native-paper';
 import {QuestionCard} from '../questions/QuestionCard';
-import {toRgba} from '../../utils/utils';
+import {getImagePayload, toRgba} from '../../utils/utils';
 import {CameraIcon} from '../../components/icons/CameraIcon';
 import {ProfileForm} from './ProfileForm';
 import {useHeaderHeight} from '@react-navigation/elements';
+import DatePicker from 'react-native-date-picker';
+import {useAppContext} from '../../contexts/AppContext';
+import AppButton from '../../components/AppButton';
+import AppStyles from '../../theme/AppStyles';
+import {AppBottomSheet} from '../../components/AppBottomSheet';
+import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
+import {useToast} from 'react-native-toast-notifications';
+import useInvitationQuery from '../../hooks/useInvitationQuery';
+import {useRoute} from '@react-navigation/native';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {format} from 'date-fns';
+import useAttachmentsQuery from '../../hooks/useAttachmentsQuery';
+import useAuthQuery from '../../hooks/useAuthQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -76,25 +90,173 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    sheetInput: {
+        backgroundColor: Colors.grey_bg,
+        paddingVertical: Platform.OS === 'ios' ? 16 : 12,
+        paddingHorizontal: 8,
+        borderRadius: 12,
+    },
 });
 
 export const ProfileScreen = () => {
+    const route = useRoute();
+    // @ts-ignore
+    const {isSpectator} = route.params;
+    const {state} = useAppContext();
+    const isUserParent = state.journey.is_user_parent;
+    const isParent1Self = state.journey.is_parent1_self;
     const [isEditing, setIsEditing] = useState(false);
-    const [selectedProfile, setSelectedProfile] = useState<number>(0);
+    const [selectedProfile, setSelectedProfile] = useState<number>(
+        isUserParent ? (isParent1Self ? 0 : 1) : 0,
+    );
     const headerHeight = useHeaderHeight();
+    const [openSheet, setOpenSheet] = useState(false);
+    const [email, setEmail] = useState('');
+    const toast = useToast();
+    const [loading, setLoading] = useState(false);
+    const {sendInvitation} = useInvitationQuery();
+    const {uploadImage} = useAttachmentsQuery();
+    const {updateMe} = useAuthQuery();
+
+    const profiles = [];
+    if (isSpectator) {
+        if (isUserParent) {
+            profiles.push(state.surrogate);
+        } else {
+            profiles.push(state.parent1);
+            profiles.push(state.parent2);
+        }
+    } else {
+        if (isUserParent) {
+            if (isParent1Self) {
+                profiles.push(state.parent1);
+                profiles.push(state.parent2);
+            } else {
+                profiles.push(state.parent2);
+                profiles.push(state.parent1);
+            }
+        } else {
+            profiles.push(state.surrogate);
+        }
+    }
+
+    const isEditable = state.user?.id === profiles[selectedProfile].id;
+
+    const handleInvitePress = async () => {
+        if (!email) {
+            toast.show('Email address is required', {placement: 'top'});
+            return;
+        }
+
+        setLoading(true);
+
+        const response = await sendInvitation({
+            email: email,
+            type: 'parent',
+        });
+
+        setLoading(false);
+
+        if (response?.error) {
+            toast.show(response?.message, {placement: 'top'});
+            return;
+        }
+
+        Keyboard.dismiss();
+        setTimeout(() => {
+            setOpenSheet(false);
+        }, 300);
+        toast.show('Invitation sent', {placement: 'top'});
+    };
+
+    const onImagePress = async () => {
+        const result = await launchImageLibrary({
+            mediaType: 'photo',
+            maxWidth: 500,
+            maxHeight: 500,
+            quality: 0.5,
+        });
+
+        const image = result?.assets ? result?.assets[0] : {};
+        if (image?.uri) {
+            const formData = new FormData();
+
+            formData.append('attachment', getImagePayload(image?.uri));
+
+            const imageUploadResponse = await uploadImage(formData);
+            if (imageUploadResponse?.error) {
+                toast.show('Unable to upload the image');
+                return;
+            }
+
+            const payload = {
+                image: imageUploadResponse,
+            };
+
+            const response = await updateMe(payload);
+            if (response?.error) {
+                toast.show(response?.message);
+                return;
+            }
+
+            toast.show('Profile Updated');
+        }
+    };
+
+    const renderBottomSheet = () => {
+        return (
+            <AppBottomSheet
+                isOpen={openSheet}
+                onClose={() => setOpenSheet(false)}>
+                <View style={{alignItems: 'center', justifyContent: 'center'}}>
+                    <AppText variant={'h2'}>Invite Partner</AppText>
+                </View>
+                <AppSpacing gap={16} />
+                <AppText variant={'title'}>Partner's Email Address</AppText>
+                <AppSpacing />
+                <BottomSheetTextInput
+                    autoCapitalize={'none'}
+                    autoComplete={'email'}
+                    autoCorrect={false}
+                    keyboardType={'email-address'}
+                    textContentType={'emailAddress'}
+                    cursorColor={Colors.primary}
+                    style={[styles.sheetInput]}
+                    onChangeText={e => setEmail(e)}
+                />
+                <AppSpacing gap={16} />
+                <AppButton
+                    loading={loading}
+                    disabled={loading}
+                    onPress={async () => {
+                        await handleInvitePress();
+                    }}
+                    contentStyle={AppStyles.buttonContent}
+                    mode={'contained'}
+                    style={AppStyles.button}>
+                    Send Invitation
+                </AppButton>
+                <AppSpacing gap={16} />
+            </AppBottomSheet>
+        );
+    };
 
     return (
         <View style={styles.container}>
             <StatusBar />
             <StackHeader
                 title={'Your Account'}
-                actions={[
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={() => setIsEditing(!isEditing)}>
-                        <PencilIcon />
-                    </TouchableOpacity>,
-                ]}
+                actions={
+                    isEditable
+                        ? [
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() => setIsEditing(!isEditing)}>
+                                <PencilIcon />
+                            </TouchableOpacity>,
+                        ]
+                        : []
+                }
             />
             <KeyboardAvoidingView
                 keyboardVerticalOffset={Platform.select({
@@ -113,8 +275,8 @@ export const ProfileScreen = () => {
                                         onPress={() => setSelectedProfile(0)}>
                                         <AppImage
                                             size={100}
-                                            uri={images.MALE}
-                                            isLocal={true}
+                                            uri={profiles[0].avatar}
+                                            isLocal={false}
                                         />
                                         {selectedProfile !== 0 && (
                                             <View style={styles.imageOverlay} />
@@ -123,9 +285,7 @@ export const ProfileScreen = () => {
                                             <TouchableOpacity
                                                 activeOpacity={0.8}
                                                 style={styles.imageButton}
-                                                onPress={() =>
-                                                    Alert.alert('select image')
-                                                }>
+                                                onPress={onImagePress}>
                                                 <CameraIcon color={'white'} />
                                             </TouchableOpacity>
                                         )}
@@ -136,34 +296,47 @@ export const ProfileScreen = () => {
                                         </View>
                                     </TouchableOpacity>
                                 </View>
-                                <View style={{marginLeft: 8}}>
-                                    <TouchableOpacity
-                                        onPress={() => setSelectedProfile(1)}>
-                                        <AppImage
-                                            size={100}
-                                            uri={images.FEMALE}
-                                            isLocal={true}
-                                        />
-                                        {selectedProfile !== 1 && (
-                                            <View style={styles.imageOverlay} />
-                                        )}
-                                        {isEditing && selectedProfile === 1 && (
-                                            <TouchableOpacity
-                                                activeOpacity={0.8}
-                                                style={styles.imageButton}
-                                                onPress={() =>
-                                                    Alert.alert('select image')
-                                                }>
-                                                <CameraIcon color={'white'} />
-                                            </TouchableOpacity>
-                                        )}
-                                        <View style={styles.indicatorContainer}>
-                                            {selectedProfile === 1 && (
-                                                <View style={styles.triangle} />
+                                {profiles.length > 1 && profiles[1] && (
+                                    <View style={{marginLeft: 8}}>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                setSelectedProfile(1)
+                                            }>
+                                            <AppImage
+                                                size={100}
+                                                uri={profiles[1].avatar}
+                                                isLocal={false}
+                                            />
+                                            {selectedProfile !== 1 && (
+                                                <View
+                                                    style={styles.imageOverlay}
+                                                />
                                             )}
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
+                                            {isEditing &&
+                                                selectedProfile === 1 && (
+                                                <TouchableOpacity
+                                                    activeOpacity={0.8}
+                                                    style={
+                                                        styles.imageButton
+                                                    }>
+                                                    <CameraIcon
+                                                        color={'white'}
+                                                    />
+                                                </TouchableOpacity>
+                                            )}
+                                            <View
+                                                style={
+                                                    styles.indicatorContainer
+                                                }>
+                                                {selectedProfile === 1 && (
+                                                    <View
+                                                        style={styles.triangle}
+                                                    />
+                                                )}
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                )}
                             </View>
                         </View>
 
@@ -174,22 +347,22 @@ export const ProfileScreen = () => {
                         {!isEditing && (
                             <View style={styles.centeredContainer}>
                                 <AppText variant={'h2'}>
-                                    {selectedProfile === 0
-                                        ? 'Mark Baggins'
-                                        : 'Martha Smith'}
+                                    {profiles[selectedProfile].name}
                                 </AppText>
                                 <AppSpacing />
                                 <View style={styles.row}>
                                     <AppText color={Colors.grey_3}>
-                                        {selectedProfile === 0
-                                            ? '01/02/1988'
-                                            : '01/02/1990'}
+                                        {profiles[selectedProfile].dob
+                                            ? profiles[selectedProfile].dob
+                                            : 'NA'}
                                     </AppText>
                                     <AppSpacing isHorizontal={true} />
                                     <AppText>
-                                        {selectedProfile === 0
-                                            ? '(37 Years Old)'
-                                            : '(35 Years Old)'}
+                                        (
+                                        {profiles[selectedProfile].age
+                                            ? profiles[selectedProfile].age
+                                            : 'NA'}
+                                        )
                                     </AppText>
                                 </View>
                                 <AppSpacing gap={16} />
@@ -202,21 +375,37 @@ export const ProfileScreen = () => {
                                 />
                                 <AppSpacing gap={16} />
                                 <AppText>
-                                    888 Main St, Seattle, WA 98006
+                                    {profiles[selectedProfile]?.address}
                                 </AppText>
                                 <AppSpacing gap={16} />
                                 <AppText color={Colors.primary}>
-                                    {selectedProfile === 0
-                                        ? '+880 9589876'
-                                        : '+880 9589878'}
+                                    {profiles[selectedProfile]?.phone}
                                 </AppText>
                                 <AppSpacing gap={16} />
-                                <AppText>marktvan@gmail.ua</AppText>
+                                <AppText>
+                                    {profiles[selectedProfile]?.email}
+                                </AppText>
                             </View>
                         )}
 
                         <AppSpacing gap={16} />
 
+                        {!isSpectator && isUserParent && !state.parent2 && (
+                            <View>
+                                <AppText>
+                                    Please ask your partner to join the app
+                                </AppText>
+                                <AppSpacing gap={16} />
+                                <AppButton
+                                    onPress={() => setOpenSheet(true)}
+                                    contentStyle={AppStyles.buttonContent}
+                                    style={AppStyles.button}
+                                    mode={'contained'}>
+                                    Invite Partner
+                                </AppButton>
+                                <AppSpacing gap={16} />
+                            </View>
+                        )}
                         {isEditing && (
                             <View>
                                 <AppText fontWeight={'700'}>
@@ -250,6 +439,7 @@ export const ProfileScreen = () => {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
+            {renderBottomSheet()}
         </View>
     );
 };

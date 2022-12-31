@@ -18,8 +18,35 @@ const useJourneyQuery = () => {
         return response;
     };
 
+    const getJourney = async () => {
+        const response = await request.get('/journey');
+        console.log('journey response', response);
+        if (!response?.error) {
+            dispatch({
+                type: 'SET_JOURNEY',
+                payload: response,
+            });
+
+            dispatch({
+                type: 'SET_PARENT_1',
+                payload: response.parent_1,
+            });
+
+            dispatch({
+                type: 'SET_PARENT_2',
+                payload: response.parent_2,
+            });
+
+            dispatch({
+                type: 'SET_SURROGATE',
+                payload: response.surrogate,
+            });
+        }
+    };
+
     return {
         getWeeklyUpdate,
+        getJourney,
     };
 };
 

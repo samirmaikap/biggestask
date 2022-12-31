@@ -80,7 +80,7 @@ export const PostsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {state?.communities.length > 0 ? (
+                    {state?.communities && state.communities.length > 0 ? (
                         state.communities.map(function (item: any, index: any) {
                             return (
                                 <View

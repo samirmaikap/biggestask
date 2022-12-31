@@ -64,7 +64,11 @@ export const Drawers = (props: any) => {
             {...props}>
             <TouchableOpacity
                 activeOpacity={0.8}
-                onPress={() => props.navigation.navigate(Screens.Profile)}>
+                onPress={() =>
+                    props.navigation.navigate(Screens.Profile, {
+                        isSpectator: false,
+                    })
+                }>
                 <View style={styles.profileContainer}>
                     <View>
                         <AppImage uri={state.user?.avatar} />
@@ -88,7 +92,9 @@ export const Drawers = (props: any) => {
                         )}
                         label="Your Gestational Carrier"
                         onPress={() =>
-                            props.navigation.navigate(Screens.MotherDetails)
+                            props.navigation.navigate(Screens.Profile, {
+                                isSpectator: true,
+                            })
                         }
                     />
                     <DrawerItem

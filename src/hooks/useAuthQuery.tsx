@@ -20,6 +20,17 @@ function useAuthQuery() {
         return response;
     };
 
+    const updateMe = async (payload: any) => {
+        const response = await request.put('/me', payload);
+        if (!response?.error) {
+            dispatch({
+                type: 'SET_USER',
+                payload: response,
+            });
+        }
+        return response;
+    };
+
     const login = async (payload: any) => {
         const response = await request.post('/login', payload);
         if (!response?.error) {
@@ -105,6 +116,7 @@ function useAuthQuery() {
         sendOtp,
         getMe,
         logout,
+        updateMe,
     };
 }
 

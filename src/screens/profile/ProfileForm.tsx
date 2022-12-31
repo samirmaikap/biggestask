@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Colors} from '../../theme/colors';
 import {Button, RadioButton, TextInput} from 'react-native-paper';
 import {AppText} from '../../components/AppText';
@@ -12,6 +12,11 @@ import AppStyles from '../../theme/AppStyles';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {AppSpacing} from '../../components/AppSpacing';
 import AppButton from '../../components/AppButton';
+import DatePicker from 'react-native-date-picker';
+import {format} from 'date-fns';
+import {useAppContext} from '../../contexts/AppContext';
+import useAuthQuery from '../../hooks/useAuthQuery';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -27,13 +32,38 @@ const styles = StyleSheet.create({
     },
 });
 export const ProfileForm = () => {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        {label: 'Male', value: '1'},
-        {label: 'Female', value: '2'},
-    ]);
-    const [gender, setGender] = useState('male');
+    const {state} = useAppContext();
+    const {updateMe} = useAuthQuery();
+    const toast = useToast();
+    const [gender, setGender] = useState(
+        state.user?.gender ? state.user?.gender : 'male',
+    );
+    const [openDatepicker, setOpenDatepicker] = useState(false);
+    const [date, setDate] = useState(new Date());
+    const [name, setName] = useState(state.user?.name);
+    const [address, setAddress] = useState(state.user?.address);
+    const [phone, setPhone] = useState(state.user?.phone);
+    const [loading, setLoading] = useState(false);
+
+    const handleProfileUpdate = async () => {
+        const payload = {
+            name: name,
+            address: address,
+            phone: phone,
+            dob: date ? format(new Date(date), 'yyyy-MM-dd') : '',
+            gender: gender,
+        };
+
+        setLoading(true);
+        const response = await updateMe(payload);
+        setLoading(false);
+        if (response?.error) {
+            toast.show(response?.message);
+            return;
+        }
+
+        toast.show('Profile Updated');
+    };
 
     return (
         <View>
@@ -49,6 +79,8 @@ export const ProfileForm = () => {
                     outlineStyle={{borderColor: Colors.grey_bg}}
                     style={[styles.input, {backgroundColor: Colors.grey_bg}]}
                     theme={{roundness: 12}}
+                    value={name}
+                    onChangeText={e => setName(e)}
                 />
             </View>
             <View style={styles.inputGroup}>
@@ -88,11 +120,15 @@ export const ProfileForm = () => {
                     outlineStyle={{borderColor: Colors.grey_bg}}
                     style={[styles.input, {backgroundColor: Colors.grey_bg}]}
                     theme={{roundness: 12}}
+                    value={phone}
+                    onChangeText={e => setPhone(e)}
                 />
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Email</AppText>
                 <TextInput
+                    disabled
+                    value={state.user?.email}
                     mode={'outlined'}
                     right={
                         <TextInput.Icon
@@ -116,30 +152,62 @@ export const ProfileForm = () => {
                     outlineStyle={{borderColor: Colors.grey_bg}}
                     style={[styles.input, {backgroundColor: Colors.grey_bg}]}
                     theme={{roundness: 12}}
+                    value={address}
+                    onChangeText={e => setAddress(e)}
                 />
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Your date of birth</AppText>
-                <TextInput
-                    mode={'outlined'}
-                    right={
-                        <TextInput.Icon
-                            icon={() => <CalendarIcon color={Colors.grey_3} />}
-                        />
-                    }
-                    outlineStyle={{borderColor: Colors.grey_bg}}
-                    style={[styles.input, {backgroundColor: Colors.grey_bg}]}
-                    theme={{roundness: 12}}
-                />
+                <TouchableOpacity onPress={() => setOpenDatepicker(true)}>
+                    <View
+                        style={[
+                            AppStyles.textInput,
+                            {
+                                paddingVertical: 16,
+                                height: 50,
+                                paddingHorizontal: 8,
+                            },
+                        ]}>
+                        <AppText>
+                            {format(new Date(date), 'yyyy-MM-dd')}
+                        </AppText>
+                    </View>
+                </TouchableOpacity>
+                {/*<TextInput*/}
+                {/*    mode={'outlined'}*/}
+                {/*    right={*/}
+                {/*        <TextInput.Icon*/}
+                {/*            icon={() => <CalendarIcon color={Colors.grey_3} />}*/}
+                {/*        />*/}
+                {/*    }*/}
+                {/*    outlineStyle={{borderColor: Colors.grey_bg}}*/}
+                {/*    style={[styles.input, {backgroundColor: Colors.grey_bg}]}*/}
+                {/*    theme={{roundness: 12}}*/}
+                {/*/>*/}
             </View>
             <View style={styles.inputGroup}>
                 <AppButton
+                    disabled={loading}
+                    loading={loading}
+                    onPress={handleProfileUpdate}
                     contentStyle={AppStyles.buttonContent}
                     style={AppStyles.button}
                     mode={'contained'}>
                     Save Editing
                 </AppButton>
             </View>
+            <DatePicker
+                modal
+                open={openDatepicker}
+                date={date}
+                onConfirm={(d: any) => {
+                    setOpenDatepicker(false);
+                    setDate(d);
+                }}
+                onCancel={() => {
+                    setOpenDatepicker(false);
+                }}
+            />
         </View>
     );
 };

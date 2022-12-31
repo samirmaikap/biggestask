@@ -110,29 +110,33 @@ export const MilestonesScreen = () => {
                             appointments along with the surrogacy journey
                         </AppText>
                         <AppSpacing gap={16} />
-                        <View style={[styles.row, styles.centeredContainer]}>
-                            <AppButton
-                                onPress={() =>
-                                    navigation.navigate(
-                                        Screens.MilestoneDetails,
-                                    )
-                                }
-                                contentStyle={[
-                                    AppStyles.buttonContent,
-                                    {flexDirection: 'row-reverse'},
-                                ]}
-                                mode={'contained'}
-                                icon={() => (
-                                    <TransparentIcon
-                                        size={20}
-                                        color={'#ffffff'}>
-                                        <PlusIcon color={'white'} />
-                                    </TransparentIcon>
-                                )}
-                                style={AppStyles.button}>
-                                Add New Milestone
-                            </AppButton>
-                        </View>
+                        {state.user.id === state.surrogate?.id && (
+                            <View
+                                style={[styles.row, styles.centeredContainer]}>
+                                <AppButton
+                                    onPress={() =>
+                                        navigation.navigate(
+                                            Screens.MilestoneDetails,
+                                        )
+                                    }
+                                    contentStyle={[
+                                        AppStyles.buttonContent,
+                                        {flexDirection: 'row-reverse'},
+                                    ]}
+                                    mode={'contained'}
+                                    icon={() => (
+                                        <TransparentIcon
+                                            size={20}
+                                            color={'#ffffff'}>
+                                            <PlusIcon color={'white'} />
+                                        </TransparentIcon>
+                                    )}
+                                    style={AppStyles.button}>
+                                    Add New Milestone
+                                </AppButton>
+                            </View>
+                        )}
+
                         <AppSpacing gap={8} />
                     </View>
 
@@ -176,6 +180,7 @@ export const MilestonesScreen = () => {
                                         } else {
                                             navigation.navigate(
                                                 Screens.MilestoneDetails,
+                                                {activeMilestoneId: item?.id},
                                             );
                                         }
                                     }}

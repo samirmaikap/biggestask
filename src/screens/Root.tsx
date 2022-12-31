@@ -39,7 +39,7 @@ const Root = (props: Props) => {
     const {state, dispatch} = useAppContext();
     const {getMe} = useAuthQuery();
     const [isLoading, setLoading] = useState(true);
-    const {getWeeklyUpdate} = useJourneyQuery();
+    const {getWeeklyUpdate, getJourney} = useJourneyQuery();
     const {getMilestones} = useMilestoneQuery();
     const {getQuestions} = useQuestionQuery();
     const {getCommunities} = useCommunityQuery();
@@ -62,6 +62,7 @@ const Root = (props: Props) => {
     }, [state.authToken]);
 
     const preloadData = () => {
+        getJourney();
         getWeeklyUpdate();
         getMilestones();
         getQuestions();

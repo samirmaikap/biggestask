@@ -13,6 +13,10 @@ type InitialStateType = {
     communities: any;
     weeklyUpdate: any;
     contacts: any;
+    journey: any;
+    parent1: any;
+    parent2: any;
+    surrogate: any;
 };
 
 const initialState = {
@@ -26,6 +30,10 @@ const initialState = {
     communities: null,
     weeklyUpdate: null,
     contacts: null,
+    journey: null,
+    parent1: null,
+    parent2: null,
+    surrogate: null,
 };
 
 const AppContext = createContext<{
@@ -71,6 +79,26 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
             return {
                 ...prevState,
                 user: action.payload,
+            };
+        case 'SET_JOURNEY':
+            return {
+                ...prevState,
+                journey: action.payload,
+            };
+        case 'SET_PARENT_1':
+            return {
+                ...prevState,
+                parent1: action.payload,
+            };
+        case 'SET_PARENT_2':
+            return {
+                ...prevState,
+                parent2: action.payload,
+            };
+        case 'SET_SURROGATE':
+            return {
+                ...prevState,
+                surrogate: action.payload,
             };
         case 'SET_EMAIL':
             return {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Animated,
     Image,
@@ -27,6 +27,8 @@ import {LocationPin} from '../../components/icons/LocationPin';
 import {format} from 'date-fns';
 import AppButton from '../../components/AppButton';
 import App from '../../../App';
+import {useRoute} from '@react-navigation/native';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -94,10 +96,14 @@ const styles = StyleSheet.create({
 });
 
 export const MilestoneDetailsScreen = () => {
+    const route = useRoute();
+    const {activeMilestoneId} = route.params;
     const [note, setNote] = useState();
     const [checked, setChecked] = useState(false);
     const [openDatepicker, setOpenDatepicker] = useState(false);
     const [date, setDate] = useState(new Date());
+    const {state} = useAppContext();
+    const [activeMilestone, setActiveMilestone] = useState({});
     // const {data, setData} = useState({
     //     title: '',
     //     date: '',
@@ -113,6 +119,15 @@ export const MilestoneDetailsScreen = () => {
     //     //   field: value,
     //     // }));
     // };
+
+    useEffect(() => {
+        if (activeMilestoneId) {
+            const m = state.milestones.find(
+                (item: {id: any}) => item.id === activeMilestoneId,
+            );
+            setActiveMilestone(m);
+        }
+    }, [activeMilestoneId]);
 
     const locations = [
         {
@@ -147,7 +162,9 @@ export const MilestoneDetailsScreen = () => {
                             <AppSpacing isHorizontal={true} />
                             <View>
                                 <AppText color={Colors.grey_2}>
-                                    09/22/2021 at 9:30AM
+                                    {activeMilestone?.date_time
+                                        ? activeMilestone?.date_time
+                                        : 'Not yet scheduled'}
                                 </AppText>
                                 <AppText
                                     variant={'caption'}
@@ -305,7 +322,7 @@ export const MilestoneDetailsScreen = () => {
                             <View
                                 style={{flex: 1, marginLeft: 8, marginTop: -4}}>
                                 <AppText fontWeight={'bold'}>
-                                    Fertility Clinic Graduation/ultrasound
+                                    {activeMilestone?.name}
                                 </AppText>
                                 <AppSpacing gap={8} />
                                 {renderEditableInformation()}
