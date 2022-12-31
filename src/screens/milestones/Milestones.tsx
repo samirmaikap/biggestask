@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
     ScrollView,
     StatusBar,
@@ -23,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import {MilestoneCard} from './MilestoneCard';
 import AppButton from '../../components/AppButton';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,53 +51,11 @@ const styles = StyleSheet.create({
     },
 });
 
-const milestones = [
-    {
-        name: 'Medical Clearance Exam',
-        date: 'Jul 8, 2022 at 3:00pm',
-        location: "Fisherman's Bay, SF",
-    },
-    {
-        name: 'Embryo Transfer Day',
-        date: 'Jul 8, 2022 at 3:00pm',
-        location: "Fisherman's Bay, SF",
-    },
-    {
-        name: 'Beta Test #1',
-        date: 'Jul 8, 2022 at 3:00pm',
-        location: "Fisherman's Bay, SF",
-    },
-    {
-        name: 'Beta Test #2',
-        date: 'Jul 8, 2022 at 3:00pm',
-        location: "Fisherman's Bay, SF",
-    },
-    {
-        name: 'Heartbeat Confirmation',
-        date: '',
-        location: '',
-    },
-    {
-        name: 'Medical Clearance Exam',
-        date: '',
-        location: '',
-    },
-    {
-        name: 'Anatomy Scan',
-        date: '',
-        location: '',
-    },
-    {
-        name: 'Medical Clearance Exam',
-        date: '',
-        location: '',
-    },
-];
-
 export const MilestonesScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const [selectedItem, setSelectedItems] = useState<any>([]);
     const [selectionVisible, setSelectionVisible] = useState(false);
+    const {state, dispatch} = useAppContext();
 
     useEffect(() => {
         if (selectedItem.length > 0) {
@@ -107,10 +66,12 @@ export const MilestonesScreen = () => {
     }, [selectedItem]);
 
     const toggleSelectAll = () => {
-        if (milestones.length === selectedItem.length) {
+        if (state.milestones.length === selectedItem.length) {
             setSelectedItems([]);
         } else {
-            const items = milestones.map((item, index) => index);
+            const items = state.milestones.map(
+                (item: any, index: any) => index,
+            );
             setSelectedItems([...items]);
         }
     };
@@ -133,7 +94,7 @@ export const MilestonesScreen = () => {
         setSelectedItems([...updatedItems]);
     };
 
-    console.log('m check', milestones.length, selectedItem.length);
+    console.log('m check', state.milestones.length, selectedItem.length);
 
     return (
         <View style={styles.container}>
@@ -196,7 +157,7 @@ export const MilestonesScreen = () => {
                                         variant={'custom'}
                                         fontWeight={'700'}
                                         color={Colors.primary}>
-                                        {milestones.length ===
+                                        {state.milestones.length ===
                                         selectedItem.length
                                             ? 'Unselect All'
                                             : 'Select All'}
@@ -205,7 +166,7 @@ export const MilestonesScreen = () => {
                             </View>
                         )}
 
-                        {milestones.map((item, index) => {
+                        {state.milestones.map((item: any, index: number) => {
                             return (
                                 <TouchableOpacity
                                     onLongPress={() => updateSelection(index)}

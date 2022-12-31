@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
     buttonCircle: {
@@ -118,6 +119,11 @@ export const IntroScreen = () => {
 
     const _keyExtractor = (item: any) => item.key;
 
+    const handleDonePress = async () => {
+        await AsyncStorage.setItem('skip_intro', JSON.stringify(true));
+        navigation.navigate(Screens.Login);
+    };
+
     return (
         <View style={styles.container}>
             <AppStatusBar />
@@ -140,7 +146,7 @@ export const IntroScreen = () => {
                     borderRadius: 8,
                     backgroundColor: Colors.secondary,
                 }}
-                onDone={() => navigation.navigate(Screens.Login)}
+                onDone={() => handleDonePress()}
             />
         </View>
     );

@@ -24,7 +24,7 @@ import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
 import useAuthQuery from '../../hooks/useAuthQuery';
-import {AppContext} from '../../contexts/AppContext';
+import {useAppContext} from '../../contexts/AppContext';
 import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
@@ -65,11 +65,10 @@ const styles = StyleSheet.create({
 export const VerifyScreen = () => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
-    const {state} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
     const {verifyOtp} = useAuthQuery();
-    console.log('state', state);
 
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);

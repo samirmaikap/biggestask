@@ -18,7 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
 import Screens from '../../navigations/Screens';
 import {useToast} from 'react-native-toast-notifications';
-import {AppContext} from '../../contexts/AppContext';
+import {useAppContext} from '../../contexts/AppContext';
 import useAuthQuery from '../../hooks/useAuthQuery';
 
 const styles = StyleSheet.create({
@@ -54,7 +54,7 @@ export const CreateAccountScreen = () => {
     const [acceptTerms, setAcceptTerms] = React.useState(false);
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
-    const {state} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
 
     const {register} = useAuthQuery();
 

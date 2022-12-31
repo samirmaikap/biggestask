@@ -1,6 +1,7 @@
-import React, {createContext, useContext, useEffect, useReducer} from 'react';
+import React, {createContext, useEffect, useReducer} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {apiInstance} from '../utils/service';
+import useAuthQuery from '../hooks/useAuthQuery';
 
 type InitialStateType = {
     isFirstLoad: boolean;
@@ -33,10 +34,11 @@ const AppContext = createContext<{
     dispatch: React.Dispatch<any>;
 }>({
     state: initialState,
-    dispatch: () => {},
+    dispatch: () => null,
 });
 
 const setLoginParams = async (token: any) => {
+    console.log('set token called');
     apiInstance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
     apiInstance.defaults.headers.common.Authorization = token
         ? `Bearer ${token}`
@@ -44,6 +46,7 @@ const setLoginParams = async (token: any) => {
 };
 
 const unsetLoginParams = async () => {
+    console.log('remove token');
     await AsyncStorage.removeItem('token');
 };
 
@@ -82,7 +85,7 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 ...prevState,
                 tempEmailVerified: action.payload,
             };
-        case 'setCommunities':
+        case 'SET_COMMUNITIES':
             console.log('update....communties', action.payload);
             return {
                 ...prevState,
@@ -108,8 +111,9 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 ...prevState,
                 questions: action.payload,
             };
-        default:
-            return prevState;
+        default: {
+            throw new Error(`Unhandled action type: ${action.type}`);
+        }
     }
 }
 
@@ -117,13 +121,13 @@ type Props = {
     children: React.ReactNode;
 };
 
-export const AppProvider = (props: Props) => {
+const AppProvider = (props: Props) => {
     const {children} = props;
 
     useEffect(() => {
         (async () => {
             try {
-                const tokenFromStorage = await AsyncStorage.getItem('apiToken');
+                const tokenFromStorage = await AsyncStorage.getItem('token');
                 const authToken = tokenFromStorage
                     ? JSON.parse(tokenFromStorage)
                     : null;
@@ -149,5 +153,4 @@ export const AppProvider = (props: Props) => {
     );
 };
 
-export const useAppContext = () => useContext(AppContext);
-export default AppContext;
+export {AppContext, AppProvider};

@@ -1,13 +1,14 @@
 import useRequest from './useRequest';
 import {useContext} from 'react';
-import {AppContext} from '../contexts/AppContext';
+import {useAppContext} from '../contexts/AppContext';
 
 const useMilestoneQuery = () => {
     const request = useRequest();
-    const {dispatch} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
 
-    const getMilestone = async () => {
+    const getMilestones = async () => {
         const response = await request.get('/milestones');
+        console.log('getMilestones', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_MILESTONES',
@@ -20,7 +21,7 @@ const useMilestoneQuery = () => {
     const createMilestone = async (payload: any) => {
         const response = await request.post('/milestones', payload);
         if (!response?.error) {
-            await getMilestone();
+            await getMilestones();
         }
 
         return response;
@@ -32,7 +33,7 @@ const useMilestoneQuery = () => {
             payload,
         );
         if (!response?.error) {
-            await getMilestone();
+            await getMilestones();
         }
 
         return response;
@@ -41,14 +42,14 @@ const useMilestoneQuery = () => {
     const deleteMilestone = async (milestoneId: number) => {
         const response = await request.remove(`/milestones/${milestoneId}`);
         if (!response?.error) {
-            await getMilestone();
+            await getMilestones();
         }
 
         return response;
     };
 
     return {
-        getMilestone,
+        getMilestones,
         createMilestone,
         updateMilestone,
         deleteMilestone,

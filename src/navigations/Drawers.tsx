@@ -24,7 +24,7 @@ import {NotificationsIcon} from '../components/icons/NotificationsIcon';
 import useAuthQuery from '../hooks/useAuthQuery';
 import {DrawerActions, useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {AppContext} from '../contexts/AppContext';
+import {useAppContext} from '../contexts/AppContext';
 
 const styles = StyleSheet.create({
     cardStyle: {
@@ -56,7 +56,7 @@ export const Drawers = (props: any) => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const {logout} = useAuthQuery();
-    const {state} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
 
     return (
         <DrawerContentScrollView

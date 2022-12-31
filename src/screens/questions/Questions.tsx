@@ -22,9 +22,9 @@ export const QuestionsScreen = () => {
     const [openDropdown, setOpenDropdown] = useState(false);
     const [value, setValue] = useState(null);
     const [items, setItems] = useState([
-        {label: 'Every day', value: '1'},
-        {label: 'Every 3 days', value: '2'},
-        {label: 'Every Week', value: '3'},
+        {label: 'Every day', value: 'every_day'},
+        {label: 'Every 3 days', value: '3days'},
+        {label: 'Every Week', value: 'every_week'},
     ]);
 
     return (

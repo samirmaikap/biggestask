@@ -16,9 +16,9 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {MD3Type} from 'react-native-paper/lib/typescript/types';
 import {FONT_NAME} from './src/utils/constants';
 import RNBootSplash from 'react-native-bootsplash';
-import {AppProvider} from './src/contexts/AppContext';
 import {ToastProvider} from 'react-native-toast-notifications';
 import {apiInstance} from './src/utils/service';
+import {AppProvider} from './src/contexts/AppContext';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 

@@ -71,7 +71,7 @@ export const MilestoneCard = (props: Props) => {
                         <AppSpacing isHorizontal={true} />
                         {item?.date && item?.location ? (
                             <AppText color={Colors.grey_3}>
-                                {item?.date}
+                                {item?.date_time}
                             </AppText>
                         ) : (
                             <AppText>Not Yet Scheduled</AppText>

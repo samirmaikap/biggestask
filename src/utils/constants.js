@@ -17,4 +17,5 @@ export const images = {
     VERIFY: require('../assets/images/1.webp'),
     ADD_SURROGATE: require('../assets/images/add-surrogate.webp'),
     WAITING_SURROGATE: require('../assets/images/waiting-mother.webp'),
+    LOGO_ORIGINAL: require('../assets/logo-original.png'),
 };

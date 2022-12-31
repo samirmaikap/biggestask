@@ -1,13 +1,14 @@
 import useRequest from './useRequest';
 import {useContext} from 'react';
-import {AppContext} from '../contexts/AppContext';
+import {useAppContext} from '../contexts/AppContext';
 
 const useQuestionQuery = () => {
     const request = useRequest();
-    const {dispatch} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
 
     const getQuestions = async () => {
         const response = await request.get('/questions');
+        console.log('getQuestions', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_QUESTIONS',

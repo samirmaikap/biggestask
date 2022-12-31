@@ -1,5 +1,4 @@
-import {useContext} from 'react';
-import {AppContext} from '../contexts/AppContext';
+import {useAppContext} from '../contexts/AppContext';
 import {apiInstance} from '../utils/service';
 import axios from 'axios';
 import {useToast} from 'react-native-toast-notifications';
@@ -7,7 +6,7 @@ import useRequest from './useRequest';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 function useAuthQuery() {
-    const {state, dispatch} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
     const request = useRequest();
 
     const getMe = async () => {
@@ -27,7 +26,7 @@ function useAuthQuery() {
             if (response?.token) {
                 console.log('response?.token', response?.token);
                 await AsyncStorage.setItem(
-                    'token',
+                    'apiToken',
                     JSON.stringify(response?.token),
                 );
                 dispatch({

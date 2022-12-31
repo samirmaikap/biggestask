@@ -13,10 +13,21 @@ const useRequest = () => {
 
     const post = async (url: string, payload: any) => {
         return await apiInstance
-            .post(url, payload)
+            .post(url, payload, {
+                headers: {},
+            })
             .then(res => res.data)
             .catch(e => {
                 return parseResponse(e);
+            });
+    };
+
+    const upload = async (url: string, payload: any) => {
+        return await apiInstance
+            .post(url, payload)
+            .then(res => console.log('red', res))
+            .catch(e => {
+                console.log('eeror', e);
             });
     };
 
@@ -59,6 +70,7 @@ const useRequest = () => {
         post,
         put,
         remove,
+        upload,
     };
 };
 

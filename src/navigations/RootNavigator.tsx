@@ -15,14 +15,6 @@ import {AboutScreen} from '../screens/settings/About';
 import {PrivacyPolicyScreen} from '../screens/settings/PrivacyPolicy';
 import {TermsScreen} from '../screens/settings/Terms';
 import {DetailedSettingsScreen} from '../screens/settings/DetailedSettings';
-import {IntroScreen} from '../screens/onboarding/Intro';
-import {LoginScreen} from '../screens/auth/Login';
-import {SignupScreen} from '../screens/auth/Signup';
-import {VerifyScreen} from '../screens/auth/Verify';
-import {CreateAccountScreen} from '../screens/auth/CreateAccount';
-import {AppContext} from '../contexts/AppContext';
-import {SurrogateInviteScreen} from '../screens/invite/SurrogateInvite';
-import {WaitingSurrogateScreen} from '../screens/invite/WaitingSurrogateScreen';
 
 const styles = StyleSheet.create({
     cardStyle: {
@@ -40,37 +32,8 @@ const styles = StyleSheet.create({
 
 const Stack = createStackNavigator();
 
-const renderAuthNavs = (themeColors: any) => {
-    return (
-        <Stack.Navigator
-            initialRouteName={Screens.Intro}
-            screenOptions={{
-                headerShown: false,
-                cardStyle: styles.cardStyle,
-                headerStyle: {
-                    backgroundColor: themeColors.background,
-                },
-                headerTintColor: themeColors.text,
-                headerTitleStyle: {
-                    fontWeight: '600',
-                },
-                headerShadowVisible: false,
-                headerBackTitleVisible: false,
-            }}>
-            <Stack.Screen name={Screens.Intro} component={IntroScreen} />
-            <Stack.Screen name={Screens.Login} component={LoginScreen} />
-            <Stack.Screen name={Screens.Signup} component={SignupScreen} />
-            <Stack.Screen name={Screens.Verify} component={VerifyScreen} />
-            <Stack.Screen
-                name={Screens.AccountSetup}
-                component={CreateAccountScreen}
-            />
-            <Stack.Screen name={Screens.Terms} component={TermsScreen} />
-        </Stack.Navigator>
-    );
-};
-
-const renderMainNavs = (themeColors: any) => {
+const RootNavigator = () => {
+    const themeColors = colors.light;
     return (
         <Stack.Navigator
             initialRouteName={'Tabs'}
@@ -119,87 +82,6 @@ const renderMainNavs = (themeColors: any) => {
             />
         </Stack.Navigator>
     );
-};
-
-const renderInvitationNavs = (themeColors: any) => {
-    return (
-        <Stack.Navigator
-            initialRouteName={Screens.InviteSurrogate}
-            screenOptions={{
-                headerShown: false,
-                cardStyle: styles.cardStyle,
-                headerStyle: {
-                    backgroundColor: themeColors.background,
-                },
-                headerTintColor: themeColors.text,
-                headerTitleStyle: {
-                    fontWeight: '600',
-                },
-                headerShadowVisible: false,
-                headerBackTitleVisible: false,
-            }}>
-            <Stack.Screen
-                name={Screens.InviteSurrogate}
-                component={SurrogateInviteScreen}
-            />
-        </Stack.Navigator>
-    );
-};
-
-const renderWaitingNavs = (themeColors: any) => {
-    return (
-        <Stack.Navigator
-            initialRouteName={Screens.WaitingSurrogate}
-            screenOptions={{
-                headerShown: false,
-                cardStyle: styles.cardStyle,
-                headerStyle: {
-                    backgroundColor: themeColors.background,
-                },
-                headerTintColor: themeColors.text,
-                headerTitleStyle: {
-                    fontWeight: '600',
-                },
-                headerShadowVisible: false,
-                headerBackTitleVisible: false,
-            }}>
-            <Stack.Screen
-                name={Screens.WaitingSurrogate}
-                component={WaitingSurrogateScreen}
-            />
-        </Stack.Navigator>
-    );
-};
-
-const RootNavigator = () => {
-    const themeColors = colors.light;
-    const {state} = useContext(AppContext);
-    console.log('state', state);
-    const isLoggedIn = state?.authToken;
-    const isParent = state?.user && state?.user?.user_type === 'parent';
-    const hasSurrogate =
-        state.user?.journey && state.user?.journey.surrogate_id;
-    const surrogateInvited =
-        state.user?.journey && state.user?.journey.surrogate_invited;
-
-    console.log('isLoggedIn', isLoggedIn);
-    console.log('isParent', isParent);
-    console.log('hasSurrogate', hasSurrogate);
-    console.log('surrogateInvited', surrogateInvited);
-
-    if (!isLoggedIn) {
-        return renderAuthNavs(themeColors);
-    }
-
-    if (!hasSurrogate && !surrogateInvited) {
-        return renderInvitationNavs(themeColors);
-    }
-
-    if (!hasSurrogate && surrogateInvited) {
-        return renderWaitingNavs(themeColors);
-    }
-
-    return renderMainNavs(themeColors);
 };
 
 export default RootNavigator;

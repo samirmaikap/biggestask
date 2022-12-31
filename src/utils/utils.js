@@ -9,3 +9,12 @@ export const toRgba = (hex, alpha) => {
         return 'rgb(' + r + ', ' + g + ', ' + b + ')';
     }
 };
+
+export const getImagePayload = uri => {
+    const unix = Math.round(+new Date() / 1000);
+    return {
+        uri: uri,
+        name: `${unix}.jpg`,
+        type: 'image/jpeg',
+    };
+};

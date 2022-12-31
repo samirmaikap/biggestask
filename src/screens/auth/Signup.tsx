@@ -25,7 +25,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import {useToast} from 'react-native-toast-notifications';
-import {AppContext} from '../../contexts/AppContext';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -64,7 +64,7 @@ export const SignupScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const {sendOtp} = useAuthQuery();
     const toast = useToast();
-    const {state} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
 
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');

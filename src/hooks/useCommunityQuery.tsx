@@ -1,27 +1,34 @@
 import useRequest from './useRequest';
-import {useContext} from 'react';
-import {AppContext} from '../contexts/AppContext';
+import {useAppContext} from '../contexts/AppContext';
+import {setCommunities} from '../contexts/actions';
+import {useEffect} from 'react';
 
 const useCommunityQuery = () => {
     const request = useRequest();
-    const {dispatch} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
+
+    useEffect(() => {
+        console.log('state check useCommunityQuery', state);
+    }, [state.communities]);
 
     const getCommunities = async () => {
         const response = await request.get('/communities');
-        if (!response?.error) {
-            dispatch({
-                type: 'SET_COMMUNITIES',
-                payload: response,
-            });
-        }
+        // if (!response?.error) {
+        //     console.log('update cehck 2', response.length);
+        //     dispatch({
+        //         type: 'setCommunities',
+        //         payload: response,
+        //     });
+        // }
         return response;
     };
 
     const createCommunities = async (payload: any) => {
         const response = await request.post('/communities', payload);
-        if (!response?.error) {
-            await getCommunities();
-        }
+        // if (!response?.error) {
+        //     console.log('get comms....');
+        //     await getCommunities();
+        // }
 
         return response;
     };

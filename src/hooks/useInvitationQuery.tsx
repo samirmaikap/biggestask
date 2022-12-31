@@ -1,9 +1,9 @@
 import {useContext} from 'react';
-import {AppContext} from '../contexts/AppContext';
+import {useAppContext} from '../contexts/AppContext';
 import useRequest from './useRequest';
 
 const useInvitationQuery = () => {
-    const {state, dispatch} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
     const request = useRequest();
 
     const sendInvitation = async (payload: any) => {

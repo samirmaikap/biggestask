@@ -22,7 +22,7 @@ import AppStyles from '../../theme/AppStyles';
 import {images} from '../../utils/constants';
 import {UnknownIcon} from '../../components/icons/UnknowIcon';
 import {HeartIcon} from '../../components/icons/HeartIcon';
-import {AppContext} from '../../contexts/AppContext';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
 });
 
 export const SurrogateInviteScreen = () => {
-    const {state} = useContext(AppContext);
+    const {state, dispatch} = useAppContext();
     const {sendInvitation} = useInvitationQuery();
     const {getMe, logout} = useAuthQuery();
     const toast = useToast();

@@ -3,4 +3,12 @@ const setUser = user => ({
     payload: user,
 });
 
-export {setUser};
+const setCommunities = payload => {
+    console.log('payload', payload.length);
+    return {
+        type: 'setCommunities',
+        payload: payload,
+    };
+};
+
+export {setUser, setCommunities};
