@@ -90,7 +90,11 @@ export const Drawers = (props: any) => {
                                 <UsersIcon />
                             </View>
                         )}
-                        label="Your Gestational Carrier"
+                        label={
+                            state?.user.user_type === 'surrogate'
+                                ? 'Your Intended Parents'
+                                : 'Your Gestational Carrier'
+                        }
                         onPress={() =>
                             props.navigation.navigate(Screens.Profile, {
                                 isSpectator: true,

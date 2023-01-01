@@ -98,12 +98,10 @@ export const CommunityForm = (props: Props) => {
 
         const communities = await getCommunities();
         console.log('refresc...', communities.length);
-        if (!communities?.error) {
-            dispatch({
-                type: 'setCommunities',
-                payload: communities,
-            });
-        }
+        dispatch({
+            type: 'setCommunities',
+            payload: communities,
+        });
 
         onSaved();
     };

@@ -48,6 +48,7 @@ const Root = (props: Props) => {
 
     useEffect(() => {
         (async () => {
+            console.log('reloading rooot.....');
             const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
             setIsFirstLoad(!isFirstFromStorage);
             if (state.authToken) {

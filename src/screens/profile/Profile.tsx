@@ -245,7 +245,13 @@ export const ProfileScreen = () => {
         <View style={styles.container}>
             <StatusBar />
             <StackHeader
-                title={'Your Account'}
+                title={
+                    isSpectator
+                        ? state.user.user_type === 'surrogate'
+                            ? 'Intended Parents'
+                            : 'Gestational Carrier'
+                        : 'Your Account'
+                }
                 actions={
                     isEditable
                         ? [

@@ -97,13 +97,14 @@ const styles = StyleSheet.create({
 
 export const MilestoneDetailsScreen = () => {
     const route = useRoute();
+    // @ts-ignore
     const {activeMilestoneId} = route.params;
     const [note, setNote] = useState();
     const [checked, setChecked] = useState(false);
     const [openDatepicker, setOpenDatepicker] = useState(false);
     const [date, setDate] = useState(new Date());
     const {state} = useAppContext();
-    const [activeMilestone, setActiveMilestone] = useState({});
+    const [activeMilestone, setActiveMilestone] = useState<any>({});
     // const {data, setData} = useState({
     //     title: '',
     //     date: '',
