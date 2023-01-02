@@ -74,7 +74,11 @@ const StackHeader = (props: Props) => {
     } = props;
 
     return (
-        <View style={[appStyles.appBarContainer, {marginTop: insets.top}]}>
+        <View
+            style={[
+                appStyles.appBarContainer,
+                {marginTop: insets.top, backgroundColor: 'white'},
+            ]}>
             <View>
                 <TouchableOpacity
                     style={styles.button}

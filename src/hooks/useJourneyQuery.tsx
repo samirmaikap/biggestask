@@ -20,7 +20,6 @@ const useJourneyQuery = () => {
 
     const getJourney = async () => {
         const response = await request.get('/journey');
-        console.log('journey response', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_JOURNEY',
@@ -44,9 +43,21 @@ const useJourneyQuery = () => {
         }
     };
 
+    const getNextMilestone = async () => {
+        const response = await request.get('/journey/next-milestone');
+        if (!response?.error) {
+            dispatch({
+                type: 'SET_NEXT_MILESTONE',
+                payload: response,
+            });
+        }
+        return response;
+    };
+
     return {
         getWeeklyUpdate,
         getJourney,
+        getNextMilestone,
     };
 };
 

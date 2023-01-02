@@ -29,6 +29,7 @@ import AppButton from '../../components/AppButton';
 import App from '../../../App';
 import {useRoute} from '@react-navigation/native';
 import {useAppContext} from '../../contexts/AppContext';
+import {useHeaderHeight} from '@react-navigation/elements';
 
 const styles = StyleSheet.create({
     container: {
@@ -97,29 +98,21 @@ const styles = StyleSheet.create({
 
 export const MilestoneDetailsScreen = () => {
     const route = useRoute();
+    const {state} = useAppContext();
+    const isSurrogate = state.user?.user_type === 'surrogate';
     // @ts-ignore
     const {activeMilestoneId} = route.params;
     const [note, setNote] = useState();
-    const [checked, setChecked] = useState(false);
+    const [otherNote, setOtherNote] = useState();
+    const [isShareOn, setIsShareOn] = useState(false);
+    const [shareBiggestask, setShareBiggestask] = useState(false);
     const [openDatepicker, setOpenDatepicker] = useState(false);
     const [date, setDate] = useState(new Date());
-    const {state} = useAppContext();
+
     const [activeMilestone, setActiveMilestone] = useState<any>({});
-    // const {data, setData} = useState({
-    //     title: '',
-    //     date: '',
-    //     time: '',
-    //     location: '',
-    //     request_date: '',
-    // });
     const [showSearchResult, setShowSearchResult] = useState(false);
 
-    // const updateData = (field: string, value: any) => {
-    //     // setData((prevState: any) => ({
-    //     //   ...prevState,
-    //     //   field: value,
-    //     // }));
-    // };
+    const headerHeight = useHeaderHeight();
 
     useEffect(() => {
         if (activeMilestoneId) {
@@ -127,6 +120,18 @@ export const MilestoneDetailsScreen = () => {
                 (item: {id: any}) => item.id === activeMilestoneId,
             );
             setActiveMilestone(m);
+            if (m.date_time) {
+                setDate(new Date(m.date_time));
+            }
+            setNote(isSurrogate ? m.surrogate_note : m.parent_note);
+
+            if (isSurrogate && m.share_with_surrogate) {
+                setOtherNote(m.parent_note);
+            }
+
+            if (!isSurrogate && m.share_with_parent) {
+                setOtherNote(m.surrogate_note);
+            }
         }
     }, [activeMilestoneId]);
 
@@ -152,7 +157,6 @@ export const MilestoneDetailsScreen = () => {
             address: ' 3230 Eagle Park Drive NE, Suite 100',
         },
     ];
-
     const renderEditableInformation = () => {
         return (
             <AppBottomSheet
@@ -307,8 +311,11 @@ export const MilestoneDetailsScreen = () => {
         <View style={styles.container}>
             <StackHeader title={'Edit Milestone'} />
             <KeyboardAvoidingView
-                behavior="position"
-                keyboardVerticalOffset={Platform.OS === 'ios' ? 64 : 0}>
+                keyboardVerticalOffset={Platform.select({
+                    ios: 0,
+                    android: headerHeight + 80,
+                })}
+                behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
                 <ScrollView
                     showsVerticalScrollIndicator={false}
                     contentContainerStyle={{flexGrow: 1}}>
@@ -384,20 +391,57 @@ export const MilestoneDetailsScreen = () => {
                                 height={150}
                                 numberOfLines={10}
                                 value={note}
-                                onValueChange={(e: any) =>
-                                    setNote(e.target.value)
-                                }
+                                onValueChange={(e: any) => setNote(e)}
+                            />
+                        </View>
+                        <AppSpacing gap={16} />
+                        <View>
+                            <AppText variant={'title'}>
+                                Note from{' '}
+                                {isSurrogate
+                                    ? 'Parents'
+                                    : 'Gestational Carrier'}
+                            </AppText>
+                            <AppSpacing />
+                            <AppTextInput
+                                disabled={true}
+                                multiline={true}
+                                height={150}
+                                numberOfLines={10}
+                                value={otherNote}
+                                onValueChange={() => {}}
                             />
                         </View>
                         <AppSpacing gap={16} />
                         <TouchableOpacity
                             activeOpacity={0.8}
-                            onPress={() => setChecked(!checked)}
+                            onPress={() => setIsShareOn(!isShareOn)}
                             style={styles.row}>
                             <Checkbox.Android
-                                status={checked ? 'checked' : 'unchecked'}
+                                status={isShareOn ? 'checked' : 'unchecked'}
                                 onPress={() => {
-                                    setChecked(!checked);
+                                    setIsShareOn(!isShareOn);
+                                }}
+                            />
+                            <AppSpacing isHorizontal={true} />
+                            <AppText>
+                                Share with{' '}
+                                {isSurrogate
+                                    ? 'Parents'
+                                    : 'Gestational Carrier'}
+                            </AppText>
+                        </TouchableOpacity>
+                        <AppSpacing gap={16} />
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => setShareBiggestask(!shareBiggestask)}
+                            style={styles.row}>
+                            <Checkbox.Android
+                                status={
+                                    shareBiggestask ? 'checked' : 'unchecked'
+                                }
+                                onPress={() => {
+                                    setShareBiggestask(!shareBiggestask);
                                 }}
                             />
                             <AppSpacing isHorizontal={true} />
