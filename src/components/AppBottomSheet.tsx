@@ -33,12 +33,13 @@ type Props = {
     children: React.ReactNode;
     isOpen?: boolean;
     onClose?: Function;
+    requestClose?: boolean;
 };
 
 export const AppBottomSheet = (props: Props) => {
     const theme = useTheme();
     const bottomSheetRef = useRef<BottomSheet>(null);
-    const {action, children, isOpen = false, onClose} = props;
+    const {requestClose, action, children, isOpen = false, onClose} = props;
     const insets = useSafeAreaInsets();
     const [snapPoints, setSnapPoints] = useState([100]);
     const [isLoading, setIsLoading] = useState(false);
@@ -51,6 +52,12 @@ export const AppBottomSheet = (props: Props) => {
             }, 500);
         }
     }, [isLoading]);
+
+    useEffect(() => {
+        if (requestClose && bottomSheetRef?.current) {
+            bottomSheetRef.current?.close();
+        }
+    }, [requestClose]);
 
     useEffect(() => {
         if (!action && isOpen) {

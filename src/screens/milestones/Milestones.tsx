@@ -24,6 +24,7 @@ import {StackNavigationProp} from '@react-navigation/stack';
 import {MilestoneCard} from './MilestoneCard';
 import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
+import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -57,6 +58,8 @@ export const MilestonesScreen = () => {
     const [selectionVisible, setSelectionVisible] = useState(false);
     const {state, dispatch} = useAppContext();
 
+    const {getMilestones} = useMilestoneQuery();
+
     useEffect(() => {
         if (selectedItem.length > 0) {
             setSelectionVisible(true);
@@ -64,6 +67,12 @@ export const MilestonesScreen = () => {
             setSelectionVisible(false);
         }
     }, [selectedItem]);
+
+    useEffect(() => {
+        (async () => {
+            await getMilestones();
+        })();
+    }, []);
 
     const toggleSelectAll = () => {
         if (state.milestones.length === selectedItem.length) {
@@ -94,8 +103,6 @@ export const MilestonesScreen = () => {
         setSelectedItems([...updatedItems]);
     };
 
-    console.log('m check', state.milestones.length, selectedItem.length);
-
     return (
         <View style={styles.container}>
             <StatusBar />
@@ -117,6 +124,9 @@ export const MilestonesScreen = () => {
                                     onPress={() =>
                                         navigation.navigate(
                                             Screens.MilestoneDetails,
+                                            {
+                                                activeMilestoneId: '',
+                                            },
                                         )
                                     }
                                     contentStyle={[

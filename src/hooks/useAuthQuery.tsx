@@ -58,11 +58,10 @@ function useAuthQuery() {
     const register = async (payload: any) => {
         console.log('payload', payload);
         const response = await request.post('/register', payload);
-        console.log('register response', response);
         if (!response?.error) {
             if (response?.token) {
                 await AsyncStorage.setItem(
-                    'token',
+                    'apiToken',
                     JSON.stringify(response?.token),
                 );
                 dispatch({

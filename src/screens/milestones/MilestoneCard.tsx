@@ -5,7 +5,8 @@ import {CalendarIcon} from '../../components/icons/CalendarIcon';
 import {Colors} from '../../theme/colors';
 import {LocationPin} from '../../components/icons/LocationPin';
 import {AppCard} from '../../components/AppCard';
-import React from 'react';
+import React, {useState} from 'react';
+import {format} from 'date-fns';
 
 const styles = StyleSheet.create({
     container: {
@@ -43,10 +44,12 @@ type Props = {
     item: any;
     isSelected: boolean;
     onRemoveSelection: Function;
+    onSaved?: Function;
 };
 
 export const MilestoneCard = (props: Props) => {
-    const {item, isSelected, onRemoveSelection} = props;
+    const {item, isSelected, onRemoveSelection, onSaved} = props;
+
     return (
         <View
             style={[
@@ -69,9 +72,12 @@ export const MilestoneCard = (props: Props) => {
                     <View style={[styles.row, {flex: 1}]}>
                         <CalendarIcon color={Colors.grey_3} />
                         <AppSpacing isHorizontal={true} />
-                        {item?.date && item?.location ? (
+                        {item?.date_time ? (
                             <AppText color={Colors.grey_3}>
-                                {item?.date_time}
+                                {format(
+                                    new Date(item?.date_time),
+                                    "MM/dd/yyyy 'at' h:mm a",
+                                )}
                             </AppText>
                         ) : (
                             <AppText>Not Yet Scheduled</AppText>

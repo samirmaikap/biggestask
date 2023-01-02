@@ -19,31 +19,23 @@ const useMilestoneQuery = () => {
     };
 
     const createMilestone = async (payload: any) => {
+        console.log('payload 22', payload);
         const response = await request.post('/milestones', payload);
-        if (!response?.error) {
-            await getMilestones();
-        }
-
+        console.log('rc resposne', response);
         return response;
     };
 
     const updateMilestone = async (payload: any, milestoneId: number) => {
-        const response = await request.post(
+        const response = await request.put(
             `/milestones/${milestoneId}`,
             payload,
         );
-        if (!response?.error) {
-            await getMilestones();
-        }
 
         return response;
     };
 
     const deleteMilestone = async (milestoneId: number) => {
         const response = await request.remove(`/milestones/${milestoneId}`);
-        if (!response?.error) {
-            await getMilestones();
-        }
 
         return response;
     };

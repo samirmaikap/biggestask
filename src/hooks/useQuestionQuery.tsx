@@ -8,7 +8,6 @@ const useQuestionQuery = () => {
 
     const getQuestions = async () => {
         const response = await request.get('/questions');
-        console.log('getQuestions', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_QUESTIONS',

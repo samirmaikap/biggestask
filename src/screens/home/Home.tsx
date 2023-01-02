@@ -11,6 +11,7 @@ import {Colors} from '../../theme/colors';
 import {QuestionCard} from '../questions/QuestionCard';
 import {NewQuestionCard} from '../questions/NewQuestionCard';
 import AppButton from '../../components/AppButton';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -42,6 +43,8 @@ const styles = StyleSheet.create({
 });
 
 export const HomeScreen = () => {
+    const {state} = useAppContext();
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
