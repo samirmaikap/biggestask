@@ -31,7 +31,13 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
 });
-export const ProfileForm = () => {
+
+type Props = {
+    onSaved: Function;
+};
+
+export const ProfileForm = (props: Props) => {
+    const {onSaved} = props;
     const {state} = useAppContext();
     const {updateMe} = useAuthQuery();
     const toast = useToast();
@@ -63,6 +69,7 @@ export const ProfileForm = () => {
         }
 
         toast.show('Profile Updated');
+        onSaved();
     };
 
     return (

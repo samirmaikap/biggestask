@@ -41,8 +41,9 @@ export const PostsScreen = () => {
     const {state, dispatch} = useAppContext();
     const {getCommunities} = useCommunityQuery();
 
-    const handleOnSaved = () => {
+    const handleOnSaved = async () => {
         setOpenSheet(false);
+        await getCommunities();
     };
 
     useEffect(() => {

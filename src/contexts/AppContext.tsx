@@ -111,7 +111,6 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 tempEmailVerified: action.payload,
             };
         case 'setCommunities':
-            console.log('update....communties', action.payload);
             return {
                 ...prevState,
                 communities: action.payload,

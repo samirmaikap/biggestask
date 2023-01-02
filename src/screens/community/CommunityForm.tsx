@@ -97,7 +97,6 @@ export const CommunityForm = (props: Props) => {
         toast.show('Community Created');
 
         const communities = await getCommunities();
-        console.log('refresc...', communities.length);
         dispatch({
             type: 'setCommunities',
             payload: communities,

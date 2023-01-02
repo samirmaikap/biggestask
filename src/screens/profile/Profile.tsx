@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import StackHeader from '../../components/StackHeader';
 import {AppImage} from '../../components/AppImage';
-import {images} from '../../utils/constants';
 import {PencilIcon} from '../../components/icons/PencilIcon';
 import {AppText} from '../../components/AppText';
 import {AppSpacing} from '../../components/AppSpacing';
@@ -23,7 +22,6 @@ import {getImagePayload, toRgba} from '../../utils/utils';
 import {CameraIcon} from '../../components/icons/CameraIcon';
 import {ProfileForm} from './ProfileForm';
 import {useHeaderHeight} from '@react-navigation/elements';
-import DatePicker from 'react-native-date-picker';
 import {useAppContext} from '../../contexts/AppContext';
 import AppButton from '../../components/AppButton';
 import AppStyles from '../../theme/AppStyles';
@@ -36,6 +34,7 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {format} from 'date-fns';
 import useAttachmentsQuery from '../../hooks/useAttachmentsQuery';
 import useAuthQuery from '../../hooks/useAuthQuery';
+import useJourneyQuery from '../../hooks/useJourneyQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -116,7 +115,8 @@ export const ProfileScreen = () => {
     const [loading, setLoading] = useState(false);
     const {sendInvitation} = useInvitationQuery();
     const {uploadImage} = useAttachmentsQuery();
-    const {updateMe} = useAuthQuery();
+    const {updateMe, getMe} = useAuthQuery();
+    const {getJourney} = useJourneyQuery();
 
     const profiles = [];
     if (isSpectator) {
@@ -200,7 +200,15 @@ export const ProfileScreen = () => {
             }
 
             toast.show('Profile Updated');
+
+            await getMe();
+            await getJourney();
         }
+    };
+
+    const handleOnSave = async () => {
+        await getMe();
+        await getJourney();
     };
 
     const renderBottomSheet = () => {
@@ -348,7 +356,7 @@ export const ProfileScreen = () => {
 
                         <AppSpacing gap={16} />
 
-                        {isEditing && <ProfileForm />}
+                        {isEditing && <ProfileForm onSaved={handleOnSave} />}
 
                         {!isEditing && (
                             <View style={styles.centeredContainer}>
