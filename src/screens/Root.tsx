@@ -49,20 +49,63 @@ const Root = (props: Props) => {
 
     useEffect(() => {
         (async () => {
-            if (state.authToken) {
-                const response = await getMe();
-                if (!response?.error) {
-                    setJourney(response.journey);
-                }
-                console.log('load user response', response);
-                preloadData();
-            }
-            const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
-            setIsFirstLoad(!isFirstFromStorage);
+            await init();
+        })();
+    }, []);
 
-            setLoading(false);
+    useEffect(() => {
+        (async () => {
+            if (!isLoading) {
+                await init();
+            }
         })();
     }, [state.authToken]);
+
+    const init = async () => {
+        const token = await AsyncStorage.getItem('apiToken');
+        if (token) {
+            await setToken(token);
+            const response = await getMe();
+            if (!response?.error) {
+                setJourney(response.journey);
+            }
+            preloadData();
+        }
+
+        const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
+        setIsFirstLoad(!isFirstFromStorage);
+
+        setLoading(false);
+        console.log('set loading false');
+    };
+
+    const setToken = async (token: any) => {
+        const authToken = token ? JSON.parse(token) : null;
+
+        if (authToken) {
+            dispatch({
+                type: 'SET_TOKEN',
+                payload: authToken,
+            });
+        }
+    };
+
+    // useEffect(() => {
+    //     (async () => {
+    //         if (state.authToken) {
+    //             const response = await getMe();
+    //             if (!response?.error) {
+    //                 setJourney(response.journey);
+    //             }
+    //             console.log('load user response', response);
+    //             preloadData();
+    //         }
+    //         const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
+    //         setIsFirstLoad(!isFirstFromStorage);
+    //
+    //         setLoading(false);
+    //     })();
+    // }, [state.authToken]);
 
     const preloadData = async () => {
         await getJourney();

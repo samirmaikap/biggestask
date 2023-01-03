@@ -106,6 +106,10 @@ function useAuthQuery() {
             type: 'UNSET_TOKEN',
             payload: null,
         });
+        dispatch({
+            type: 'SET_USER',
+            payload: null,
+        });
     };
 
     const updateFrequency = async (payload: any) => {

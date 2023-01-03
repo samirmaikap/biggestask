@@ -61,6 +61,10 @@ export const HomeScreen = () => {
 
     const nextMilestoneDate = state.nextMilestone?.date_time;
 
+    useEffect(() => {
+        console.log(state.weeklyUpdate);
+    }, [state.weeklyUpdate]);
+
     let latestQuestion = null;
     if (state.user.user_type === 'surrogate') {
         if (state.surrogateQuestions.length > 0) {
@@ -169,6 +173,7 @@ export const HomeScreen = () => {
                                 ]}>
                                 <AppImage
                                     size={200}
+                                    resizeMode={'contain'}
                                     isLocal={!state.nextMilestone.image}
                                     uri={
                                         state.nextMilestone.image

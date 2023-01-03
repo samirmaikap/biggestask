@@ -48,7 +48,7 @@ export const AppImage = (props: Props) => {
             ]}>
             {isLoading && (
                 <View style={[styles.overlay, {width: size, height: size}]}>
-                    <ActivityIndicator color={'white'}/>
+                    <ActivityIndicator color={'white'} />
                 </View>
             )}
             <Image

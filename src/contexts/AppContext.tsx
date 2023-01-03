@@ -56,7 +56,7 @@ const setLoginParams = async (token: any) => {
 };
 
 const unsetLoginParams = async () => {
-    await AsyncStorage.removeItem('token');
+    await AsyncStorage.removeItem('apiToken');
 };
 
 function appReducer(prevState: any, action: {type: any; payload: any}) {
