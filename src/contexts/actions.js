@@ -4,7 +4,6 @@ const setUser = user => ({
 });
 
 const setCommunities = payload => {
-    console.log('payload', payload.length);
     return {
         type: 'setCommunities',
         payload: payload,

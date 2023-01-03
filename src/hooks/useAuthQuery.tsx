@@ -35,7 +35,6 @@ function useAuthQuery() {
         const response = await request.post('/login', payload);
         if (!response?.error) {
             if (response?.token) {
-                console.log('response?.token', response?.token);
                 await AsyncStorage.setItem(
                     'apiToken',
                     JSON.stringify(response?.token),
@@ -49,9 +48,7 @@ function useAuthQuery() {
                 type: 'SET_USER',
                 payload: response,
             });
-            console.log('response?.token', response?.token);
         }
-        console.log('re', response);
         return response;
     };
 
@@ -73,7 +70,6 @@ function useAuthQuery() {
                 type: 'SET_USER',
                 payload: response,
             });
-            console.log('response?.token', response?.token);
         }
         return response;
     };
@@ -90,7 +86,6 @@ function useAuthQuery() {
     };
 
     const sendOtp = async (payload: any) => {
-        console.log('payload?.email', payload?.email);
         const response = await request.post('/otp/send', payload);
         if (!response?.error) {
             dispatch({

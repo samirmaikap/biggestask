@@ -141,6 +141,39 @@ export const ProfileScreen = () => {
         }
     }
 
+    let questions = [];
+    if (isSpectator) {
+        if (
+            state.user?.user_type === 'surrogate' &&
+            state.parentQuestions.length > 0
+        ) {
+            questions = state.parentQuestions.filter(
+                (item: any) => item.answer,
+            );
+        } else {
+            if (state.surrogateQuestions.length > 0) {
+                questions = state.surrogateQuestions.filter(
+                    (item: any) => item.answer,
+                );
+            }
+        }
+    } else {
+        if (
+            state.user?.user_type === 'surrogate' &&
+            state.surrogateQuestions.length > 0
+        ) {
+            questions = state.surrogateQuestions.filter(
+                (item: any) => item.answer,
+            );
+        } else {
+            if (state.parentQuestions.length > 0) {
+                questions = state.parentQuestions.filter(
+                    (item: any) => item.answer,
+                );
+            }
+        }
+    }
+
     const isEditable = state.user?.id === profiles[selectedProfile].id;
 
     const handleInvitePress = async () => {
@@ -269,13 +302,13 @@ export const ProfileScreen = () => {
                 actions={
                     isEditable
                         ? [
-                            <TouchableOpacity
-                                key={'t-1'}
-                                activeOpacity={0.8}
-                                onPress={() => setIsEditing(!isEditing)}>
-                                <PencilIcon />
-                            </TouchableOpacity>,
-                        ]
+                              <TouchableOpacity
+                                  key={'t-1'}
+                                  activeOpacity={0.8}
+                                  onPress={() => setIsEditing(!isEditing)}>
+                                  <PencilIcon />
+                              </TouchableOpacity>,
+                          ]
                         : []
                 }
             />
@@ -335,16 +368,16 @@ export const ProfileScreen = () => {
                                             )}
                                             {isEditing &&
                                                 selectedProfile === 1 && (
-                                                <TouchableOpacity
-                                                    activeOpacity={0.8}
-                                                    style={
-                                                        styles.imageButton
-                                                    }>
-                                                    <CameraIcon
-                                                        color={'white'}
-                                                    />
-                                                </TouchableOpacity>
-                                            )}
+                                                    <TouchableOpacity
+                                                        activeOpacity={0.8}
+                                                        style={
+                                                            styles.imageButton
+                                                        }>
+                                                        <CameraIcon
+                                                            color={'white'}
+                                                        />
+                                                    </TouchableOpacity>
+                                                )}
                                             <View
                                                 style={
                                                     styles.indicatorContainer
@@ -437,57 +470,19 @@ export const ProfileScreen = () => {
                         )}
 
                         <View>
-                            {state.user.user_type === 'parent' ? (
-                                <View>
-                                    {state.surrogateQuestions.map(
-                                        (item: any, index: any) => {
-                                            return (
-                                                <View
-                                                    style={{marginVertical: 8}}
-                                                    key={`su-q-${index}`}>
-                                                    <QuestionCard
-                                                        time={item?.time}
-                                                        title={
-                                                            item?.question.text
-                                                        }
-                                                        user={item?.user_name}
-                                                        answer={item?.answer}
-                                                    />
-                                                </View>
-                                            );
-                                        },
-                                    )}
-                                </View>
-                            ) : (
-                                <View>
-                                    {state.parentQuestions.map(
-                                        (
-                                            item: {
-                                                question: {text: string};
-                                                user_name: any;
-                                                answer: string;
-                                                time: string;
-                                            },
-                                            index: any,
-                                        ) => {
-                                            return (
-                                                <View
-                                                    style={{marginVertical: 8}}
-                                                    key={`pa-q-${index}`}>
-                                                    <QuestionCard
-                                                        time={item?.time}
-                                                        title={
-                                                            item?.question.text
-                                                        }
-                                                        user={item?.user_name}
-                                                        answer={item?.answer}
-                                                    />
-                                                </View>
-                                            );
-                                        },
-                                    )}
-                                </View>
-                            )}
+                            {questions.length > 0 &&
+                                questions.map((item: any, index: number) => (
+                                    <View
+                                        style={{marginVertical: 8}}
+                                        key={`su-q-${index}`}>
+                                        <QuestionCard
+                                            time={item?.time}
+                                            title={item?.question.text}
+                                            user={item?.user_name}
+                                            answer={item?.answer}
+                                        />
+                                    </View>
+                                ))}
                         </View>
                     </View>
                 </ScrollView>

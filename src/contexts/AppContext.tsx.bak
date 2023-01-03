@@ -46,7 +46,7 @@ const setLoginParams = async (token: any) => {
 };
 
 const unsetLoginParams = async () => {
-    console.log('remove token');
+
     await AsyncStorage.removeItem('token');
 };
 
@@ -70,7 +70,7 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 authToken: null,
             };
         case 'SET_USER':
-            console.log('set user called', action.payload);
+
             return {
                 ...prevState,
                 user: action.payload,

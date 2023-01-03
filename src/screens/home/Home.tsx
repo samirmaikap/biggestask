@@ -61,12 +61,8 @@ export const HomeScreen = () => {
 
     const nextMilestoneDate = state.nextMilestone?.date_time;
 
-    useEffect(() => {
-        console.log(state.weeklyUpdate);
-    }, [state.weeklyUpdate]);
-
     let latestQuestion = null;
-    if (state.user.user_type === 'surrogate') {
+    if (state.user?.user_type === 'surrogate') {
         if (state.surrogateQuestions.length > 0) {
             let questions = state.surrogateQuestions.filter(
                 (item: any) => !item.answer,
@@ -84,16 +80,16 @@ export const HomeScreen = () => {
 
     let latestAnswer = null;
 
-    if (state.user.user_type === 'surrogate') {
-        if (state.surrogateQuestions.length > 0) {
-            let answers = state.surrogateQuestions.filter(
+    if (state.user?.user_type === 'surrogate') {
+        if (state.parentQuestions.length > 0) {
+            let answers = state.parentQuestions.filter(
                 (item: any) => item.answer,
             );
             latestAnswer = answers.length > 0 ? answers[0] : null;
         }
     } else {
-        if (state.parentQuestions.length > 0) {
-            let answers = state.parentQuestions.filter(
+        if (state.surrogateQuestions.length > 0) {
+            let answers = state.surrogateQuestions.filter(
                 (item: any) => item.answer,
             );
             latestAnswer = answers.length > 0 ? answers[0] : null;

@@ -6,8 +6,6 @@ const useCommunityQuery = () => {
     const request = useRequest();
     const {state, dispatch} = useAppContext();
 
-    console.log(dispatch);
-
     const getCommunities = async () => {
         const response = await request.get('/communities');
         if (!response?.error) {

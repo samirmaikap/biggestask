@@ -55,8 +55,6 @@ export const QuestionsScreen = () => {
 
     useEffect(() => {
         (async () => {
-            console.log('value', value);
-            console.log('initialLoad', initialLoad);
             if (!initialLoad) {
                 await handleUpdateFrequency();
                 setInitialLoad(false);
@@ -70,20 +68,27 @@ export const QuestionsScreen = () => {
         }, 500);
     }, []);
 
-    let latestQuestion = null;
-    if (state.user.user_type === 'surrogate') {
-        if (state.surrogateQuestions.length > 0) {
-            let questions = state.surrogateQuestions.filter(
-                (item: any) => !item.answer,
-            );
-            latestQuestion = questions.length > 0 ? questions[0] : null;
-        }
+    let answeredQuestions = [];
+    let unansweredQuestions = [];
+
+    if (
+        state.user?.user_type === 'surrogate' &&
+        state.surrogateQuestions.length > 0
+    ) {
+        answeredQuestions = state.surrogateQuestions.filter(
+            (item: {answer: any}) => item.answer,
+        );
+        unansweredQuestions = state.surrogateQuestions.filter(
+            (item: {answer: any}) => !item.answer,
+        );
     } else {
         if (state.parentQuestions.length > 0) {
-            let questions = state.parentQuestions.filter(
-                (item: any) => !item.answer,
+            answeredQuestions = state.parentQuestions.filter(
+                (item: {answer: any}) => item.answer,
             );
-            latestQuestion = questions.length > 0 ? questions[0] : null;
+            unansweredQuestions = state.parentQuestions.filter(
+                (item: {answer: any}) => !item.answer,
+            );
         }
     }
 
@@ -141,21 +146,23 @@ export const QuestionsScreen = () => {
                     />
 
                     <AppSpacing gap={16} />
-                    {latestQuestion && (
-                        <NewQuestionCard
-                            title={latestQuestion.question.text}
-                            onSaved={handleOnAnswer}
-                            questionId={latestQuestion?.id}
-                        />
-                    )}
+                    {unansweredQuestions.length > 0 &&
+                        unansweredQuestions.map((item: any, index: number) => (
+                            <NewQuestionCard
+                                key={`laq-${index}`}
+                                title={item.question.text}
+                                onSaved={handleOnAnswer}
+                                questionId={item?.id}
+                            />
+                        ))}
 
                     <AppSpacing gap={16} />
                     <AppText variant={'h3'}>
                         Existing questions in the profile
                     </AppText>
                     <AppSpacing gap={8} />
-                    {state.user.user_type === 'parent' ? (
-                        state.parentQuestions.map((item: any, index: any) => {
+                    {answeredQuestions.length > 0 ? (
+                        answeredQuestions.map((item: any, index: any) => {
                             return (
                                 <View
                                     style={{marginVertical: 8}}
@@ -172,25 +179,6 @@ export const QuestionsScreen = () => {
                     ) : (
                         <AppText>No Questions Available</AppText>
                     )}
-
-                    {state.user.user_type === 'surrogate'
-                        ? state.surrogateQuestions.map(
-                            (item: any, index: any) => {
-                                return (
-                                    <View
-                                        style={{marginVertical: 8}}
-                                        key={`i-${index}`}>
-                                        <QuestionCard
-                                            time={item?.time}
-                                            title={item?.question.text}
-                                              user={item?.user_name}
-                                            answer={item?.answer}
-                                        />
-                                    </View>
-                                );
-                              },
-                        )
-                        : null}
                 </View>
             </ScrollView>
         </View>

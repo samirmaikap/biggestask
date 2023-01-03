@@ -76,7 +76,7 @@ export const Drawers = (props: any) => {
                     <View style={{marginLeft: 16}}>
                         <AppText variant="h3">{state.user?.name}</AppText>
                         <AppText color={primaryColor}>
-                            {state.user.user_type}
+                            {state.user?.user_type}
                         </AppText>
                     </View>
                 </View>
@@ -91,7 +91,7 @@ export const Drawers = (props: any) => {
                             </View>
                         )}
                         label={
-                            state?.user.user_type === 'surrogate'
+                            state.user?.user_type === 'surrogate'
                                 ? 'Your Intended Parents'
                                 : 'Your Gestational Carrier'
                         }

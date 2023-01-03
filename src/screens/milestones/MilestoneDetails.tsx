@@ -229,7 +229,6 @@ export const MilestoneDetailsScreen = () => {
             share_with_parent: shareWithParent ? 1 : 0,
         };
 
-        console.log(payload);
         setLoading(true);
         if (imageResponse?.uri) {
             const formData = new FormData();
@@ -244,8 +243,6 @@ export const MilestoneDetailsScreen = () => {
 
             payload.feature_image = imageUploadResponse;
         }
-
-        console.log('activeMilestone?.id', activeMilestone?.id);
 
         const response = activeMilestoneId
             ? await updateMilestone(payload, activeMilestone?.id)

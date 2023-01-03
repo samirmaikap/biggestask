@@ -97,7 +97,6 @@ const renderWaitingNavs = (themeColors: any) => {
 };
 
 const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
-    console.log('isFirstLoad', isFirstLoad);
     return (
         <Stack.Navigator
             initialRouteName={isFirstLoad ? Screens.Intro : Screens.Login}
@@ -132,10 +131,6 @@ const GlobalNavigator = (props: any) => {
     const themeColors = colors.light;
     const hasSurrogate = journey && journey.surrogate_id;
     const surrogateInvited = journey && journey.surrogate_invited;
-    console.log('isLoggedIn', isLoggedIn);
-    console.log('hasSurrogate', hasSurrogate);
-    console.log('surrogateInvited', surrogateInvited);
-
     return (
         <NavigationContainer theme={theme}>
             {isLoggedIn

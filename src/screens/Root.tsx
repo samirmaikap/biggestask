@@ -62,6 +62,7 @@ const Root = (props: Props) => {
     }, [state.authToken]);
 
     const init = async () => {
+        setLoading(true);
         const token = await AsyncStorage.getItem('apiToken');
         if (token) {
             await setToken(token);
@@ -76,7 +77,6 @@ const Root = (props: Props) => {
         setIsFirstLoad(!isFirstFromStorage);
 
         setLoading(false);
-        console.log('set loading false');
     };
 
     const setToken = async (token: any) => {

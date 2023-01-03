@@ -29,7 +29,11 @@ const useQuestionQuery = () => {
     };
 
     const updateQuestion = async (payload: any, questionId: number) => {
-        const response = await request.get(`/questions/${questionId}/answer`);
+        console.log(`/questions/${questionId}/answer`);
+        const response = await request.put(
+            `/questions/${questionId}/answer`,
+            payload,
+        );
         return response;
     };
 

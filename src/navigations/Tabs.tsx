@@ -60,7 +60,6 @@ export const Tabs = (props: any) => {
     const themeColors = colors.light;
     const insets = useSafeAreaInsets();
     const hasNotch = DeviceInfo.hasNotch();
-    console.log('hasNotch', insets.bottom);
     return (
         <Tab.Navigator
             initialRouteName={Screens.Home}

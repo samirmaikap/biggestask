@@ -8,7 +8,6 @@ const useInvitationQuery = () => {
 
     const sendInvitation = async (payload: any) => {
         const response = await request.post('/invitations', payload);
-        console.log('inv response', response);
         return response;
     };
 

@@ -70,6 +70,7 @@ export const NewQuestionCard = (props: Props) => {
     const {title, questionId, onSaved} = props;
     const toast = useToast();
     const {updateQuestion} = useQuestionQuery();
+    const [requestSheetClose, setRequestSheetClose] = useState(false);
 
     const handleUpdateQuestion = async () => {
         if (!answer) {
@@ -97,6 +98,7 @@ export const NewQuestionCard = (props: Props) => {
         }
 
         toast.show('Answer has been updated.', {placement: 'top'});
+        setRequestSheetClose(true);
         onSaved();
     };
 
@@ -113,6 +115,8 @@ export const NewQuestionCard = (props: Props) => {
             </View>
             <AppSpacing gap={16} />
             <AppBottomSheet
+                requestClose={requestSheetClose}
+                onClose={() => setRequestSheetClose(false)}
                 action={
                     <AppButton
                         textColor={theme.colors.primary}

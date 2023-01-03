@@ -8,7 +8,6 @@ const useContactQuery = () => {
 
     const getContacts = async () => {
         const response = await request.get('/contacts');
-        console.log('getContacts', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_CONTACTS',

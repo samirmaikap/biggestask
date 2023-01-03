@@ -79,7 +79,6 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 authToken: null,
             };
         case 'SET_USER':
-            console.log('set user called', action.payload);
             return {
                 ...prevState,
                 user: action.payload,
@@ -170,6 +169,7 @@ export const AppProvider = (props: Props) => {
                     : null;
 
                 if (authToken) {
+                    console.log('authToken', authToken);
                     dispatch({
                         type: 'SET_TOKEN',
                         payload: authToken,
