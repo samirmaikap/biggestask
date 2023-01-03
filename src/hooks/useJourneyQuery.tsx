@@ -19,6 +19,7 @@ const useJourneyQuery = () => {
 
     const getJourney = async () => {
         const response = await request.get('/journey');
+        console.log('response journey', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_JOURNEY',

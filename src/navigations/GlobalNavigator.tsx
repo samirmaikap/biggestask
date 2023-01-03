@@ -128,14 +128,13 @@ const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
 };
 
 const GlobalNavigator = (props: any) => {
-    const {theme, isFirstLoad} = props;
-    const {state, dispatch} = useAppContext();
+    const {theme, isFirstLoad, journey, isLoggedIn} = props;
     const themeColors = colors.light;
-    const isLoggedIn = state?.authToken;
-    const hasSurrogate =
-        state.user?.journey && state.user?.journey.surrogate_id;
-    const surrogateInvited =
-        state.user?.journey && state.user?.journey.surrogate_invited;
+    const hasSurrogate = journey && journey.surrogate_id;
+    const surrogateInvited = journey && journey.surrogate_invited;
+    console.log('isLoggedIn', isLoggedIn);
+    console.log('hasSurrogate', hasSurrogate);
+    console.log('surrogateInvited', surrogateInvited);
 
     return (
         <NavigationContainer theme={theme}>

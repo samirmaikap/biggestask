@@ -45,31 +45,33 @@ const Root = (props: Props) => {
     const {getCommunities} = useCommunityQuery();
     const {getContacts} = useContactQuery();
     const [isFirstLoad, setIsFirstLoad] = useState(true);
+    const [journey, setJourney] = useState<any>(null);
 
     useEffect(() => {
         (async () => {
-            console.log('reloading rooot.....');
-            const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
-            setIsFirstLoad(!isFirstFromStorage);
             if (state.authToken) {
                 const response = await getMe();
+                if (!response?.error) {
+                    setJourney(response.journey);
+                }
                 console.log('load user response', response);
+                preloadData();
             }
-            setTimeout(() => {
-                setLoading(false);
-            }, 1000);
-            preloadData();
+            const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
+            setIsFirstLoad(!isFirstFromStorage);
+
+            setLoading(false);
         })();
     }, [state.authToken]);
 
-    const preloadData = () => {
-        getJourney();
-        getWeeklyUpdate();
-        getMilestones();
-        getParentQuestions();
-        getSurrogateQuestions();
-        getCommunities();
-        getContacts();
+    const preloadData = async () => {
+        await getJourney();
+        await getWeeklyUpdate();
+        await getMilestones();
+        await getParentQuestions();
+        await getSurrogateQuestions();
+        await getCommunities();
+        await getContacts();
     };
 
     return (
@@ -80,7 +82,12 @@ const Root = (props: Props) => {
                     <ActivityIndicator color={theme.colors.primary} />
                 </View>
             ) : (
-                <GlobalNavigator isFirstLoad={isFirstLoad} theme={theme} />
+                <GlobalNavigator
+                    isLoggedIn={state.authToken}
+                    journey={journey}
+                    isFirstLoad={isFirstLoad}
+                    theme={theme}
+                />
             )}
         </View>
     );

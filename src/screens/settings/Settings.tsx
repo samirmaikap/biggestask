@@ -78,36 +78,36 @@ export const SettingsScreen = () => {
     const {state} = useAppContext();
     const navigation = useNavigation<StackNavigationProp<any>>();
     const {resetMilestones, getMilestones} = useMilestoneQuery();
+    const toast = useToast();
 
-    const handleResetMilestones = async() => {
+    const handleResetMilestones = async () => {
         const ids = state.milestones.map((item: {id: any}) => item.id);
-        const toast = useToast();
-        if(ids.length > 0) {
-
-        }
-        Alert.alert('Are you sure?', 'All milestones will be reset', [
-            {
-                text: 'Cancel',
-            },
-            {
-                text: 'Confirm',
-                onPress: async () => {
-                    const payload = {
-                        ids: ids,
-                    };
-
-                    const response = await resetMilestones(payload);
-                    if (response?.error) {
-                        toast.show(response?.message);
-                        return;
-                    }
-
-                    toast.show(response?.message);
-                    await getMilestones();
+        if (ids.length > 0) {
+            Alert.alert('Are you sure?', 'All milestones will be reset', [
+                {
+                    text: 'Cancel',
                 },
-            },
-        ]);
+                {
+                    text: 'Confirm',
+                    onPress: async () => {
+                        const payload = {
+                            ids: ids,
+                        };
 
+                        const response = await resetMilestones(payload);
+                        if (response?.error) {
+                            toast.show(response?.message);
+                            return;
+                        }
+
+                        toast.show(response?.message);
+                        await getMilestones();
+                    },
+                },
+            ]);
+        } else {
+            toast.show('No milestones available to reset');
+        }
     };
 
     return (

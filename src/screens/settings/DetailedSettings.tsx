@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Platform,
     ScrollView,
@@ -12,6 +12,10 @@ import {Colors} from '../../theme/colors';
 import {Divider, Switch} from 'react-native-paper';
 import StackHeader from '../../components/StackHeader';
 import {AppSpacing} from '../../components/AppSpacing';
+import {useToast} from 'react-native-toast-notifications';
+import useAuthQuery from '../../hooks/useAuthQuery';
+import useJourneyQuery from '../../hooks/useJourneyQuery';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -35,6 +39,37 @@ const styles = StyleSheet.create({
 });
 
 export const DetailedSettingsScreen = () => {
+    const toast = useToast();
+    const {state} = useAppContext();
+    const {updateMe, getMe} = useAuthQuery();
+    const {getJourney} = useJourneyQuery();
+
+    const [notificationEnabled, setNotificationEnabled] = useState(
+        state.user.notification_enabled,
+    );
+
+    const handleUpdateSettings = async () => {
+        const payload = {
+            notification_enabled: notificationEnabled,
+        };
+
+        const response = await updateMe(payload);
+        if (response?.error) {
+            toast.show(response?.message);
+            return;
+        }
+
+        toast.show('Settings Updated');
+        await getMe();
+        await getJourney();
+    };
+
+    useEffect(() => {
+        (async () => {
+            await handleUpdateSettings();
+        })();
+    }, [notificationEnabled]);
+
     return (
         <View style={styles.container}>
             <StatusBar />
@@ -100,7 +135,10 @@ export const DetailedSettingsScreen = () => {
                             </AppText>
                             <View>
                                 <Switch
-                                    value={true}
+                                    onValueChange={v =>
+                                        setNotificationEnabled(v)
+                                    }
+                                    value={!!notificationEnabled}
                                     style={{
                                         transform: [
                                             {
