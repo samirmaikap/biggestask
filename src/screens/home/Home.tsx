@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
 import {AppCard} from '../../components/AppCard';
 import TabHeader from '../../components/TabHeader';
@@ -12,6 +12,10 @@ import {QuestionCard} from '../questions/QuestionCard';
 import {NewQuestionCard} from '../questions/NewQuestionCard';
 import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
+import useJourneyQuery from '../../hooks/useJourneyQuery';
+import {format} from 'date-fns';
+import {AppImage} from '../../components/AppImage';
+import useQuestionQuery from '../../hooks/useQuestionQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -45,6 +49,58 @@ const styles = StyleSheet.create({
 export const HomeScreen = () => {
     const {state} = useAppContext();
 
+    const {getWeeklyUpdate, getNextMilestone} = useJourneyQuery();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+
+    useEffect(() => {
+        (async () => {
+            await getWeeklyUpdate();
+            await getNextMilestone();
+        })();
+    }, []);
+
+    const nextMilestoneDate = state.nextMilestone?.date_time;
+
+    let latestQuestion = null;
+    if (state.user.user_type === 'surrogate') {
+        if (state.surrogateQuestions.length > 0) {
+            let questions = state.surrogateQuestions.filter(
+                (item: any) => !item.answer,
+            );
+            latestQuestion = questions.length > 0 ? questions[0] : null;
+        }
+    } else {
+        if (state.parentQuestions.length > 0) {
+            let questions = state.parentQuestions.filter(
+                (item: any) => !item.answer,
+            );
+            latestQuestion = questions.length > 0 ? questions[0] : null;
+        }
+    }
+
+    let latestAnswer = null;
+
+    if (state.user.user_type === 'surrogate') {
+        if (state.surrogateQuestions.length > 0) {
+            let answers = state.surrogateQuestions.filter(
+                (item: any) => item.answer,
+            );
+            latestAnswer = answers.length > 0 ? answers[0] : null;
+        }
+    } else {
+        if (state.parentQuestions.length > 0) {
+            let answers = state.parentQuestions.filter(
+                (item: any) => item.answer,
+            );
+            latestAnswer = answers.length > 0 ? answers[0] : null;
+        }
+    }
+
+    const handleOnAnswer = async () => {
+        await getSurrogateQuestions();
+        await getParentQuestions();
+    };
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
@@ -54,37 +110,44 @@ export const HomeScreen = () => {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    <View style={styles.title}>
-                        <AppText
-                            variant={'custom'}
-                            fontWeight={'800'}
-                            size={16}>
-                            Pregnancy milestone
-                        </AppText>
-                    </View>
-                    <AppCard padding={16}>
-                        <View
-                            style={[
-                                styles.row,
-                                {justifyContent: 'space-between'},
-                            ]}>
-                            <View style={{marginRight: 16, flex: 1}}>
-                                <AppText fontWeight={'800'}>
-                                    Week seventeen
-                                </AppText>
-                                <AppSpacing gap={8} />
-                                <AppText>
-                                    Your baby is the size of avocado!
-                                </AppText>
-                            </View>
-                            <View>
-                                <Image
-                                    style={{width: 50, height: 50}}
-                                    source={images.AVOCADO}
-                                />
-                            </View>
+                    {state.weeklyUpdate && (
+                        <View style={styles.title}>
+                            <AppText
+                                variant={'custom'}
+                                fontWeight={'800'}
+                                size={16}>
+                                Pregnancy milestone
+                            </AppText>
                         </View>
-                    </AppCard>
+                    )}
+
+                    {state.weeklyUpdate && (
+                        <AppCard padding={16}>
+                            <View
+                                style={[
+                                    styles.row,
+                                    {justifyContent: 'space-between'},
+                                ]}>
+                                <View style={{marginRight: 16, flex: 1}}>
+                                    <AppText fontWeight={'800'}>
+                                        {state.weeklyUpdate.title}
+                                    </AppText>
+                                    <AppSpacing gap={8} />
+                                    <AppText>
+                                        {state.weeklyUpdate.description}
+                                    </AppText>
+                                </View>
+                                <View>
+                                    <AppImage
+                                        size={50}
+                                        isLocal={false}
+                                        uri={state.weeklyUpdate.image}
+                                    />
+                                </View>
+                            </View>
+                        </AppCard>
+                    )}
+
                     {/*Section Next Milestone*/}
                     <View style={styles.title}>
                         <AppText
@@ -94,61 +157,108 @@ export const HomeScreen = () => {
                             Next Milestone
                         </AppText>
                     </View>
-                    <AppCard padding={16}>
-                        <Image
-                            style={{width: '100%', height: 200}}
-                            source={images.MEDICAL_EXAM}
-                        />
-                        <AppText variant="h2">Medical Clearance Exam</AppText>
-                        <AppSpacing />
-                        <View style={styles.row}>
-                            <View>
-                                <CalendarIcon size={16} color={Colors.grey_3} />
+                    {state.nextMilestone ? (
+                        <AppCard padding={16}>
+                            <View
+                                style={[
+                                    styles.row,
+                                    {
+                                        justifyContent: 'center',
+                                        alignItems: 'center',
+                                    },
+                                ]}>
+                                <AppImage
+                                    size={200}
+                                    isLocal={!state.nextMilestone.image}
+                                    uri={
+                                        state.nextMilestone.image
+                                            ? state.nextMilestone.image
+                                            : images.LOGO_ORIGINAL
+                                    }
+                                />
                             </View>
-                            <AppSpacing isHorizontal={true} />
+                            <AppText variant="h2">
+                                {state.nextMilestone?.name}
+                            </AppText>
+                            <AppSpacing />
+                            <View style={styles.row}>
+                                <View>
+                                    <CalendarIcon
+                                        size={16}
+                                        color={Colors.grey_3}
+                                    />
+                                </View>
+                                <AppSpacing isHorizontal={true} />
+                                <AppText
+                                    variant={'custom'}
+                                    size={12}
+                                    color={Colors.grey_3}>
+                                    {nextMilestoneDate
+                                        ? format(
+                                            new Date(nextMilestoneDate),
+                                            "MM/dd/yyyy 'at' h:mm a",
+                                        )
+                                        : 'Not yet scheduled'}
+                                </AppText>
+                            </View>
+                            <AppSpacing gap={16} />
+                            {/*<AppButton*/}
+                            {/*    contentStyle={AppStyles.buttonContent}*/}
+                            {/*    textColor={Colors.grey_2}*/}
+                            {/*    style={[*/}
+                            {/*        AppStyles.button,*/}
+                            {/*        {borderColor: Colors.grey_4},*/}
+                            {/*    ]}*/}
+                            {/*    mode={'outlined'}>*/}
+                            {/*    Ask Gestational Carrier*/}
+                            {/*</AppButton>*/}
+                        </AppCard>
+                    ) : (
+                        <AppText>Not available</AppText>
+                    )}
+
+                    {/*Section Last Questions*/}
+                    {latestQuestion && (
+                        <View style={styles.title}>
                             <AppText
                                 variant={'custom'}
-                                size={12}
-                                color={Colors.grey_3}>
-                                09/22/2021 at 9:30AM
+                                fontWeight={'800'}
+                                size={16}>
+                                Your latest questions
                             </AppText>
                         </View>
-                        <AppSpacing gap={16} />
-                        <AppButton
-                            contentStyle={AppStyles.buttonContent}
-                            textColor={Colors.grey_2}
-                            style={[
-                                AppStyles.button,
-                                {borderColor: Colors.grey_4},
-                            ]}
-                            mode={'outlined'}>
-                            Ask Gestational Carrier
-                        </AppButton>
-                    </AppCard>
-                    {/*Section Last Questions*/}
-                    <View style={styles.title}>
-                        <AppText
-                            variant={'custom'}
-                            fontWeight={'800'}
-                            size={16}>
-                            Your latest questions
-                        </AppText>
-                    </View>
-                    <NewQuestionCard />
+                    )}
+                    {latestQuestion && (
+                        <NewQuestionCard
+                            onSaved={handleOnAnswer}
+                            questionId={latestQuestion?.id}
+                            title={latestQuestion?.question.text}
+                        />
+                    )}
+
                     {/*Section Your Surrogate*/}
-                    <View style={styles.title}>
-                        <AppText
-                            variant={'custom'}
-                            fontWeight={'800'}
-                            size={16}>
-                            Your Gestational Carrier
-                        </AppText>
-                    </View>
-                    <QuestionCard
-                        title={'What is your favorite snack?'}
-                        user={'Martha Smith'}
-                        answer={'Chocolate all the way!!'}
-                    />
+                    {latestAnswer && (
+                        <View style={styles.title}>
+                            <AppText
+                                variant={'custom'}
+                                fontWeight={'800'}
+                                size={16}>
+                                Your{' '}
+                                {state.user?.user_type === 'parent'
+                                    ? 'Parents'
+                                    : 'Gestational Carrier'}
+                            </AppText>
+                        </View>
+                    )}
+
+                    {latestAnswer && (
+                        <QuestionCard
+                            time={latestAnswer?.time}
+                            title={latestAnswer?.question.text}
+                            user={latestAnswer?.user_name}
+                            answer={latestAnswer?.answer}
+                        />
+                    )}
                 </View>
             </ScrollView>
         </View>

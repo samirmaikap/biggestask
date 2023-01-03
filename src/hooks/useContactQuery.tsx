@@ -20,27 +20,18 @@ const useContactQuery = () => {
 
     const createContact = async (payload: any) => {
         const response = await request.post('/contacts', payload);
-        if (!response?.error) {
-            await getContacts();
-        }
 
         return response;
     };
 
     const updateContact = async (payload: any, contactId: number) => {
         const response = await request.post(`/contacts/${contactId}`, payload);
-        if (!response?.error) {
-            await getContacts();
-        }
 
         return response;
     };
 
     const deleteContact = async (contactId: number) => {
         const response = await request.remove(`/contacts/${contactId}`);
-        if (!response?.error) {
-            await getContacts();
-        }
 
         return response;
     };

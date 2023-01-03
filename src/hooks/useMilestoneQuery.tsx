@@ -8,7 +8,6 @@ const useMilestoneQuery = () => {
 
     const getMilestones = async () => {
         const response = await request.get('/milestones');
-        console.log('getMilestones', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_MILESTONES',
@@ -19,9 +18,7 @@ const useMilestoneQuery = () => {
     };
 
     const createMilestone = async (payload: any) => {
-        console.log('payload 22', payload);
         const response = await request.post('/milestones', payload);
-        console.log('rc resposne', response);
         return response;
     };
 
@@ -40,11 +37,18 @@ const useMilestoneQuery = () => {
         return response;
     };
 
+    const resetMilestones = async (payload: any) => {
+        const response = await request.post('/milestones/reset', payload);
+
+        return response;
+    };
+
     return {
         getMilestones,
         createMilestone,
         updateMilestone,
         deleteMilestone,
+        resetMilestones,
     };
 };
 

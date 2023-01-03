@@ -12,7 +12,7 @@ const useCommunityQuery = () => {
         const response = await request.get('/communities');
         if (!response?.error) {
             dispatch({
-                type: 'setCommunities',
+                type: 'SET_COMMUNITIES',
                 payload: response,
             });
         }

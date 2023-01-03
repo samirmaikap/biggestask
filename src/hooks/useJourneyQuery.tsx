@@ -8,7 +8,6 @@ const useJourneyQuery = () => {
 
     const getWeeklyUpdate = async () => {
         const response = await request.get('/journey/week');
-        console.log('getWeeklyUpdate', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_WEEKLY_UPDATE',

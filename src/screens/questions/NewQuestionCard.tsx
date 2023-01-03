@@ -9,6 +9,9 @@ import {AppBottomSheet} from '../../components/AppBottomSheet';
 import React, {useState} from 'react';
 import {AppCard} from '../../components/AppCard';
 import AppButton from '../../components/AppButton';
+import {useAppContext} from '../../contexts/AppContext';
+import {useToast} from 'react-native-toast-notifications';
+import useQuestionQuery from '../../hooks/useQuestionQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -39,14 +42,63 @@ const styles = StyleSheet.create({
     },
 });
 
-export const NewQuestionCard = () => {
+type Props = {
+    title: string;
+    onSaved: Function;
+    questionId: number;
+};
+
+export const NewQuestionCard = (props: Props) => {
     const theme = useTheme();
+    const {state} = useAppContext();
     const [open, setOpen] = useState(false);
-    const [value, setValue] = useState(null);
-    const [items, setItems] = useState([
-        {label: 'John Doe', value: '1'},
-        {label: 'Jane Doe', value: '2'},
-    ]);
+    const [selectedUser, setSelectedUser] = useState(
+        state.user.user_type === 'surrogate' ? state.surrogate.id : null,
+    );
+    const [users, setUsers] = useState(
+        state.user.user_type === 'parent'
+            ? [
+                {label: state.parent1.name, value: state.parent1.id},
+                {label: state.parent2.name, value: state.parent2.id},
+            ]
+            : [],
+    );
+    const [answer, setAnswer] = useState('');
+
+    const [loading, setLoading] = useState(false);
+
+    const {title, questionId, onSaved} = props;
+    const toast = useToast();
+    const {updateQuestion} = useQuestionQuery();
+
+    const handleUpdateQuestion = async () => {
+        if (!answer) {
+            toast.show('Please add an answer');
+            return;
+        }
+
+        if (!selectedUser) {
+            toast.show('Please select a parent');
+            return;
+        }
+
+        const payload = {
+            answer: answer,
+            answered_by: selectedUser,
+        };
+
+        setLoading(true);
+
+        const response = await updateQuestion(payload, questionId);
+        setLoading(false);
+        if (response?.error) {
+            toast.show(response?.message);
+            return;
+        }
+
+        toast.show('Answer has been updated.', {placement: 'top'});
+        onSaved();
+    };
 
     return (
         <AppCard padding={16} backgroundColor={theme.colors.primary}>
@@ -56,11 +108,7 @@ export const NewQuestionCard = () => {
                 </AppText>
                 <AppSpacing gap={8} />
                 <AppText textAlign={'center'} color={'white'}>
-                    Do you like sports?
-                </AppText>
-                <AppSpacing gap={8} />
-                <AppText textAlign={'center'} color={'white'}>
-                    If so, who is your favorite sports team?
+                    {title}
                 </AppText>
             </View>
             <AppSpacing gap={16} />
@@ -77,9 +125,7 @@ export const NewQuestionCard = () => {
                 <View style={{backgroundColor: 'white'}}>
                     <View style={styles.centerContainer}>
                         <AppText variant={'h2'}>New Questions</AppText>
-                        <AppText textAlign={'center'}>
-                            Would you like to be famous? is what way?
-                        </AppText>
+                        <AppText textAlign={'center'}>{title}</AppText>
                     </View>
                     <AppSpacing gap={16} />
                     <AppText variant={'title'}>Answer</AppText>
@@ -90,30 +136,40 @@ export const NewQuestionCard = () => {
                             AppStyles.textInput,
                             {padding: 16, minHeight: 100},
                         ]}
+                        value={answer}
+                        onChangeText={e => setAnswer(e)}
                     />
                     <AppSpacing gap={16} />
-                    <AppText variant={'title'}>Parents</AppText>
-                    <AppSpacing gap={4} />
-                    <DropDownPicker
-                        open={open}
-                        value={value}
-                        items={items}
-                        setOpen={setOpen}
-                        setValue={setValue}
-                        setItems={setItems}
-                        placeholder="Select Username"
-                        style={AppStyles.dropdownInput}
-                        containerStyle={{
-                            height: 40,
-                            marginTop: 10,
-                            marginBottom: 10,
-                        }}
-                        dropDownContainerStyle={
-                            AppStyles.dropdownContainerStyle
-                        }
-                    />
+                    {state.user.user_type === 'parent' && (
+                        <>
+                            <AppText variant={'title'}>Parents</AppText>
+                            <AppSpacing gap={4} />
+                            <DropDownPicker
+                                open={open}
+                                value={selectedUser}
+                                items={users}
+                                setOpen={setOpen}
+                                setValue={setSelectedUser}
+                                setItems={setUsers}
+                                placeholder="Select Parent"
+                                style={AppStyles.dropdownInput}
+                                containerStyle={{
+                                    height: 40,
+                                    marginTop: 10,
+                                    marginBottom: 10,
+                                }}
+                                dropDownContainerStyle={
+                                    AppStyles.dropdownContainerStyle
+                                }
+                            />
+                        </>
+                    )}
+
                     <AppSpacing gap={16} />
                     <AppButton
+                        onPress={handleUpdateQuestion}
+                        loading={loading}
+                        disabled={loading}
                         contentStyle={AppStyles.buttonContent}
                         mode="contained"
                         style={[AppStyles.button]}>

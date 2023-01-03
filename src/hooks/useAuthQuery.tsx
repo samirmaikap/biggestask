@@ -108,6 +108,11 @@ function useAuthQuery() {
         });
     };
 
+    const updateFrequency = async (payload: any) => {
+        const response = await request.put('/me/frequency', payload);
+        return response;
+    };
+
     return {
         login,
         register,
@@ -116,6 +121,7 @@ function useAuthQuery() {
         getMe,
         logout,
         updateMe,
+        updateFrequency,
     };
 }
 

@@ -8,7 +8,8 @@ type InitialStateType = {
     tempEmail: any;
     tempEmailVerified: boolean;
     user: any;
-    questions: any;
+    surrogateQuestions: any;
+    parentQuestions: any;
     milestones: any;
     communities: any;
     weeklyUpdate: any;
@@ -26,11 +27,12 @@ const initialState = {
     user: null,
     tempEmail: null,
     tempEmailVerified: false,
-    questions: null,
-    milestones: null,
-    communities: null,
+    parentQuestions: [],
+    surrogateQuestions: [],
+    milestones: [],
+    communities: [],
     weeklyUpdate: null,
-    contacts: null,
+    contacts: [],
     journey: null,
     parent1: null,
     parent2: null,
@@ -112,7 +114,7 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 ...prevState,
                 tempEmailVerified: action.payload,
             };
-        case 'setCommunities':
+        case 'SET_COMMUNITIES':
             return {
                 ...prevState,
                 communities: action.payload,
@@ -132,10 +134,15 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 ...prevState,
                 milestones: action.payload,
             };
-        case 'SET_QUESTIONS':
+        case 'SET_PARENT_QUESTIONS':
             return {
                 ...prevState,
-                questions: action.payload,
+                parentQuestions: action.payload,
+            };
+        case 'SET_SURROGATE_QUESTIONS':
+            return {
+                ...prevState,
+                surrogateQuestions: action.payload,
             };
         case 'SET_NEXT_MILESTONE':
             return {

@@ -95,13 +95,6 @@ export const CommunityForm = (props: Props) => {
         setImageResponse({});
 
         toast.show('Community Created');
-
-        const communities = await getCommunities();
-        dispatch({
-            type: 'setCommunities',
-            payload: communities,
-        });
-
         onSaved();
     };
 

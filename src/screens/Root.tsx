@@ -41,7 +41,7 @@ const Root = (props: Props) => {
     const [isLoading, setLoading] = useState(true);
     const {getWeeklyUpdate, getJourney} = useJourneyQuery();
     const {getMilestones} = useMilestoneQuery();
-    const {getQuestions} = useQuestionQuery();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
     const {getCommunities} = useCommunityQuery();
     const {getContacts} = useContactQuery();
     const [isFirstLoad, setIsFirstLoad] = useState(true);
@@ -66,7 +66,8 @@ const Root = (props: Props) => {
         getJourney();
         getWeeklyUpdate();
         getMilestones();
-        getQuestions();
+        getParentQuestions();
+        getSurrogateQuestions();
         getCommunities();
         getContacts();
     };

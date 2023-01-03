@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+    Alert,
     Linking,
     ScrollView,
     StatusBar,
@@ -19,6 +20,10 @@ import {AppText} from '../../components/AppText';
 import AppStyles from '../../theme/AppStyles';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
+import {useAppContext} from '../../contexts/AppContext';
+import useContactQuery from '../../hooks/useContactQuery';
+import useMilestoneQuery from '../../hooks/useMilestoneQuery';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -70,7 +75,41 @@ const menus = [
 ];
 
 export const SettingsScreen = () => {
+    const {state} = useAppContext();
     const navigation = useNavigation<StackNavigationProp<any>>();
+    const {resetMilestones, getMilestones} = useMilestoneQuery();
+
+    const handleResetMilestones = async() => {
+        const ids = state.milestones.map((item: {id: any}) => item.id);
+        const toast = useToast();
+        if(ids.length > 0) {
+
+        }
+        Alert.alert('Are you sure?', 'All milestones will be reset', [
+            {
+                text: 'Cancel',
+            },
+            {
+                text: 'Confirm',
+                onPress: async () => {
+                    const payload = {
+                        ids: ids,
+                    };
+
+                    const response = await resetMilestones(payload);
+                    if (response?.error) {
+                        toast.show(response?.message);
+                        return;
+                    }
+
+                    toast.show(response?.message);
+                    await getMilestones();
+                },
+            },
+        ]);
+
+    };
+
     return (
         <View style={styles.container}>
             <StatusBar />
@@ -123,6 +162,7 @@ export const SettingsScreen = () => {
                     <AppSpacing gap={16} />
                     <View>
                         <AppButton
+                            onPress={handleResetMilestones}
                             contentStyle={AppStyles.buttonContent}
                             style={AppStyles.button}
                             mode={'contained'}>

@@ -8,6 +8,7 @@ import {PencilIcon} from '../../components/icons/PencilIcon';
 import {images} from '../../utils/constants';
 import {AppCompactButton} from '../../components/AppCompactButton';
 import {Colors} from '../../theme/colors';
+import {formatPhoneNumber} from '../../utils/utils';
 
 const styles = StyleSheet.create({
     row: {
@@ -31,10 +32,11 @@ const styles = StyleSheet.create({
 
 type Props = {
     onEditPress: Function;
+    item: any;
 };
 
 export const ContactCard = (props: Props) => {
-    const {onEditPress} = props;
+    const {item, onEditPress} = props;
     const theme = useTheme();
     return (
         <AppCard>
@@ -45,7 +47,7 @@ export const ContactCard = (props: Props) => {
                 <View style={{flex: 1, marginLeft: 16}}>
                     <View
                         style={[styles.row, {justifyContent: 'space-between'}]}>
-                        <AppText fontWeight={'600'}>Fertility Doctor</AppText>
+                        <AppText fontWeight={'600'}>{item?.title}</AppText>
                         <TouchableOpacity onPress={() => onEditPress()}>
                             <PencilIcon />
                         </TouchableOpacity>
@@ -56,21 +58,25 @@ export const ContactCard = (props: Props) => {
                             Contact Rep Name
                         </AppText>
                         <AppSpacing />
-                        <AppText>John Doe</AppText>
+                        <AppText>{item?.name}</AppText>
                     </View>
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
                             Agency Email
                         </AppText>
                         <AppSpacing />
-                        <AppText>happyagency@mail.ua</AppText>
+                        <AppText>{item?.email}</AppText>
                     </View>
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
                             Agency phone number
                         </AppText>
                         <AppSpacing />
-                        <AppText>(222)-333-4444</AppText>
+                        <AppText>
+                            {item?.phone
+                                ? formatPhoneNumber(item?.phone)
+                                : null}
+                        </AppText>
                     </View>
                 </View>
             </View>

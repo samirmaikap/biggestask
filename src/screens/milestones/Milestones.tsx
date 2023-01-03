@@ -1,5 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {
+    Alert,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -25,6 +26,7 @@ import {MilestoneCard} from './MilestoneCard';
 import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     container: {
@@ -54,19 +56,20 @@ const styles = StyleSheet.create({
 
 export const MilestonesScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
-    const [selectedItem, setSelectedItems] = useState<any>([]);
+    const [selectedItems, setSelectedItems] = useState<any>([]);
     const [selectionVisible, setSelectionVisible] = useState(false);
     const {state, dispatch} = useAppContext();
+    const toast = useToast();
 
-    const {getMilestones} = useMilestoneQuery();
+    const {getMilestones, resetMilestones} = useMilestoneQuery();
 
     useEffect(() => {
-        if (selectedItem.length > 0) {
+        if (selectedItems.length > 0) {
             setSelectionVisible(true);
         } else {
             setSelectionVisible(false);
         }
-    }, [selectedItem]);
+    }, [selectedItems]);
 
     useEffect(() => {
         (async () => {
@@ -75,7 +78,7 @@ export const MilestonesScreen = () => {
     }, []);
 
     const toggleSelectAll = () => {
-        if (state.milestones.length === selectedItem.length) {
+        if (state.milestones.length === selectedItems.length) {
             setSelectedItems([]);
         } else {
             const items = state.milestones.map(
@@ -86,8 +89,8 @@ export const MilestonesScreen = () => {
     };
 
     const updateSelection = (item: any) => {
-        const updatedItems = selectedItem;
-        if (selectedItem.includes(item)) {
+        const updatedItems = selectedItems;
+        if (selectedItems.includes(item)) {
             const index = updatedItems.indexOf(item);
             updatedItems.splice(index, 1);
             setSelectedItems([...updatedItems]);
@@ -97,10 +100,36 @@ export const MilestonesScreen = () => {
     };
 
     const removeSelection = (item: number) => {
-        const updatedItems = selectedItem;
+        const updatedItems = selectedItems;
         const index = updatedItems.indexOf(item);
         updatedItems.splice(index, 1);
         setSelectedItems([...updatedItems]);
+    };
+
+    const handleResetMilestones = async () => {
+        Alert.alert('Are you sure?', 'All selected milestones will be reset', [
+            {
+                text: 'Cancel',
+            },
+            {
+                text: 'Confirm',
+                onPress: async () => {
+                    const payload = {
+                        ids: selectedItems,
+                    };
+
+                    const response = await resetMilestones(payload);
+                    if (response?.error) {
+                        toast.show(response?.message);
+                        return;
+                    }
+
+                    toast.show(response?.message);
+                    setSelectedItems([]);
+                    await getMilestones();
+                },
+            },
+        ]);
     };
 
     return (
@@ -172,7 +201,7 @@ export const MilestonesScreen = () => {
                                         fontWeight={'700'}
                                         color={Colors.primary}>
                                         {state.milestones.length ===
-                                        selectedItem.length
+                                        selectedItems.length
                                             ? 'Unselect All'
                                             : 'Select All'}
                                     </AppText>
@@ -183,10 +212,12 @@ export const MilestonesScreen = () => {
                         {state.milestones.map((item: any, index: number) => {
                             return (
                                 <TouchableOpacity
-                                    onLongPress={() => updateSelection(index)}
+                                    onLongPress={() =>
+                                        updateSelection(item?.id)
+                                    }
                                     onPress={() => {
                                         if (selectionVisible) {
-                                            updateSelection(index);
+                                            updateSelection(item?.id);
                                         } else {
                                             navigation.navigate(
                                                 Screens.MilestoneDetails,
@@ -197,11 +228,11 @@ export const MilestonesScreen = () => {
                                     activeOpacity={0.8}
                                     key={`ca-${index}`}>
                                     <MilestoneCard
-                                        isSelected={selectedItem.includes(
-                                            index,
+                                        isSelected={selectedItems.includes(
+                                            item?.id,
                                         )}
                                         onRemoveSelection={() =>
-                                            removeSelection(index)
+                                            removeSelection(item?.id)
                                         }
                                         item={item}
                                     />
@@ -212,7 +243,9 @@ export const MilestonesScreen = () => {
                             <View>
                                 <AppSpacing gap={8} />
                                 <View>
-                                    <AppButton mode={'contained'}>
+                                    <AppButton
+                                        onPress={handleResetMilestones}
+                                        mode={'contained'}>
                                         Reset Milestones
                                     </AppButton>
                                 </View>

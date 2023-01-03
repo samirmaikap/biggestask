@@ -117,6 +117,7 @@ export const ProfileScreen = () => {
     const {uploadImage} = useAttachmentsQuery();
     const {updateMe, getMe} = useAuthQuery();
     const {getJourney} = useJourneyQuery();
+    const [requestSheetClose, setRequestSheetClose] = useState(false);
 
     const profiles = [];
     if (isSpectator) {
@@ -207,6 +208,7 @@ export const ProfileScreen = () => {
     };
 
     const handleOnSave = async () => {
+        setRequestSheetClose(true);
         await getMe();
         await getJourney();
     };
@@ -215,7 +217,11 @@ export const ProfileScreen = () => {
         return (
             <AppBottomSheet
                 isOpen={openSheet}
-                onClose={() => setOpenSheet(false)}>
+                requestClose={requestSheetClose}
+                onClose={() => {
+                    setOpenSheet(false);
+                    setRequestSheetClose(false);
+                }}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
                     <AppText variant={'h2'}>Invite Partner</AppText>
                 </View>
@@ -264,6 +270,7 @@ export const ProfileScreen = () => {
                     isEditable
                         ? [
                             <TouchableOpacity
+                                key={'t-1'}
                                 activeOpacity={0.8}
                                 onPress={() => setIsEditing(!isEditing)}>
                                 <PencilIcon />
@@ -430,25 +437,57 @@ export const ProfileScreen = () => {
                         )}
 
                         <View>
-                            <View>
-                                {[1, 2, 3].map((item, index) => {
-                                    return (
-                                        <View
-                                            style={{marginVertical: 8}}
-                                            key={`new-q-${index}`}>
-                                            <QuestionCard
-                                                title={
-                                                    'What is your favorite snack?'
-                                                }
-                                                user={'Martha Smith'}
-                                                answer={
-                                                    'Chocolate all the way!!'
-                                                }
-                                            />
-                                        </View>
-                                    );
-                                })}
-                            </View>
+                            {state.user.user_type === 'parent' ? (
+                                <View>
+                                    {state.surrogateQuestions.map(
+                                        (item: any, index: any) => {
+                                            return (
+                                                <View
+                                                    style={{marginVertical: 8}}
+                                                    key={`su-q-${index}`}>
+                                                    <QuestionCard
+                                                        time={item?.time}
+                                                        title={
+                                                            item?.question.text
+                                                        }
+                                                        user={item?.user_name}
+                                                        answer={item?.answer}
+                                                    />
+                                                </View>
+                                            );
+                                        },
+                                    )}
+                                </View>
+                            ) : (
+                                <View>
+                                    {state.parentQuestions.map(
+                                        (
+                                            item: {
+                                                question: {text: string};
+                                                user_name: any;
+                                                answer: string;
+                                                time: string;
+                                            },
+                                            index: any,
+                                        ) => {
+                                            return (
+                                                <View
+                                                    style={{marginVertical: 8}}
+                                                    key={`pa-q-${index}`}>
+                                                    <QuestionCard
+                                                        time={item?.time}
+                                                        title={
+                                                            item?.question.text
+                                                        }
+                                                        user={item?.user_name}
+                                                        answer={item?.answer}
+                                                    />
+                                                </View>
+                                            );
+                                        },
+                                    )}
+                                </View>
+                            )}
                         </View>
                     </View>
                 </ScrollView>

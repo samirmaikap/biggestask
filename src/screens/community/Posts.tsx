@@ -40,9 +40,10 @@ export const PostsScreen = () => {
     const navigation = useNavigation();
     const {state, dispatch} = useAppContext();
     const {getCommunities} = useCommunityQuery();
+    const [requestSheetClose, setRequestSheetClose] = useState(false);
 
     const handleOnSaved = async () => {
-        setOpenSheet(false);
+        setRequestSheetClose(true);
         await getCommunities();
     };
 
@@ -56,7 +57,11 @@ export const PostsScreen = () => {
         return (
             <AppBottomSheet
                 isOpen={openSheet}
-                onClose={() => setOpenSheet(false)}>
+                requestClose={requestSheetClose}
+                onClose={() => {
+                    setOpenSheet(false);
+                    setRequestSheetClose(false);
+                }}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
                     <AppText variant={'h2'}>Create Community</AppText>
                 </View>
@@ -72,7 +77,9 @@ export const PostsScreen = () => {
             <StackHeader
                 title={'Community'}
                 actions={[
-                    <TouchableOpacity onPress={() => setOpenSheet(true)}>
+                    <TouchableOpacity
+                        key={'t-1'}
+                        onPress={() => setOpenSheet(true)}>
                         <PlusCircleIcon />
                     </TouchableOpacity>,
                 ]}

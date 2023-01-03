@@ -16,22 +16,23 @@ type Props = {
     title: string;
     user: any;
     answer: string;
+    time: string;
 };
 
 export const QuestionCard = (props: Props) => {
-    const {title, user, answer} = props;
+    const {title, user, answer, time} = props;
     return (
         <AppCard padding={16}>
-            <AppText fontWeight={'700'}>What is your favorite snack?</AppText>
+            <AppText fontWeight={'700'}>{title}</AppText>
             <AppSpacing gap={8} />
             <View style={[styles.row, {justifyContent: 'space-between'}]}>
-                <AppText color={primaryColor}>Martha Smith</AppText>
+                <AppText color={primaryColor}>{user}</AppText>
                 <AppText size={12} variant={'custom'} color={Colors.grey_3}>
-                    1 Day ago
+                    {time}
                 </AppText>
             </View>
             <AppSpacing gap={8} />
-            <AppText>Chocolate all the way!!</AppText>
+            <AppText>{answer}</AppText>
         </AppCard>
     );
 };

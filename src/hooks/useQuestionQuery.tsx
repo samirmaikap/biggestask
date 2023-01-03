@@ -6,11 +6,22 @@ const useQuestionQuery = () => {
     const request = useRequest();
     const {state, dispatch} = useAppContext();
 
-    const getQuestions = async () => {
-        const response = await request.get('/questions');
+    const getParentQuestions = async () => {
+        const response = await request.get('/questions/parent');
         if (!response?.error) {
             dispatch({
-                type: 'SET_QUESTIONS',
+                type: 'SET_PARENT_QUESTIONS',
+                payload: response,
+            });
+        }
+        return response;
+    };
+
+    const getSurrogateQuestions = async () => {
+        const response = await request.get('/questions/surrogate');
+        if (!response?.error) {
+            dispatch({
+                type: 'SET_SURROGATE_QUESTIONS',
                 payload: response,
             });
         }
@@ -19,14 +30,12 @@ const useQuestionQuery = () => {
 
     const updateQuestion = async (payload: any, questionId: number) => {
         const response = await request.get(`/questions/${questionId}/answer`);
-        if (!response?.error) {
-            await getQuestions();
-        }
         return response;
     };
 
     return {
-        getQuestions,
+        getParentQuestions,
+        getSurrogateQuestions,
         updateQuestion,
     };
 };
