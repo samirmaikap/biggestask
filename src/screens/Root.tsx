@@ -39,7 +39,7 @@ const Root = (props: Props) => {
     const {state, dispatch} = useAppContext();
     const {getMe} = useAuthQuery();
     const [isLoading, setLoading] = useState(true);
-    const {getWeeklyUpdate, getJourney} = useJourneyQuery();
+    const {getWeeklyUpdate, getJourney, getNextMilestone} = useJourneyQuery();
     const {getMilestones} = useMilestoneQuery();
     const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
     const {getCommunities} = useCommunityQuery();
@@ -49,6 +49,7 @@ const Root = (props: Props) => {
 
     useEffect(() => {
         (async () => {
+            console.log('init called');
             await init();
         })();
     }, []);
@@ -56,6 +57,7 @@ const Root = (props: Props) => {
     useEffect(() => {
         (async () => {
             if (!isLoading) {
+                console.log('init called again');
                 await init();
             }
         })();
@@ -70,6 +72,7 @@ const Root = (props: Props) => {
             if (!response?.error) {
                 setJourney(response.journey);
             }
+            await getJourney();
             preloadData();
         }
 
@@ -98,7 +101,7 @@ const Root = (props: Props) => {
     //                 setJourney(response.journey);
     //             }
     //             console.log('load user response', response);
-    //             preloadData();
+    //             await preloadData();
     //         }
     //         const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
     //         setIsFirstLoad(!isFirstFromStorage);
@@ -108,13 +111,13 @@ const Root = (props: Props) => {
     // }, [state.authToken]);
 
     const preloadData = async () => {
-        await getJourney();
-        await getWeeklyUpdate();
-        await getMilestones();
-        await getParentQuestions();
-        await getSurrogateQuestions();
-        await getCommunities();
-        await getContacts();
+        getWeeklyUpdate();
+        getNextMilestone();
+        getMilestones();
+        getParentQuestions();
+        getSurrogateQuestions();
+        getCommunities();
+        getContacts();
     };
 
     return (

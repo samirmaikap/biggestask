@@ -18,7 +18,7 @@ import {AppSpacing} from '../../components/AppSpacing';
 import {Colors} from '../../theme/colors';
 import {Divider} from 'react-native-paper';
 import {QuestionCard} from '../questions/QuestionCard';
-import {getImagePayload, toRgba} from '../../utils/utils';
+import {getImagePayload, getInActiveQuestions, toRgba} from '../../utils/utils';
 import {CameraIcon} from '../../components/icons/CameraIcon';
 import {ProfileForm} from './ProfileForm';
 import {useHeaderHeight} from '@react-navigation/elements';
@@ -141,38 +141,17 @@ export const ProfileScreen = () => {
         }
     }
 
-    let questions = [];
-    if (isSpectator) {
-        if (
-            state.user?.user_type === 'surrogate' &&
-            state.parentQuestions.length > 0
-        ) {
-            questions = state.parentQuestions.filter(
-                (item: any) => item.answer,
-            );
-        } else {
-            if (state.surrogateQuestions.length > 0) {
-                questions = state.surrogateQuestions.filter(
-                    (item: any) => item.answer,
-                );
-            }
-        }
-    } else {
-        if (
-            state.user?.user_type === 'surrogate' &&
-            state.surrogateQuestions.length > 0
-        ) {
-            questions = state.surrogateQuestions.filter(
-                (item: any) => item.answer,
-            );
-        } else {
-            if (state.parentQuestions.length > 0) {
-                questions = state.parentQuestions.filter(
-                    (item: any) => item.answer,
-                );
-            }
-        }
-    }
+    const spectatorRole =
+        state.user?.user_type === 'surrogate' ? 'parent' : 'surrogate';
+
+    console.log(isSpectator ? spectatorRole : state.user?.user_type);
+
+    let questions = getInActiveQuestions(
+        state.parentQuestions,
+        state.surrogateQuestions,
+        isSpectator ? spectatorRole : state.user?.user_type,
+        2,
+    );
 
     const isEditable = state.user?.id === profiles[selectedProfile].id;
 
@@ -246,6 +225,8 @@ export const ProfileScreen = () => {
         await getJourney();
     };
 
+    console.log(profiles[0].avatar);
+
     const renderBottomSheet = () => {
         return (
             <AppBottomSheet
@@ -294,7 +275,7 @@ export const ProfileScreen = () => {
             <StackHeader
                 title={
                     isSpectator
-                        ? state.user.user_type === 'surrogate'
+                        ? state.user?.user_type === 'surrogate'
                             ? 'Intended Parents'
                             : 'Gestational Carrier'
                         : 'Your Account'
@@ -429,11 +410,15 @@ export const ProfileScreen = () => {
                                 />
                                 <AppSpacing gap={16} />
                                 <AppText>
-                                    {profiles[selectedProfile]?.address}
+                                    {profiles[selectedProfile]?.address
+                                        ? profiles[selectedProfile]?.address
+                                        : 'Address not available'}
                                 </AppText>
                                 <AppSpacing gap={16} />
                                 <AppText color={Colors.primary}>
-                                    {profiles[selectedProfile]?.phone}
+                                    {profiles[selectedProfile]?.phone
+                                        ? profiles[selectedProfile]?.phone
+                                        : 'Phone not available'}
                                 </AppText>
                                 <AppSpacing gap={16} />
                                 <AppText>

@@ -27,3 +27,97 @@ export function formatPhoneNumber(phoneNumberString) {
     }
     return null;
 }
+
+export function getLatestQuestion(parentQuestions, surrogateQuestions, role) {
+    let questions = [];
+    console.log('role', role);
+    if (role === 'surrogate' && surrogateQuestions.length > 0) {
+        questions = surrogateQuestions.filter(item => !item.answer);
+    } else {
+        if (parentQuestions.length > 0) {
+            questions = parentQuestions.filter(item => !item.answer);
+        }
+    }
+
+    return questions.length > 0 ? questions[0] : null;
+}
+
+export function getLatestAnswerByOther(
+    parentQuestions,
+    surrogateQuestions,
+    role,
+) {
+    let questions = [];
+    if (role === 'parent' && surrogateQuestions.length > 0) {
+        questions = surrogateQuestions.filter(item => item.answer);
+    } else {
+        if (parentQuestions.length > 0) {
+            questions = parentQuestions.filter(item => item.answer);
+        }
+    }
+
+    return questions.length > 0 ? questions[0] : null;
+}
+
+export function getActiveQuestions(
+    parentQuestions,
+    surrogateQuestions,
+    role,
+    length = 0,
+) {
+    if (role === 'surrogate' && surrogateQuestions.length > 0) {
+        const questions = surrogateQuestions.filter(item => !item.answer);
+        if (length) {
+            return questions.splice(0, length);
+        }
+        return questions;
+    } else {
+        if (parentQuestions.length > 0) {
+            const questions = parentQuestions.filter(item => !item.answer);
+            if (length) {
+                return questions.splice(0, length);
+            }
+
+            return questions;
+        }
+    }
+}
+
+export function getInActiveQuestions(
+    parentQuestions,
+    surrogateQuestions,
+    role,
+    length = 0,
+) {
+    if (role === 'surrogate' && surrogateQuestions.length > 0) {
+        const questions = surrogateQuestions.filter(item => item.answer);
+        if (length) {
+            return questions.splice(0, length);
+        }
+        return questions;
+    } else {
+        if (parentQuestions.length > 0) {
+            const questions = parentQuestions.filter(item => item.answer);
+            if (length) {
+                return questions.splice(0, length);
+            }
+            return questions;
+        }
+    }
+}
+
+export function toSlug(text) {
+    if (!text) {
+        return text;
+    }
+
+    console.log('text', text);
+    text = text
+        .replace(/[`~!@#$%^&*()_\-+=\[\]{};:'"\\|\/,.<>?\s]/g, ' ')
+        .toLowerCase();
+
+    text = text.replace(/^\s+|\s+$/gm, '');
+
+    text = text.replace(/\s+/g, '-');
+    return text;
+}

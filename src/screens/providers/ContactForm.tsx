@@ -13,6 +13,7 @@ import {useAppContext} from '../../contexts/AppContext';
 import {useToast} from 'react-native-toast-notifications';
 import {useRoute} from '@react-navigation/native';
 import useContactQuery from '../../hooks/useContactQuery';
+import {toSlug} from '../../utils/utils';
 
 const styles = StyleSheet.create({
     inputGroup: {
@@ -43,12 +44,19 @@ export const ContactForm = (props: Props) => {
         {label: 'Agency Case Manager', value: 'Agency Case Manager'},
         {label: 'Surrogacy Lawyer', value: 'Surrogacy Lawyer'},
         {label: 'ObGyn', value: 'ObGyn'},
+        {label: 'The Biggest Ask', value: 'The Biggest Ask'},
     ]);
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
     const {createContact, updateContact} = useContactQuery();
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (selectedTitle) {
+            console.log(toSlug(selectedTitle));
+        }
+    }, [selectedTitle]);
 
     useEffect(() => {
         if (contact && contact?.id) {

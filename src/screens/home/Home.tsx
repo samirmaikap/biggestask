@@ -16,6 +16,8 @@ import useJourneyQuery from '../../hooks/useJourneyQuery';
 import {format} from 'date-fns';
 import {AppImage} from '../../components/AppImage';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+import {getLatestAnswerByOther, getLatestQuestion} from '../../utils/utils';
+import messaging from '@react-native-firebase/messaging';
 
 const styles = StyleSheet.create({
     container: {
@@ -54,51 +56,47 @@ export const HomeScreen = () => {
 
     useEffect(() => {
         (async () => {
+            await requestUserPermission();
+        })();
+    }, []);
+
+    useEffect(() => {
+        (async () => {
             await getWeeklyUpdate();
             await getNextMilestone();
+            await getParentQuestions();
+            await getSurrogateQuestions();
         })();
     }, []);
 
     const nextMilestoneDate = state.nextMilestone?.date_time;
 
-    let latestQuestion = null;
-    if (state.user?.user_type === 'surrogate') {
-        if (state.surrogateQuestions.length > 0) {
-            let questions = state.surrogateQuestions.filter(
-                (item: any) => !item.answer,
-            );
-            latestQuestion = questions.length > 0 ? questions[0] : null;
-        }
-    } else {
-        if (state.parentQuestions.length > 0) {
-            let questions = state.parentQuestions.filter(
-                (item: any) => !item.answer,
-            );
-            latestQuestion = questions.length > 0 ? questions[0] : null;
-        }
-    }
+    let latestQuestion = getLatestQuestion(
+        state.parentQuestions,
+        state.surrogateQuestions,
+        state.user?.user_type,
+    );
 
-    let latestAnswer = null;
-
-    if (state.user?.user_type === 'surrogate') {
-        if (state.parentQuestions.length > 0) {
-            let answers = state.parentQuestions.filter(
-                (item: any) => item.answer,
-            );
-            latestAnswer = answers.length > 0 ? answers[0] : null;
-        }
-    } else {
-        if (state.surrogateQuestions.length > 0) {
-            let answers = state.surrogateQuestions.filter(
-                (item: any) => item.answer,
-            );
-            latestAnswer = answers.length > 0 ? answers[0] : null;
-        }
-    }
+    let latestAnswer = getLatestAnswerByOther(
+        state.parentQuestions,
+        state.surrogateQuestions,
+        state.user?.user_type,
+    );
 
     const handleOnAnswer = async () => {
         await getSurrogateQuestions();
         await getParentQuestions();
+    };
+
+    const requestUserPermission = async () => {
+        const authStatus = await messaging().requestPermission();
+        const enabled =
+            authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+            authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+        if (enabled) {
+            console.log('Authorization status:', authStatus);
+        }
     };
 
     return (
@@ -246,8 +244,8 @@ export const HomeScreen = () => {
                                 size={16}>
                                 Your{' '}
                                 {state.user?.user_type === 'parent'
-                                    ? 'Parents'
-                                    : 'Gestational Carrier'}
+                                    ? 'Gestational Carrier'
+                                    : 'Parents'}
                             </AppText>
                         </View>
                     )}

@@ -8,7 +8,8 @@ import {PencilIcon} from '../../components/icons/PencilIcon';
 import {images} from '../../utils/constants';
 import {AppCompactButton} from '../../components/AppCompactButton';
 import {Colors} from '../../theme/colors';
-import {formatPhoneNumber} from '../../utils/utils';
+import {formatPhoneNumber, toSlug} from '../../utils/utils';
+import {AppImage} from '../../components/AppImage';
 
 const styles = StyleSheet.create({
     row: {
@@ -38,11 +39,16 @@ type Props = {
 export const ContactCard = (props: Props) => {
     const {item, onEditPress} = props;
     const theme = useTheme();
+    console.log('item', item);
     return (
         <AppCard>
             <View style={[styles.row, {alignItems: 'flex-start', padding: 16}]}>
                 <View style={styles.imageContainer}>
-                    <Image style={styles.image} source={images.AVOCADO} />
+                    <AppImage
+                        size={56}
+                        uri={item?.image ? item?.image : images.LOGO_ORIGINAL}
+                        isLocal={!item?.image}
+                    />
                 </View>
                 <View style={{flex: 1, marginLeft: 16}}>
                     <View

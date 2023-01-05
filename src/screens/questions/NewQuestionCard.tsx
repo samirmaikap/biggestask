@@ -53,10 +53,10 @@ export const NewQuestionCard = (props: Props) => {
     const {state} = useAppContext();
     const [open, setOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(
-        state.user.user_type === 'surrogate' ? state.surrogate.id : null,
+        state.user?.user_type === 'surrogate' ? state.surrogate?.id : null,
     );
     const [users, setUsers] = useState(
-        state.user.user_type === 'parent'
+        state.user?.user_type === 'parent'
             ? [
                 {label: state.parent1.name, value: state.parent1.id},
                 {label: state.parent2.name, value: state.parent2.id},
@@ -71,6 +71,8 @@ export const NewQuestionCard = (props: Props) => {
     const toast = useToast();
     const {updateQuestion} = useQuestionQuery();
     const [requestSheetClose, setRequestSheetClose] = useState(false);
+
+    console.log('questionId', questionId);
 
     const handleUpdateQuestion = async () => {
         if (!answer) {
@@ -100,6 +102,9 @@ export const NewQuestionCard = (props: Props) => {
         toast.show('Answer has been updated.', {placement: 'top'});
         setRequestSheetClose(true);
         onSaved();
+
+        setAnswer('');
+        setSelectedUser(null);
     };
 
     return (
@@ -144,7 +149,7 @@ export const NewQuestionCard = (props: Props) => {
                         onChangeText={e => setAnswer(e)}
                     />
                     <AppSpacing gap={16} />
-                    {state.user.user_type === 'parent' && (
+                    {state.user?.user_type === 'parent' && (
                         <>
                             <AppText variant={'title'}>Parents</AppText>
                             <AppSpacing gap={4} />

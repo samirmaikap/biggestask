@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "894303583156",
+    "project_id": "the-biggest-ask",
+    "storage_bucket": "the-biggest-ask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894303583156:android:67aaff0c440e6941c090e1",
+        "android_client_info": {
+          "package_name": "com.biggestask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894303583156-8hskm4gjv4o3fhevs5jumpm2sma1i82e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXtrDNf5IkcrbADzKAjd_PvtgaiihF9w0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894303583156-8hskm4gjv4o3fhevs5jumpm2sma1i82e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

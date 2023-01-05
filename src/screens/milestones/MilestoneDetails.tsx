@@ -434,6 +434,8 @@ export const MilestoneDetailsScreen = () => {
         );
     };
 
+    console.log('activeMilestone?.image', activeMilestone);
+
     return (
         <View style={styles.container}>
             <StackHeader
@@ -470,52 +472,66 @@ export const MilestoneDetailsScreen = () => {
                             </View>
                         </View>
                         <AppSpacing gap={18} />
-                        {/*<View style={styles.imageContainer}>*/}
-                        {/*  <Image style={styles.image} source={images.SAMPLE_UPLOAD} />*/}
-                        {/*  <View style={styles.overlay}>*/}
-                        {/*    <Button*/}
-                        {/*      contentStyle={{flexDirection: 'row-reverse'}}*/}
-                        {/*      mode={'contained'}*/}
-                        {/*      icon={() => <FilePlus />}*/}
-                        {/*      style={AppStyles.button}>*/}
-                        {/*      Change Photo*/}
-                        {/*    </Button>*/}
-                        {/*  </View>*/}
-                        {/*</View>*/}
-
-                        <View
-                            style={[
-                                styles.uploadContainer,
-                                styles.centeredContainer,
-                            ]}>
-                            <View style={styles.centeredContainer}>
-                                <AppText>No ultrasound image available</AppText>
-                                <AppSpacing gap={8} />
-                                <AppText
-                                    textAlign={'center'}
-                                    variant={'caption'}
-                                    color={Colors.grey_3}>
-                                    For confirmation, you must attach a picture
-                                    of the ultrasound and leave a comment.
-                                </AppText>
-                            </View>
-                            <AppSpacing gap={16} />
-                            <View style={styles.row}>
-                                <AppButton
-                                    contentStyle={[
-                                        AppStyles.buttonContent,
-                                        {
+                        {activeMilestone?.feature_image ? (
+                            <View style={styles.imageContainer}>
+                                <Image
+                                    style={styles.image}
+                                    source={{
+                                        uri: activeMilestone?.feature_image,
+                                    }}
+                                />
+                                <View style={styles.overlay}>
+                                    <Button
+                                        contentStyle={{
                                             flexDirection: 'row-reverse',
-                                        },
-                                    ]}
-                                    onPress={onImagePress}
-                                    mode={'contained'}
-                                    icon={() => <FilePlus />}
-                                    style={AppStyles.button}>
-                                    Upload Picture
-                                </AppButton>
+                                        }}
+                                        mode={'contained'}
+                                        icon={() => <FilePlus />}
+                                        onPress={onImagePress}
+                                        style={AppStyles.button}>
+                                        Change Photo
+                                    </Button>
+                                </View>
                             </View>
-                        </View>
+                        ) : (
+                            <View
+                                style={[
+                                    styles.uploadContainer,
+                                    styles.centeredContainer,
+                                ]}>
+                                <View style={styles.centeredContainer}>
+                                    <AppText>
+                                        No ultrasound image available
+                                    </AppText>
+                                    <AppSpacing gap={8} />
+                                    <AppText
+                                        textAlign={'center'}
+                                        variant={'caption'}
+                                        color={Colors.grey_3}>
+                                        For confirmation, you must attach a
+                                        picture of the ultrasound and leave a
+                                        comment.
+                                    </AppText>
+                                </View>
+                                <AppSpacing gap={16} />
+                                <View style={styles.row}>
+                                    <AppButton
+                                        contentStyle={[
+                                            AppStyles.buttonContent,
+                                            {
+                                                flexDirection: 'row-reverse',
+                                            },
+                                        ]}
+                                        onPress={onImagePress}
+                                        mode={'contained'}
+                                        icon={() => <FilePlus />}
+                                        style={AppStyles.button}>
+                                        Upload Picture
+                                    </AppButton>
+                                </View>
+                            </View>
+                        )}
+
                         <AppSpacing gap={16} />
                         <View>
                             <AppText variant={'title'}>Notes</AppText>

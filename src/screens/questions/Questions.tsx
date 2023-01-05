@@ -11,6 +11,7 @@ import useAuthQuery from '../../hooks/useAuthQuery';
 import {useAppContext} from '../../contexts/AppContext';
 import {useToast} from 'react-native-toast-notifications';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+import {getActiveQuestions, getInActiveQuestions} from '../../utils/utils';
 
 const styles = StyleSheet.create({
     container: {
@@ -38,6 +39,9 @@ export const QuestionsScreen = () => {
     const {updateFrequency} = useAuthQuery();
     const toast = useToast();
     const {getSurrogateQuestions, getParentQuestions} = useQuestionQuery();
+
+    const [activeQuestions, setActiveQuestions] = useState([]);
+    const [inActiveQuestions, setInActiveQuestions] = useState([]);
 
     const handleUpdateFrequency = async () => {
         const payload = {
@@ -68,29 +72,21 @@ export const QuestionsScreen = () => {
         }, 500);
     }, []);
 
-    let answeredQuestions = [];
-    let unansweredQuestions = [];
-
-    if (
-        state.user?.user_type === 'surrogate' &&
-        state.surrogateQuestions.length > 0
-    ) {
-        answeredQuestions = state.surrogateQuestions.filter(
-            (item: {answer: any}) => item.answer,
+    useEffect(() => {
+        console.log('chec');
+        const activeQ = getActiveQuestions(
+            state.parentQuestions,
+            state.surrogateQuestions,
+            state.user?.user_type,
         );
-        unansweredQuestions = state.surrogateQuestions.filter(
-            (item: {answer: any}) => !item.answer,
+        setActiveQuestions(activeQ);
+        const inActiveQ = getInActiveQuestions(
+            state.parentQuestions,
+            state.surrogateQuestions,
+            state.user?.user_type,
         );
-    } else {
-        if (state.parentQuestions.length > 0) {
-            answeredQuestions = state.parentQuestions.filter(
-                (item: {answer: any}) => item.answer,
-            );
-            unansweredQuestions = state.parentQuestions.filter(
-                (item: {answer: any}) => !item.answer,
-            );
-        }
-    }
+        setInActiveQuestions(inActiveQ);
+    }, [state.surrogateQuestions, state.parentQuestions]);
 
     const handleOnAnswer = async () => {
         await getSurrogateQuestions();
@@ -146,14 +142,17 @@ export const QuestionsScreen = () => {
                     />
 
                     <AppSpacing gap={16} />
-                    {unansweredQuestions.length > 0 &&
-                        unansweredQuestions.map((item: any, index: number) => (
-                            <NewQuestionCard
-                                key={`laq-${index}`}
-                                title={item.question.text}
-                                onSaved={handleOnAnswer}
-                                questionId={item?.id}
-                            />
+                    {activeQuestions?.length > 0 &&
+                        activeQuestions.map((item: any, index: number) => (
+                            <View
+                                style={{marginVertical: 8}}
+                                key={`laq-${index}`}>
+                                <NewQuestionCard
+                                    title={item.question.text}
+                                    onSaved={handleOnAnswer}
+                                    questionId={item?.id}
+                                />
+                            </View>
                         ))}
 
                     <AppSpacing gap={16} />
@@ -161,8 +160,8 @@ export const QuestionsScreen = () => {
                         Existing questions in the profile
                     </AppText>
                     <AppSpacing gap={8} />
-                    {answeredQuestions.length > 0 ? (
-                        answeredQuestions.map((item: any, index: any) => {
+                    {inActiveQuestions?.length > 0 ? (
+                        inActiveQuestions.map((item: any, index: any) => {
                             return (
                                 <View
                                     style={{marginVertical: 8}}

@@ -1,4 +1,10 @@
-import React, {createContext, useContext, useEffect, useReducer} from 'react';
+import React, {
+    createContext,
+    useContext,
+    useEffect,
+    useMemo,
+    useReducer,
+} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {apiInstance} from '../utils/service';
 
@@ -159,6 +165,7 @@ type Props = {
 
 export const AppProvider = (props: Props) => {
     const {children} = props;
+    const [state, dispatch] = useReducer(appReducer, initialState);
 
     useEffect(() => {
         (async () => {
@@ -181,10 +188,16 @@ export const AppProvider = (props: Props) => {
         })();
     }, []);
 
-    const [state, dispatch] = useReducer(appReducer, initialState);
+    const contextValue = useMemo(
+        () => ({
+            state,
+            dispatch,
+        }),
+        [state, dispatch],
+    );
 
     return (
-        <AppContext.Provider value={{state, dispatch}}>
+        <AppContext.Provider value={contextValue}>
             {children}
         </AppContext.Provider>
     );

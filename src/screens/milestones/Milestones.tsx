@@ -71,11 +71,11 @@ export const MilestonesScreen = () => {
         }
     }, [selectedItems]);
 
-    useEffect(() => {
-        (async () => {
-            await getMilestones();
-        })();
-    }, []);
+    // useEffect(() => {
+    //     (async () => {
+    //         await getMilestones();
+    //     })();
+    // }, []);
 
     const toggleSelectAll = () => {
         if (state.milestones.length === selectedItems.length) {
@@ -142,8 +142,9 @@ export const MilestonesScreen = () => {
                 <View style={styles.innerContainer}>
                     <View style={[styles.centeredContainer, {padding: 16}]}>
                         <AppText textAlign={'center'}>
-                            Check back as your gestational carrier updates her
-                            appointments along with the surrogacy journey
+                            {state.user?.user_type === 'surrogate'
+                                ? 'Update this section as soon as you set your appointment so that your IPs are informed as well'
+                                : 'Check back as your gestational carrier updates her appointments along with the surrogacy journey'}
                         </AppText>
                         <AppSpacing gap={16} />
                         {state.user.id === state.surrogate?.id && (

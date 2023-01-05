@@ -106,6 +106,9 @@ export const ProvidersScreen = () => {
                             </View>
                         );
                     })}
+                    {state.contacts?.length === 0 && (
+                        <AppText>No contacts found</AppText>
+                    )}
                 </View>
             </ScrollView>
             {renderBottomSheet()}

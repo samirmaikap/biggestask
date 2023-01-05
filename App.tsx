@@ -19,6 +19,8 @@ import RNBootSplash from 'react-native-bootsplash';
 import {ToastProvider} from 'react-native-toast-notifications';
 import {apiInstance} from './src/utils/service';
 import {AppProvider} from './src/contexts/AppContext';
+import messaging from '@react-native-firebase/messaging';
+import {Alert} from 'react-native';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
@@ -85,6 +87,17 @@ export default function App() {
         init().finally(async () => {
             await RNBootSplash.hide({fade: true});
         });
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = messaging().onMessage(async remoteMessage => {
+            Alert.alert(
+                'A new FCM message arrived!',
+                JSON.stringify(remoteMessage),
+            );
+        });
+
+        return unsubscribe;
     }, []);
 
     return (
