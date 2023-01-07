@@ -46,6 +46,7 @@ const TabHeader = (props: Props) => {
         <View style={[appStyles.appBarContainer, {marginTop: insets.top}]}>
             <View>
                 <TouchableOpacity
+                    activeOpacity={0.8}
                     style={styles.button}
                     onPress={() => openMenu()}>
                     <MenuIcon />

@@ -82,7 +82,7 @@ export const SettingsScreen = () => {
 
     const handleResetMilestones = async () => {
         const ids = state.milestones.map((item: {id: any}) => item.id);
-        if (ids.length > 0) {
+        if (ids?.length > 0) {
             Alert.alert('Are you sure?', 'All milestones will be reset', [
                 {
                     text: 'Cancel',

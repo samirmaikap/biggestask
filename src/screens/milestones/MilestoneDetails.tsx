@@ -39,6 +39,9 @@ import useAttachmentsQuery from '../../hooks/useAttachmentsQuery';
 import useCommunityQuery from '../../hooks/useCommunityQuery';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import get = Reflect.get;
+import useJourneyQuery from '../../hooks/useJourneyQuery';
+import {act} from 'react-test-renderer';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
     container: {
@@ -101,6 +104,7 @@ const styles = StyleSheet.create({
         paddingVertical: Platform.OS === 'ios' ? 16 : 12,
         paddingHorizontal: 8,
         borderRadius: 12,
+        color: 'black',
     },
 });
 
@@ -137,11 +141,14 @@ export const MilestoneDetailsScreen = () => {
     const [requestSheetClose, setRequestSheetClose] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const insets = useSafeAreaInsets();
+
     const {searchPlaces} = usePlaceSearchQuery();
     const toast = useToast();
     const {uploadImage} = useAttachmentsQuery();
     const {updateMilestone, createMilestone, getMilestones} =
         useMilestoneQuery();
+    const {getNextMilestone} = useJourneyQuery();
 
     useEffect(() => {
         if (activeMilestoneId) {
@@ -201,9 +208,12 @@ export const MilestoneDetailsScreen = () => {
 
     const handleMilestoneSave = async () => {
         const payload = {
+            journey_id: activeMilestone?.journey_id
+                ? activeMilestone?.journey_id
+                : state.journey?.id,
             name: title,
             date_time: date ? format(date, 'yyyy-MM-dd HH:mm:ss') : null,
-            address: selectedLocation
+            address: selectedLocation?.name
                 ? `${selectedLocation?.name}, ${selectedLocation?.address}`
                 : activeMilestone?.address
                     ? activeMilestone?.address
@@ -259,7 +269,10 @@ export const MilestoneDetailsScreen = () => {
         );
 
         await getMilestones();
+        await getNextMilestone();
     };
+
+    const hasImage = imageResponse?.uri || activeMilestone?.feature_image;
 
     const renderEditableInformation = () => {
         return (
@@ -310,6 +323,7 @@ export const MilestoneDetailsScreen = () => {
                         <AppText variant={'title'}>Date & Time</AppText>
                         <AppSpacing />
                         <TouchableOpacity
+                            activeOpacity={0.8}
                             onPress={() => setOpenDatepicker(true)}>
                             <View
                                 style={[
@@ -343,6 +357,7 @@ export const MilestoneDetailsScreen = () => {
                                         (item: any, index: number) => {
                                             return (
                                                 <TouchableOpacity
+                                                    activeOpacity={0.8}
                                                     key={`res-${index}`}
                                                     onPress={() => {
                                                         console.log(
@@ -460,7 +475,7 @@ export const MilestoneDetailsScreen = () => {
                                     uri={
                                         activeMilestone?.image
                                             ? activeMilestone?.image
-                                            : images.LOGO_ORIGINAL
+                                            : images.DEFAULT_MILESTONE
                                     }
                                 />
                             </View>
@@ -472,28 +487,8 @@ export const MilestoneDetailsScreen = () => {
                             </View>
                         </View>
                         <AppSpacing gap={18} />
-                        {activeMilestone?.feature_image ? (
-                            <View style={styles.imageContainer}>
-                                <Image
-                                    style={styles.image}
-                                    source={{
-                                        uri: activeMilestone?.feature_image,
-                                    }}
-                                />
-                                <View style={styles.overlay}>
-                                    <Button
-                                        contentStyle={{
-                                            flexDirection: 'row-reverse',
-                                        }}
-                                        mode={'contained'}
-                                        icon={() => <FilePlus />}
-                                        onPress={onImagePress}
-                                        style={AppStyles.button}>
-                                        Change Photo
-                                    </Button>
-                                </View>
-                            </View>
-                        ) : (
+
+                        {!hasImage && (
                             <View
                                 style={[
                                     styles.uploadContainer,
@@ -528,6 +523,31 @@ export const MilestoneDetailsScreen = () => {
                                         style={AppStyles.button}>
                                         Upload Picture
                                     </AppButton>
+                                </View>
+                            </View>
+                        )}
+
+                        {hasImage && (
+                            <View style={styles.imageContainer}>
+                                <Image
+                                    style={styles.image}
+                                    source={{
+                                        uri: imageResponse?.uri
+                                            ? imageResponse?.uri
+                                            : activeMilestone?.feature_image,
+                                    }}
+                                />
+                                <View style={styles.overlay}>
+                                    <Button
+                                        contentStyle={{
+                                            flexDirection: 'row-reverse',
+                                        }}
+                                        mode={'contained'}
+                                        icon={() => <FilePlus />}
+                                        onPress={onImagePress}
+                                        style={AppStyles.button}>
+                                        Change Photo
+                                    </Button>
                                 </View>
                             </View>
                         )}
@@ -635,7 +655,7 @@ export const MilestoneDetailsScreen = () => {
                                 ? 'Update Milestone'
                                 : 'Create Milestone'}
                         </AppButton>
-                        <AppSpacing gap={16} />
+                        <AppSpacing gap={insets.bottom + 64} />
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>

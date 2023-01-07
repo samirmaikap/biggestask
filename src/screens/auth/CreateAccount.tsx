@@ -20,6 +20,7 @@ import Screens from '../../navigations/Screens';
 import {useToast} from 'react-native-toast-notifications';
 import {useAppContext} from '../../contexts/AppContext';
 import useAuthQuery from '../../hooks/useAuthQuery';
+import messaging from '@react-native-firebase/messaging';
 
 const styles = StyleSheet.create({
     container: {
@@ -56,7 +57,7 @@ export const CreateAccountScreen = () => {
     const toast = useToast();
     const {state, dispatch} = useAppContext();
 
-    const {register} = useAuthQuery();
+    const {register, updateFcmToken} = useAuthQuery();
 
     const [formData, setFormData] = useState({
         type: '',
@@ -120,9 +121,17 @@ export const CreateAccountScreen = () => {
         const response = await register(payload);
         setLoading(false);
 
+        console.log('account respons', response);
+
         if (response?.error) {
             toast.show(response?.message);
             return;
+        }
+
+        const fcmToken = await messaging().getToken();
+        if (fcmToken) {
+            await updateFcmToken(fcmToken);
+            // user has a device token
         }
 
         toast.show('Account Created');
@@ -321,6 +330,7 @@ export const CreateAccountScreen = () => {
                                     <View style={styles.row}>
                                         <AppText>I Accept </AppText>
                                         <TouchableOpacity
+                                            activeOpacity={0.8}
                                             onPress={() =>
                                                 navigation.navigate(
                                                     Screens.Terms,

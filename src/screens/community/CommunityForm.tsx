@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
         paddingVertical: Platform.OS === 'ios' ? 16 : 12,
         paddingHorizontal: 8,
         borderRadius: 12,
+        color: 'black',
     },
     row: {
         flexDirection: 'row',
@@ -35,23 +36,43 @@ const styles = StyleSheet.create({
 
 type Props = {
     onSaved: Function;
+    community?: any;
 };
 
 export const CommunityForm = (props: Props) => {
-    const {onSaved} = props;
-    const {createCommunities, getCommunities} = useCommunityQuery();
+    const {onSaved, community} = props;
+    const {createCommunities, updateCommunities} = useCommunityQuery();
     const toast = useToast();
     const {dispatch} = useAppContext();
     const [imageResponse, setImageResponse] = useState<any>({});
     const [loading, setLoading] = useState(false);
+    const [image, setImage] = useState(null);
     const initialPayload = {
         title: '',
         description: '',
         forum_link: '',
         insta_link: '',
+        image: '',
     };
     const [payload, setPayload] = useState(initialPayload);
     const {uploadImage} = useAttachmentsQuery();
+
+    useEffect(() => {
+        if (community) {
+            console.log('value', community);
+            setPayload({
+                title: community?.title,
+                description: community?.description,
+                forum_link: community?.forum_link,
+                insta_link: community?.insta_link,
+                image: community?.image,
+            });
+            setImage(community?.image);
+        } else {
+            setPayload(initialPayload);
+            setImage(null);
+        }
+    }, [community]);
 
     const handleCreate = async () => {
         if (!payload.title) {
@@ -80,21 +101,26 @@ export const CommunityForm = (props: Props) => {
             imageUrl = imageUploadResponse;
         }
 
-        const response = await createCommunities({
-            ...payload,
-            image: imageUrl,
-        });
+        if (imageUrl) {
+            payload.image = imageUrl;
+        }
+
+        const response = community?.id
+            ? await updateCommunities(payload, community?.id)
+            : await createCommunities(payload);
 
         setLoading(false);
         if (response?.error) {
-            toast.show('Unable to create community');
+            toast.show(
+                `Unable to ${community?.id ? 'update' : 'create'}  community`,
+            );
             return;
         }
 
         setPayload(initialPayload);
         setImageResponse({});
 
-        toast.show('Community Created');
+        toast.show(`Community ${community?.id ? 'updated' : 'created'}`);
         onSaved();
     };
 
@@ -142,6 +168,8 @@ export const CommunityForm = (props: Props) => {
                 <AppText variant={'title'}>Link to Forum</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
+                    autoCorrect={false}
+                    autoCapitalize="none"
                     onChangeText={e => handleInput('forum_link', e)}
                     cursorColor={Colors.primary}
                     style={[styles.input]}
@@ -152,6 +180,8 @@ export const CommunityForm = (props: Props) => {
                 <AppText variant={'title'}>Link to Instagram</AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
+                    autoCorrect={false}
+                    autoCapitalize="none"
                     onChangeText={e => handleInput('insta_link', e)}
                     cursorColor={Colors.primary}
                     style={[styles.input]}
@@ -167,15 +197,24 @@ export const CommunityForm = (props: Props) => {
                     <TouchableOpacity
                         activeOpacity={0.8}
                         onPress={() => onImagePress()}>
-                        <AppImage
-                            uri={
-                                imageResponse?.uri
-                                    ? imageResponse?.uri
-                                    : images.LOGO_PLACEHOLDER
-                            }
-                            isLocal={!imageResponse?.uri}
-                            size={100}
-                        />
+                        {community?.image && (
+                            <AppImage
+                                uri={community?.image}
+                                isLocal={false}
+                                size={100}
+                            />
+                        )}
+                        {!community?.image && (
+                            <AppImage
+                                uri={
+                                    imageResponse?.uri
+                                        ? imageResponse?.uri
+                                        : images.LOGO_PLACEHOLDER
+                                }
+                                isLocal={!imageResponse?.uri}
+                                size={100}
+                            />
+                        )}
                     </TouchableOpacity>
                 </View>
             </View>
@@ -188,7 +227,7 @@ export const CommunityForm = (props: Props) => {
                 mode={'contained'}
                 icon={() => <PlusIcon color={'white'} />}
                 style={AppStyles.button}>
-                Add New Community
+                {community?.id ? 'Update Community' : 'Add New Community'}
             </AppButton>
             <AppSpacing gap={16} />
         </View>

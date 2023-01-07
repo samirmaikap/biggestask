@@ -49,6 +49,7 @@ type Props = {
     actions?: any[];
     goBackAction?: Function;
     showSearch?: boolean;
+    onSearch?: Function;
 };
 
 const StackHeader = (props: Props) => {
@@ -71,6 +72,7 @@ const StackHeader = (props: Props) => {
         actions,
         goBackAction = onPressGoBack,
         showSearch = false,
+        onSearch,
     } = props;
 
     return (
@@ -81,6 +83,7 @@ const StackHeader = (props: Props) => {
             ]}>
             <View>
                 <TouchableOpacity
+                    activeOpacity={0.8}
                     style={styles.button}
                     onPress={() => goBackAction()}>
                     <ChevronLeftIcon />
@@ -114,6 +117,7 @@ const StackHeader = (props: Props) => {
                             },
                         ]}
                         theme={{roundness: 12}}
+                        onChangeText={e => onSearch && onSearch(e)}
                     />
                 </View>
             )}

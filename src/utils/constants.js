@@ -18,4 +18,5 @@ export const images = {
     ADD_SURROGATE: require('../assets/images/add-surrogate.webp'),
     WAITING_SURROGATE: require('../assets/images/waiting-mother.webp'),
     LOGO_ORIGINAL: require('../assets/logo-original.png'),
+    DEFAULT_MILESTONE: require('../assets/images/appointment.png'),
 };

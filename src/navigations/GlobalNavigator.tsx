@@ -7,7 +7,7 @@ import {Drawers} from './Drawers';
 import {useAppContext} from '../contexts/AppContext';
 import {IntroScreen} from '../screens/onboarding/Intro';
 import {LoginScreen} from '../screens/auth/Login';
-import {SignupScreen} from '../screens/auth/Signup';
+import {EmailScreen} from '../screens/auth/Email';
 import {VerifyScreen} from '../screens/auth/Verify';
 import {CreateAccountScreen} from '../screens/auth/CreateAccount';
 import {TermsScreen} from '../screens/settings/Terms';
@@ -17,6 +17,7 @@ import {StyleSheet} from 'react-native';
 import {SurrogateInviteScreen} from '../screens/invite/SurrogateInvite';
 import {WaitingSurrogateScreen} from '../screens/invite/WaitingSurrogateScreen';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {ResetPasswordScreen} from '../screens/auth/ResetPassword';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -115,8 +116,12 @@ const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
             }}>
             <Stack.Screen name={Screens.Intro} component={IntroScreen} />
             <Stack.Screen name={Screens.Login} component={LoginScreen} />
-            <Stack.Screen name={Screens.Signup} component={SignupScreen} />
+            <Stack.Screen name={Screens.Email} component={EmailScreen} />
             <Stack.Screen name={Screens.Verify} component={VerifyScreen} />
+            <Stack.Screen
+                name={Screens.ResetPassword}
+                component={ResetPasswordScreen}
+            />
             <Stack.Screen
                 name={Screens.AccountSetup}
                 component={CreateAccountScreen}
@@ -128,9 +133,14 @@ const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
 
 const GlobalNavigator = (props: any) => {
     const {theme, isFirstLoad, journey, isLoggedIn} = props;
+    const {state} = useAppContext();
     const themeColors = colors.light;
-    const hasSurrogate = journey && journey.surrogate_id;
-    const surrogateInvited = journey && journey.surrogate_invited;
+    const hasSurrogate =
+        state.user?.journey && state.user?.journey.surrogate_id;
+    const surrogateInvited =
+        state.user?.journey && state.user?.journey.surrogate_invited;
+    console.log('surrogateInvited', surrogateInvited);
+    console.log('hasSurrogate', hasSurrogate);
     return (
         <NavigationContainer theme={theme}>
             {isLoggedIn

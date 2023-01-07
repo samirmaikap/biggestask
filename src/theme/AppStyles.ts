@@ -34,6 +34,7 @@ const appStyles = StyleSheet.create({
     textInput: {
         backgroundColor: Colors.grey_bg,
         borderRadius: 12,
+        color: 'black',
     },
     appBarContainer: {
         flexDirection: 'row',

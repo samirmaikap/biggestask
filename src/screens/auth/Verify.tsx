@@ -18,7 +18,7 @@ import AppStyles from '../../theme/AppStyles';
 import {images} from '../../utils/constants';
 import {Colors} from '../../theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -63,12 +63,16 @@ const styles = StyleSheet.create({
 });
 
 export const VerifyScreen = () => {
+    const route = useRoute();
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const {state, dispatch} = useAppContext();
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
     const {verifyOtp} = useAuthQuery();
+
+    // @ts-ignore
+    const {isPasswordReset = false} = route?.params;
 
     const [code, setCode] = useState('');
     const [loading, setLoading] = useState(false);
@@ -96,8 +100,12 @@ export const VerifyScreen = () => {
             return;
         }
 
-        toast.show('Email verified');
-        navigation.navigate(Screens.AccountSetup);
+        toast.show('Otp verified');
+        if (isPasswordReset) {
+            navigation.navigate(Screens.ResetPassword);
+        } else {
+            navigation.navigate(Screens.AccountSetup);
+        }
     };
 
     return (

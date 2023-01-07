@@ -12,6 +12,7 @@ import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
 import {useToast} from 'react-native-toast-notifications';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+import {useSafeAreaInsets} from 'react-native-safe-area-context';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,6 +51,7 @@ type Props = {
 
 export const NewQuestionCard = (props: Props) => {
     const theme = useTheme();
+    const insets = useSafeAreaInsets();
     const {state} = useAppContext();
     const [open, setOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(
@@ -59,7 +61,7 @@ export const NewQuestionCard = (props: Props) => {
         state.user?.user_type === 'parent'
             ? [
                 {label: state.parent1.name, value: state.parent1.id},
-                {label: state.parent2.name, value: state.parent2.id},
+                {label: state.parent2?.name, value: state.parent2?.id},
             ]
             : [],
     );
@@ -184,6 +186,7 @@ export const NewQuestionCard = (props: Props) => {
                         style={[AppStyles.button]}>
                         Add Answer
                     </AppButton>
+                    <AppSpacing gap={insets.bottom + 16} />
                 </View>
             </AppBottomSheet>
         </AppCard>

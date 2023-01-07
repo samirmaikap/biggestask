@@ -8,7 +8,7 @@ import {
     View,
 } from 'react-native';
 import {AppImage} from '../components/AppImage';
-import {primaryColor} from '../theme/colors';
+import {Colors, primaryColor} from '../theme/colors';
 import {UsersIcon} from '../components/icons/UsersIcon';
 import {CommunityIcon} from '../components/icons/CommunityIcon';
 import {ContactProviderIcon} from '../components/icons/ContactProviderIcons';
@@ -50,13 +50,20 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
     },
+    count: {
+        paddingHorizontal: 8,
+        paddingVertical: 0,
+        marginLeft: 4,
+        borderRadius: 4,
+        backgroundColor: Colors.primary,
+    },
 });
 
 export const Drawers = (props: any) => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const {logout} = useAuthQuery();
-    const {state, dispatch} = useAppContext();
+    const {state} = useAppContext();
 
     return (
         <DrawerContentScrollView
@@ -122,17 +129,6 @@ export const Drawers = (props: any) => {
                         label="Contact Your Providers"
                         onPress={() =>
                             props.navigation.navigate(Screens.Contacts)
-                        }
-                    />
-                    <DrawerItem
-                        icon={() => (
-                            <View style={{marginRight: -16}}>
-                                <NotificationsIcon />
-                            </View>
-                        )}
-                        label="Notifications"
-                        onPress={() =>
-                            props.navigation.navigate(Screens.Notifications)
                         }
                     />
                     <DrawerItem

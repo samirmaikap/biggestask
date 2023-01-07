@@ -130,7 +130,9 @@ export const AppBottomSheet = (props: Props) => {
                     keyboardBlurBehavior={'restore'}
                     animateOnMount={true}>
                     <BottomSheetView style={contentContainerStyle}>
-                        <TouchableOpacity onPress={() => Keyboard.dismiss()}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => Keyboard.dismiss()}>
                             <View
                                 style={{paddingBottom: insets.bottom}}
                                 onLayout={onLayoutChange}>

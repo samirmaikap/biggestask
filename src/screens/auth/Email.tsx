@@ -18,7 +18,7 @@ import AppStyles from '../../theme/AppStyles';
 import {images} from '../../utils/constants';
 import {Colors} from '../../theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
-import {useNavigation} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
@@ -26,6 +26,7 @@ import AppButton from '../../components/AppButton';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import {useToast} from 'react-native-toast-notifications';
 import {useAppContext} from '../../contexts/AppContext';
+import messaging from '@react-native-firebase/messaging';
 
 const styles = StyleSheet.create({
     container: {
@@ -58,17 +59,21 @@ const styles = StyleSheet.create({
     },
 });
 
-export const SignupScreen = () => {
+export const EmailScreen = () => {
+    const route = useRoute();
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation<StackNavigationProp<any>>();
-    const {sendOtp} = useAuthQuery();
+    const {sendOtp, requestResetPassword} = useAuthQuery();
     const toast = useToast();
     const {state, dispatch} = useAppContext();
 
     const [email, setEmail] = useState('');
     const [emailError, setEmailError] = useState('');
     const [loading, setLoading] = useState(false);
+
+    // @ts-ignore
+    const {isPasswordReset = false} = route?.params;
 
     const handleOtpSend = async () => {
         if (!email) {
@@ -78,16 +83,20 @@ export const SignupScreen = () => {
 
         setEmailError('');
         setLoading(true);
-        const response = await sendOtp({email: email});
-        setLoading(false);
+
+        const response = isPasswordReset
+            ? await requestResetPassword({email: email})
+            : await sendOtp({email: email});
 
         if (response?.error) {
             toast.show(response?.message);
             return;
         }
 
+        setLoading(false);
+
         toast.show(response?.message);
-        navigation.push(Screens.Verify);
+        navigation.push(Screens.Verify, {isPasswordReset: isPasswordReset});
     };
 
     return (
@@ -129,7 +138,11 @@ export const SignupScreen = () => {
                                     // justifyContent: 'space-between',
                                     alignItems: 'center',
                                 }}>
-                                <AppText variant={'h3'}>Signup</AppText>
+                                <AppText variant={'h3'}>
+                                    {isPasswordReset
+                                        ? 'Request Password reset'
+                                        : 'Signup'}
+                                </AppText>
                                 <Logo size={150} />
                                 <AppText
                                     textAlign={'center'}

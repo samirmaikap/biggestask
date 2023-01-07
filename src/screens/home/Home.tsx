@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StatusBar, StyleSheet, View} from 'react-native';
+import {
+    Image,
+    ScrollView,
+    StatusBar,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import {AppCard} from '../../components/AppCard';
 import TabHeader from '../../components/TabHeader';
 import {AppText} from '../../components/AppText';
@@ -18,6 +25,12 @@ import {AppImage} from '../../components/AppImage';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
 import {getLatestAnswerByOther, getLatestQuestion} from '../../utils/utils';
 import messaging from '@react-native-firebase/messaging';
+import useAuthQuery from '../../hooks/useAuthQuery';
+import {PlusCircleIcon} from '../../components/icons/PlusCircleIcon';
+import {NotificationsIcon} from '../../components/icons/NotificationsIcon';
+import {useNavigation} from '@react-navigation/native';
+import Screens, {NavigationKeyType} from '../../navigations/Screens';
+import {StackNavigationProp} from '@react-navigation/stack';
 
 const styles = StyleSheet.create({
     container: {
@@ -46,13 +59,24 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
+    dot: {
+        width: 5,
+        height: 5,
+        backgroundColor: 'red',
+        position: 'absolute',
+        borderRadius: 5,
+        right: 0,
+    },
 });
 
 export const HomeScreen = () => {
     const {state} = useAppContext();
 
+    const {updateFcmToken} = useAuthQuery();
     const {getWeeklyUpdate, getNextMilestone} = useJourneyQuery();
     const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+
+    const navigation = useNavigation<StackNavigationProp<any>>();
 
     useEffect(() => {
         (async () => {
@@ -99,16 +123,43 @@ export const HomeScreen = () => {
         }
     };
 
+    const unreadNotificationCount =
+        state.notifications?.length > 0 &&
+        state.notifications.filter((item: any) => !item.is_read).length;
+
+    useEffect(() => {
+        console.log(state.milestones);
+    }, [state.milestones]);
+
+    useEffect(() => {
+        console.log(state.nextMilestone);
+    }, [state.nextMilestone]);
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
-            <TabHeader title={'Home'} />
+            <TabHeader
+                title={'Home'}
+                actions={[
+                    <TouchableOpacity
+                        onPress={() =>
+                            navigation.navigate(Screens.Notifications)
+                        }
+                        activeOpacity={0.8}
+                        key={'t-1'}>
+                        <NotificationsIcon size={30} />
+                        {unreadNotificationCount > 0 && (
+                            <View style={styles.dot} />
+                        )}
+                    </TouchableOpacity>,
+                ]}
+            />
 
             <ScrollView
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {state.weeklyUpdate && (
+                    {state.weeklyUpdate && state?.weeklyUpdate?.id && (
                         <View style={styles.title}>
                             <AppText
                                 variant={'custom'}
@@ -119,7 +170,7 @@ export const HomeScreen = () => {
                         </View>
                     )}
 
-                    {state.weeklyUpdate && (
+                    {state.weeklyUpdate && state?.weeklyUpdate?.id && (
                         <AppCard padding={16}>
                             <View
                                 style={[
@@ -155,7 +206,7 @@ export const HomeScreen = () => {
                             Next Milestone
                         </AppText>
                     </View>
-                    {state.nextMilestone ? (
+                    {state.nextMilestone && state.nextMilestone?.id ? (
                         <AppCard padding={16}>
                             <View
                                 style={[
@@ -172,7 +223,7 @@ export const HomeScreen = () => {
                                     uri={
                                         state.nextMilestone.image
                                             ? state.nextMilestone.image
-                                            : images.LOGO_ORIGINAL
+                                            : images.DEFAULT_MILESTONE
                                     }
                                 />
                             </View>

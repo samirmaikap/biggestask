@@ -8,13 +8,9 @@ type Props = {
 };
 
 export const NotificationsIcon = (props: Props) => {
+    const {size} = props;
     return (
-        <Svg
-            width={24}
-            height={25}
-            viewBox="0 0 24 25"
-            fill="none"
-        >
+        <Svg width={size} height={size} viewBox="0 0 24 25" fill="none">
             <G clipPath="url(#clip0_77_10871)">
                 <Path
                     fillRule="evenodd"

@@ -24,7 +24,7 @@ const useContactQuery = () => {
     };
 
     const updateContact = async (payload: any, contactId: number) => {
-        const response = await request.post(`/contacts/${contactId}`, payload);
+        const response = await request.put(`/contacts/${contactId}`, payload);
 
         return response;
     };

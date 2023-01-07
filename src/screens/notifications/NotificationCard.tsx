@@ -6,6 +6,7 @@ import {Colors} from '../../theme/colors';
 import {TransparentIcon} from '../../components/TransparentIcon';
 import {DocumentIcon} from '../../components/icons/DocumentIcon';
 import {AppSpacing} from '../../components/AppSpacing';
+import {toRgba} from '../../utils/utils';
 
 const styles = StyleSheet.create({
     container: {
@@ -25,9 +26,16 @@ const styles = StyleSheet.create({
     },
 });
 
-export const NotificationCard = () => {
+type Props = {
+    notification: any;
+};
+
+export const NotificationCard = (props: Props) => {
+    const {notification} = props;
     return (
-        <AppCard padding={16}>
+        <AppCard
+            backgroundColor={notification?.is_read ? 'white' : '#f7f7f7'}
+            padding={16}>
             <View style={[styles.row, {alignItems: 'flex-start'}]}>
                 <View>
                     <TransparentIcon color={'#FDD200'}>
@@ -43,16 +51,16 @@ export const NotificationCard = () => {
                         ]}>
                         <View style={{flex: 1}}>
                             <AppText maxLines={1}>
-                                This a notification long text to display
+                                {notification?.title}
                             </AppText>
                         </View>
                         <AppText variant={'caption'} color={Colors.grey_3}>
-                            1 Day ago
+                            {notification?.time}
                         </AppText>
                     </View>
                     <AppSpacing gap={8} />
                     <AppText color={Colors.grey_2}>
-                        Your order has been shipped into your address
+                        {notification?.message}
                     </AppText>
                 </View>
             </View>

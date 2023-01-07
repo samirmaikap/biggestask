@@ -51,6 +51,7 @@ const styles = StyleSheet.create({
         paddingVertical: Platform.OS === 'ios' ? 16 : 12,
         paddingHorizontal: 8,
         borderRadius: 12,
+        color: 'black',
     },
 });
 

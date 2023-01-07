@@ -41,6 +41,7 @@ export const PostsScreen = () => {
     const {state, dispatch} = useAppContext();
     const {getCommunities} = useCommunityQuery();
     const [requestSheetClose, setRequestSheetClose] = useState(false);
+    const [activeCommunity, setActiveCommunity] = useState(null);
 
     const handleOnSaved = async () => {
         setRequestSheetClose(true);
@@ -63,10 +64,15 @@ export const PostsScreen = () => {
                     setRequestSheetClose(false);
                 }}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <AppText variant={'h2'}>Create Community</AppText>
+                    <AppText variant={'h2'}>
+                        {activeCommunity ? 'Update' : 'Create'} Community
+                    </AppText>
                 </View>
                 <AppSpacing gap={16} />
-                <CommunityForm onSaved={() => handleOnSaved()} />
+                <CommunityForm
+                    community={activeCommunity}
+                    onSaved={() => handleOnSaved()}
+                />
             </AppBottomSheet>
         );
     };
@@ -78,8 +84,12 @@ export const PostsScreen = () => {
                 title={'Community'}
                 actions={[
                     <TouchableOpacity
+                        activeOpacity={0.8}
                         key={'t-1'}
-                        onPress={() => setOpenSheet(true)}>
+                        onPress={() => {
+                            setActiveCommunity(null);
+                            setOpenSheet(true);
+                        }}>
                         <PlusCircleIcon />
                     </TouchableOpacity>,
                 ]}
@@ -88,13 +98,21 @@ export const PostsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {state?.communities && state.communities.length > 0 ? (
+                    {state?.communities && state.communities?.length > 0 ? (
                         state.communities.map(function (item: any, index: any) {
                             return (
                                 <View
                                     style={{marginVertical: 8}}
                                     key={`community-${index}`}>
-                                    <CommunityCard item={item} />
+                                    <CommunityCard
+                                        onPress={() => {
+                                            setActiveCommunity(item);
+                                            setTimeout(() => {
+                                                setOpenSheet(true);
+                                            }, 500);
+                                        }}
+                                        item={item}
+                                    />
                                 </View>
                             );
                         })

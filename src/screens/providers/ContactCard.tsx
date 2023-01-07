@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppCard} from '../../components/AppCard';
 import {Divider, useTheme} from 'react-native-paper';
-import {Image, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {AppSpacing} from '../../components/AppSpacing';
 import {PencilIcon} from '../../components/icons/PencilIcon';
@@ -10,6 +10,7 @@ import {AppCompactButton} from '../../components/AppCompactButton';
 import {Colors} from '../../theme/colors';
 import {formatPhoneNumber, toSlug} from '../../utils/utils';
 import {AppImage} from '../../components/AppImage';
+import {useToast} from 'react-native-toast-notifications';
 
 const styles = StyleSheet.create({
     row: {
@@ -39,7 +40,17 @@ type Props = {
 export const ContactCard = (props: Props) => {
     const {item, onEditPress} = props;
     const theme = useTheme();
-    console.log('item', item);
+    const toast = useToast();
+
+    const makeCall = () => {
+        if (item?.phone) {
+            Linking.openURL(`tel:${item?.phone}`);
+        } else {
+            toast.show('Phone number is invalid');
+            return;
+        }
+    };
+
     return (
         <AppCard>
             <View style={[styles.row, {alignItems: 'flex-start', padding: 16}]}>
@@ -54,7 +65,9 @@ export const ContactCard = (props: Props) => {
                     <View
                         style={[styles.row, {justifyContent: 'space-between'}]}>
                         <AppText fontWeight={'600'}>{item?.title}</AppText>
-                        <TouchableOpacity onPress={() => onEditPress()}>
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() => onEditPress()}>
                             <PencilIcon />
                         </TouchableOpacity>
                     </View>
@@ -98,7 +111,10 @@ export const ContactCard = (props: Props) => {
                     />
                 </View>
                 <View style={{flex: 1, marginLeft: 8}}>
-                    <AppCompactButton onPress={() => {}} name={'Call'} />
+                    <AppCompactButton
+                        onPress={() => makeCall()}
+                        name={'Call'}
+                    />
                 </View>
             </View>
         </AppCard>

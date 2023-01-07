@@ -42,6 +42,7 @@ export const QuestionsScreen = () => {
 
     const [activeQuestions, setActiveQuestions] = useState([]);
     const [inActiveQuestions, setInActiveQuestions] = useState([]);
+    const isParent = state.user?.user_type === 'parent';
 
     const handleUpdateFrequency = async () => {
         const payload = {
@@ -103,13 +104,14 @@ export const QuestionsScreen = () => {
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
                     <AppText>
-                        Get to know your surrogacy partner as the journey
-                        unfolds. The app will send you and your surrogacy
-                        partner questions and exchange the answers. As the
-                        journey progresses, the questions become more
-                        interesting and intimate, so that you bond naturally
-                        with each other. Select how often you'd like to answer a
-                        question
+                        Get to know your{' '}
+                        {isParent ? 'Gestational Carrier' : 'Intended Parents'}{' '}
+                        as the journey unfolds. The app will send you and your{' '}
+                        {isParent ? 'Gestational Carrier' : 'Intended Parents'}{' '}
+                        questions and exchange the answers. As the journey
+                        progresses, the questions become more interesting and
+                        intimate, so that you bond naturally with each other.
+                        Select how often you'd like to answer a question
                     </AppText>
                     <AppSpacing gap={16} />
                     <AppText variant={'h3'}>

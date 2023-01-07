@@ -111,6 +111,28 @@ function useAuthQuery() {
         const response = await request.put('/me/frequency', payload);
         return response;
     };
+    const updateFcmToken = async (fcmToken: any) => {
+        const response = await request.put('/me', {
+            fcm_token: fcmToken,
+        });
+        return response;
+    };
+
+    const requestResetPassword = async (payload: any) => {
+        const response = await request.post('/forget-password', payload);
+        if (!response?.error) {
+            dispatch({
+                type: 'SET_EMAIL',
+                payload: payload?.email,
+            });
+        }
+        return response;
+    };
+
+    const changePassword = async (payload: any) => {
+        const response = await request.post('/password-reset', payload);
+        return response;
+    };
 
     return {
         login,
@@ -121,6 +143,9 @@ function useAuthQuery() {
         logout,
         updateMe,
         updateFrequency,
+        updateFcmToken,
+        requestResetPassword,
+        changePassword,
     };
 }
 

@@ -6,7 +6,6 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {ProfileScreen} from '../screens/profile/Profile';
 import {Tabs} from './Tabs';
 import {MilestoneDetailsScreen} from '../screens/milestones/MilestoneDetails';
-import {MotherDetailsScreen} from '../screens/mother/MotherDetails';
 import {PostsScreen} from '../screens/community/Posts';
 import {ProvidersScreen} from '../screens/providers/Providers';
 import {SettingsScreen} from '../screens/settings/Settings';
@@ -55,10 +54,6 @@ const RootNavigator = () => {
             <Stack.Screen
                 name={Screens.MilestoneDetails}
                 component={MilestoneDetailsScreen}
-            />
-            <Stack.Screen
-                name={Screens.MotherDetails}
-                component={MotherDetailsScreen}
             />
             <Stack.Screen
                 name={Screens.CommunityPosts}

@@ -4,7 +4,7 @@ import {useAppContext} from '../contexts/AppContext';
 
 const useQuestionQuery = () => {
     const request = useRequest();
-    const {state, dispatch} = useAppContext();
+    const {dispatch} = useAppContext();
 
     const getParentQuestions = async () => {
         const response = await request.get('/questions/parent');
@@ -29,7 +29,6 @@ const useQuestionQuery = () => {
     };
 
     const updateQuestion = async (payload: any, questionId: number) => {
-        console.log(`/questions/${questionId}/answer`);
         const response = await request.put(
             `/questions/${questionId}/answer`,
             payload,
@@ -37,10 +36,16 @@ const useQuestionQuery = () => {
         return response;
     };
 
+    const askQuestion = async () => {
+        const response = await request.post('/questions/ask', {});
+        return response;
+    };
+
     return {
         getParentQuestions,
         getSurrogateQuestions,
         updateQuestion,
+        askQuestion,
     };
 };
 

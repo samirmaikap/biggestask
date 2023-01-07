@@ -165,7 +165,9 @@ export const ProfileForm = (props: Props) => {
             </View>
             <View style={styles.inputGroup}>
                 <AppText variant={'title'}>Your date of birth</AppText>
-                <TouchableOpacity onPress={() => setOpenDatepicker(true)}>
+                <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => setOpenDatepicker(true)}>
                     <View
                         style={[
                             AppStyles.textInput,

@@ -27,6 +27,7 @@ import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import {useToast} from 'react-native-toast-notifications';
+import useJourneyQuery from '../../hooks/useJourneyQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -62,9 +63,10 @@ export const MilestonesScreen = () => {
     const toast = useToast();
 
     const {getMilestones, resetMilestones} = useMilestoneQuery();
+    const {getNextMilestone} = useJourneyQuery();
 
     useEffect(() => {
-        if (selectedItems.length > 0) {
+        if (selectedItems?.length > 0) {
             setSelectionVisible(true);
         } else {
             setSelectionVisible(false);
@@ -127,6 +129,7 @@ export const MilestonesScreen = () => {
                     toast.show(response?.message);
                     setSelectedItems([]);
                     await getMilestones();
+                    await getNextMilestone();
                 },
             },
         ]);

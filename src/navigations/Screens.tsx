@@ -2,12 +2,12 @@ export type NavigationKeyType =
     | 'AuthNavigator'
     | 'RootNavigator'
     | 'Login'
-    | 'Signup'
+    | 'Email'
     | 'Verify'
+    | 'ResetPassword'
     | 'Profile'
     | 'Home'
     | 'CommunityPosts'
-    | 'MotherDetails'
     | 'Notifications'
     | 'Questions'
     | 'Settings'
@@ -29,12 +29,12 @@ const Screens: {[key in NavigationKeyType]: string} = {
     AuthNavigator: 'AuthNavigator',
     RootNavigator: 'RootNavigator',
     Login: 'Login',
-    Signup: 'Signup',
+    Email: 'Email',
+    ResetPassword: 'ResetPassword',
     Verify: 'Verify',
     Profile: 'Profile',
     Home: 'Home',
     CommunityPosts: 'CommunityPosts',
-    MotherDetails: 'MotherDetails',
     Notifications: 'Notifications',
     Questions: 'Questions',
     Settings: 'Settings',

@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* biggestaskTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* biggestaskTests.m */; };
-		0C80B921A6F3F58F76C31292 /* libPods-biggestask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-biggestask.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
@@ -18,6 +17,7 @@
 		391365F2AAD14BC99088686D /* roboto_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4860372DC8EC4F55BDAF84C2 /* roboto_regular.ttf */; };
 		3D92448AD3B646138EF7BCAD /* f37moon_extra_boldit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 3E98229CA44D46E8848F506F /* f37moon_extra_boldit.otf */; };
 		51AF5AE7F3AE4ED8ACCC0FC9 /* moon_regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8715781A588D47B9A01DD051 /* moon_regular.ttf */; };
+		576441AFFEED1FE31E59E904 /* libPods-biggestask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C950DCE22A925E5A1CB41A2 /* libPods-biggestask.a */; };
 		5934966429387A8F00193C50 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5934966329387A8E00193C50 /* BootSplash.storyboard */; };
 		597FA8FA2936199C004955F7 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8EA2936199C004955F7 /* Fontisto.ttf */; };
 		597FA8FB2936199C004955F7 /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8EB2936199C004955F7 /* Octicons.ttf */; };
@@ -35,9 +35,9 @@
 		597FA9072936199C004955F7 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8F72936199C004955F7 /* EvilIcons.ttf */; };
 		597FA9082936199C004955F7 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8F82936199C004955F7 /* SimpleLineIcons.ttf */; };
 		597FA9092936199C004955F7 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 597FA8F92936199C004955F7 /* MaterialIcons.ttf */; };
+		59A18EA7296713C500652DCD /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 59A18EA6296713C400652DCD /* GoogleService-Info.plist */; };
 		71685E7BE9B84DC4B277136C /* f37moon_boldit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2531E2723D2444D4B6776916 /* f37moon_boldit.otf */; };
 		7195690261454C25B3FBF1B3 /* moon_extra_bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F61F2CF78264BA9988E5562 /* moon_extra_bold.ttf */; };
-		7699B88040F8A987B510C191 /* libPods-biggestask-biggestaskTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-biggestask-biggestaskTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8B288DDC0C4C443F8C314253 /* f37moon_black.otf in Resources */ = {isa = PBXBuildFile; fileRef = D7CFF4A865BE40908C07F626 /* f37moon_black.otf */; };
 		98578844CB8B47208DEBC0A0 /* f37moon_extra_bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 7A50EA3CAC154D6891CA3848 /* f37moon_extra_bold.otf */; };
@@ -45,6 +45,7 @@
 		A7486AF0E81D46EB913C81E2 /* f37moon_demit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 0E79833B3CE8406585B38540 /* f37moon_demit.otf */; };
 		AF1643DAB0B744E59F7E525D /* f37moon_thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = CBB642FA9FD7422DB2B0D48E /* f37moon_thin.otf */; };
 		BB49B8C923474D7F9EA07ABB /* f37moon_blackit.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6C207075C322435998DF5191 /* f37moon_blackit.otf */; };
+		BCB2D4CDD98C96595A07738F /* libPods-biggestask-biggestaskTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 389169EA7E9BB691393031C0 /* libPods-biggestask-biggestaskTests.a */; };
 		C2D2739400764F6B88A65EFD /* f37moon_thinlt.otf in Resources */ = {isa = PBXBuildFile; fileRef = C69D30A01F9445C39186CC3E /* f37moon_thinlt.otf */; };
 		C4C71A88B93047028DB595FE /* moon_thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3BAC7853589B43B5AFBE229F /* moon_thin.ttf */; };
 		CB10D1937FC04421A216652B /* f37moon_light.otf in Resources */ = {isa = PBXBuildFile; fileRef = ECDC17EE0ABB4DCFAEF5FDFD /* f37moon_light.otf */; };
@@ -76,8 +77,8 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = biggestask/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = biggestask/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = biggestask/main.m; sourceTree = "<group>"; };
-		19F6CBCC0A4E27FBF8BF4A61 /* libPods-biggestask-biggestaskTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-biggestask-biggestaskTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2531E2723D2444D4B6776916 /* f37moon_boldit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_boldit.otf; path = ../src/assets/fonts/f37moon_boldit.otf; sourceTree = "<group>"; };
+		389169EA7E9BB691393031C0 /* libPods-biggestask-biggestaskTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-biggestask-biggestaskTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B4392A12AC88292D35C810B /* Pods-biggestask.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask.debug.xcconfig"; path = "Target Support Files/Pods-biggestask/Pods-biggestask.debug.xcconfig"; sourceTree = "<group>"; };
 		3BAC7853589B43B5AFBE229F /* moon_thin.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = moon_thin.ttf; path = ../src/assets/fonts/moon_thin.ttf; sourceTree = "<group>"; };
 		3E98229CA44D46E8848F506F /* f37moon_extra_boldit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_extra_boldit.otf; path = ../src/assets/fonts/f37moon_extra_boldit.otf; sourceTree = "<group>"; };
@@ -102,16 +103,17 @@
 		597FA8F72936199C004955F7 /* EvilIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = EvilIcons.ttf; sourceTree = "<group>"; };
 		597FA8F82936199C004955F7 /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = SimpleLineIcons.ttf; sourceTree = "<group>"; };
 		597FA8F92936199C004955F7 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = MaterialIcons.ttf; sourceTree = "<group>"; };
+		59A18EA6296713C400652DCD /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		5B74977BEA3E489EA7452303 /* f37moo_lightit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moo_lightit.otf; path = ../src/assets/fonts/f37moo_lightit.otf; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-biggestask-biggestaskTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask-biggestaskTests.debug.xcconfig"; path = "Target Support Files/Pods-biggestask-biggestaskTests/Pods-biggestask-biggestaskTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5DC188EE61654A4A95D6DF40 /* f37moon_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_bold.otf; path = ../src/assets/fonts/f37moon_bold.otf; sourceTree = "<group>"; };
-		5DCACB8F33CDC322A6C60F78 /* libPods-biggestask.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-biggestask.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C207075C322435998DF5191 /* f37moon_blackit.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_blackit.otf; path = ../src/assets/fonts/f37moon_blackit.otf; sourceTree = "<group>"; };
 		6EF674346700403C947DF342 /* anton_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = anton_regular.ttf; path = ../src/assets/fonts/anton_regular.ttf; sourceTree = "<group>"; };
 		7A50EA3CAC154D6891CA3848 /* f37moon_extra_bold.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_extra_bold.otf; path = ../src/assets/fonts/f37moon_extra_bold.otf; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = biggestask/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8715781A588D47B9A01DD051 /* moon_regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = moon_regular.ttf; path = ../src/assets/fonts/moon_regular.ttf; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-biggestask-biggestaskTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-biggestask-biggestaskTests.release.xcconfig"; path = "Target Support Files/Pods-biggestask-biggestaskTests/Pods-biggestask-biggestaskTests.release.xcconfig"; sourceTree = "<group>"; };
+		8C950DCE22A925E5A1CB41A2 /* libPods-biggestask.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-biggestask.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F61F2CF78264BA9988E5562 /* moon_extra_bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = moon_extra_bold.ttf; path = ../src/assets/fonts/moon_extra_bold.ttf; sourceTree = "<group>"; };
 		9B60CBA3A1D3454A84C76445 /* moon_light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = moon_light.ttf; path = ../src/assets/fonts/moon_light.ttf; sourceTree = "<group>"; };
 		A9A1EB4B79244ABD846D2D61 /* f37moon_demi.otf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = f37moon_demi.otf; path = ../src/assets/fonts/f37moon_demi.otf; sourceTree = "<group>"; };
@@ -127,7 +129,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7699B88040F8A987B510C191 /* libPods-biggestask-biggestaskTests.a in Frameworks */,
+				BCB2D4CDD98C96595A07738F /* libPods-biggestask-biggestaskTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +137,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0C80B921A6F3F58F76C31292 /* libPods-biggestask.a in Frameworks */,
+				576441AFFEED1FE31E59E904 /* libPods-biggestask.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -177,8 +179,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				5DCACB8F33CDC322A6C60F78 /* libPods-biggestask.a */,
-				19F6CBCC0A4E27FBF8BF4A61 /* libPods-biggestask-biggestaskTests.a */,
+				8C950DCE22A925E5A1CB41A2 /* libPods-biggestask.a */,
+				389169EA7E9BB691393031C0 /* libPods-biggestask-biggestaskTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -245,6 +247,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				59A18EA6296713C400652DCD /* GoogleService-Info.plist */,
 				597FA8E92936199C004955F7 /* Fonts */,
 				13B07FAE1A68108700A75B9A /* biggestask */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
@@ -413,6 +416,7 @@
 				51AF5AE7F3AE4ED8ACCC0FC9 /* moon_regular.ttf in Resources */,
 				597FA8FD2936199C004955F7 /* Entypo.ttf in Resources */,
 				597FA9042936199C004955F7 /* FontAwesome5_Regular.ttf in Resources */,
+				59A18EA7296713C500652DCD /* GoogleService-Info.plist in Resources */,
 				C4C71A88B93047028DB595FE /* moon_thin.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -681,7 +685,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.biggestask;
 				PRODUCT_NAME = biggestask;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -707,7 +711,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.biggestask;
 				PRODUCT_NAME = biggestask;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";

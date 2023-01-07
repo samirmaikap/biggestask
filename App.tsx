@@ -18,9 +18,10 @@ import {FONT_NAME} from './src/utils/constants';
 import RNBootSplash from 'react-native-bootsplash';
 import {ToastProvider} from 'react-native-toast-notifications';
 import {apiInstance} from './src/utils/service';
-import {AppProvider} from './src/contexts/AppContext';
+import {AppProvider, useAppContext} from './src/contexts/AppContext';
 import messaging from '@react-native-firebase/messaging';
 import {Alert} from 'react-native';
+import useNotificationsQuery from './src/hooks/useNotificationsQuery';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
@@ -79,6 +80,7 @@ const lightTheme = {
 };
 
 export default function App() {
+    const {getNotifications} = useNotificationsQuery();
     useEffect(() => {
         const init = async () => {
             // …do multiple sync or async tasks
@@ -91,10 +93,7 @@ export default function App() {
 
     useEffect(() => {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
-            Alert.alert(
-                'A new FCM message arrived!',
-                JSON.stringify(remoteMessage),
-            );
+            await getNotifications();
         });
 
         return unsubscribe;

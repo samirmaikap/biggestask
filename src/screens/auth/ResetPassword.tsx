@@ -20,10 +20,9 @@ import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
-import useAuth from '../../hooks/useAuthQuery';
 import {useToast} from 'react-native-toast-notifications';
 import useAuthQuery from '../../hooks/useAuthQuery';
-import messaging from '@react-native-firebase/messaging';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     container: {
@@ -50,21 +49,22 @@ const styles = StyleSheet.create({
     },
 });
 
-export const LoginScreen = () => {
+export const ResetPasswordScreen = () => {
     const {height} = useWindowDimensions();
     const insets = useSafeAreaInsets();
     const navigation = useNavigation<StackNavigationProp<any>>();
     const [loading, setLoading] = useState(false);
-    const [email, setEmail] = useState('maikap.samir@gmail.com');
-    const [password, setPassword] = useState('secret');
-    const [emailError, setEmailError] = useState(false);
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
-    const {login, updateFcmToken} = useAuthQuery();
+    const {changePassword} = useAuthQuery();
     const toast = useToast();
+    const {state} = useAppContext();
 
     const onSubmit = async () => {
-        if (!email) {
-            toast.show('Please enter correct email');
+        if (!state?.tempEmail) {
+            toast.show('Invalid email address');
             return;
         }
 
@@ -73,10 +73,25 @@ export const LoginScreen = () => {
             return;
         }
 
-        setLoading(true);
-        const response = await login({
-            email: email,
+        if (!confirmPassword) {
+            toast.show("Confirm Password can't be empty");
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            toast.show('Password & Confirm Password does not match');
+            return;
+        }
+
+        console.log('p', {
             password: password,
+            confirmPassword: confirmPassword,
+            email: state.tempEmail,
+        });
+        const response = await changePassword({
+            password: password,
+            password_confirmation: confirmPassword,
+            email: state.tempEmail,
         });
 
         setLoading(false);
@@ -85,11 +100,9 @@ export const LoginScreen = () => {
             return;
         }
 
-        const fcmToken = await messaging().getToken();
-        if (fcmToken) {
-            await updateFcmToken(fcmToken);
-            // user has a device token
-        }
+        toast.show('Password has been updated');
+
+        navigation.navigate(Screens.Login);
     };
 
     return (
@@ -112,12 +125,10 @@ export const LoginScreen = () => {
                                 }}>
                                 <TouchableOpacity
                                     onPress={() =>
-                                        navigation.navigate(Screens.Email, {
-                                            isPasswordReset: false,
-                                        })
+                                        navigation.navigate(Screens.Login)
                                     }
                                     activeOpacity={0.8}>
-                                    <AppText fontWeight={'600'}>Signup</AppText>
+                                    <AppText fontWeight={'600'}>Login</AppText>
                                 </TouchableOpacity>
                             </View>
                             <View
@@ -127,7 +138,7 @@ export const LoginScreen = () => {
                                     // justifyContent: 'space-between',
                                     alignItems: 'center',
                                 }}>
-                                <AppText variant={'h3'}>Login</AppText>
+                                <AppText variant={'h3'}>Reset Password</AppText>
                                 <Logo size={150} />
                                 <AppText
                                     textAlign={'center'}
@@ -139,27 +150,6 @@ export const LoginScreen = () => {
                             <AppSpacing gap={32} />
                             <View>
                                 <View>
-                                    <AppText variant={'title'}>Email</AppText>
-                                    <TextInput
-                                        autoComplete={'email'}
-                                        autoCapitalize={'none'}
-                                        autoCorrect={false}
-                                        value={email}
-                                        error={emailError}
-                                        onBlur={() => setEmailError(!email)}
-                                        onChangeText={value => setEmail(value)}
-                                        mode={'outlined'}
-                                        outlineStyle={{borderColor: 'white'}}
-                                        style={[
-                                            styles.input,
-                                            {
-                                                backgroundColor: 'white',
-                                                borderRadius: 12,
-                                            },
-                                        ]}
-                                        theme={{roundness: 12}}
-                                    />
-                                    <AppSpacing gap={16} />
                                     <AppText variant={'title'}>
                                         Password
                                     </AppText>
@@ -186,26 +176,35 @@ export const LoginScreen = () => {
                                         theme={{roundness: 12}}
                                     />
                                 </View>
-                                <AppSpacing gap={16} />
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        justifyContent: 'flex-end',
-                                    }}>
-                                    <TouchableOpacity
-                                        activeOpacity={0.8}
-                                        onPress={() =>
-                                            navigation.navigate(Screens.Email, {
-                                                isPasswordReset: true,
-                                            })
-                                        }>
-                                        <AppText
-                                            color={Colors.primary}
-                                            variant="custom"
-                                            textUnderline={true}>
-                                            I forgot my password
-                                        </AppText>
-                                    </TouchableOpacity>
+                                <View>
+                                    <AppSpacing gap={16} />
+                                    <AppText variant={'title'}>
+                                        Confirm Password
+                                    </AppText>
+                                    <TextInput
+                                        value={confirmPassword}
+                                        onChangeText={value =>
+                                            setConfirmPassword(value)
+                                        }
+                                        onBlur={() =>
+                                            setConfirmPasswordError(
+                                                !confirmPassword,
+                                            )
+                                        }
+                                        error={confirmPasswordError}
+                                        mode={'outlined'}
+                                        secureTextEntry={true}
+                                        autoCorrect={false}
+                                        outlineStyle={{borderColor: 'white'}}
+                                        style={[
+                                            styles.input,
+                                            {
+                                                backgroundColor: 'white',
+                                                borderRadius: 12,
+                                            },
+                                        ]}
+                                        theme={{roundness: 12}}
+                                    />
                                 </View>
                                 <AppSpacing gap={16} />
                                 <View>
@@ -216,7 +215,7 @@ export const LoginScreen = () => {
                                         onPress={onSubmit}
                                         style={AppStyles.button}
                                         mode={'contained'}>
-                                        Login
+                                        Change Password
                                     </AppButton>
                                 </View>
                             </View>

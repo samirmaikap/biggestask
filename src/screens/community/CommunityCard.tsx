@@ -1,7 +1,7 @@
 import React from 'react';
 import {AppCard} from '../../components/AppCard';
 import {Divider, useTheme} from 'react-native-paper';
-import {Linking, StyleSheet, View} from 'react-native';
+import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {AppSpacing} from '../../components/AppSpacing';
 import {images} from '../../utils/constants';
@@ -32,27 +32,25 @@ const styles = StyleSheet.create({
 type Props = {
     onEditPress?: Function;
     item: any;
+    onPress: Function;
 };
 
 export const CommunityCard = (props: Props) => {
-    const {item, onEditPress} = props;
+    const {item, onEditPress, onPress} = props;
     const theme = useTheme();
 
     const gotoLink = (link: string) => {
-        Linking.canOpenURL(link)
-            .then(supported => {
-                if (supported) {
-                    Linking.openURL(link);
-                } else {
-                    console.log("Don't know how to open URI: ");
-                }
-            })
-            .catch(e => console.log(e));
+        if (link) {
+            Linking.openURL(link).catch(e => console.log(e));
+        }
     };
 
     return (
         <AppCard>
-            <View style={[styles.row, {alignItems: 'flex-start', padding: 16}]}>
+            <TouchableOpacity
+                activeOpacity={0.8}
+                onPress={() => onPress()}
+                style={[styles.row, {alignItems: 'flex-start', padding: 16}]}>
                 <View style={styles.imageContainer}>
                     <AppImage
                         size={56}
@@ -66,21 +64,21 @@ export const CommunityCard = (props: Props) => {
                     <AppSpacing gap={8} />
                     <AppText color={Colors.grey_3}>{item?.description}</AppText>
                 </View>
-            </View>
+            </TouchableOpacity>
             <Divider style={{backgroundColor: Colors.grey_bg, height: 1}} />
             <View style={[styles.row, {alignItems: 'center', padding: 16}]}>
                 <View style={{flex: 1, marginRight: 8}}>
                     <AppCompactButton
                         color={Colors.grey_bg}
                         textColor={Colors.grey_3}
-                        onPress={() => gotoLink(item?.forum_link)}
+                        onPress={() => gotoLink(item?.insta_link)}
                         name={'Instagram'}
                         outlined={true}
                     />
                 </View>
                 <View style={{flex: 1, marginLeft: 8}}>
                     <AppCompactButton
-                        onPress={() => gotoLink(item?.insta_link)}
+                        onPress={() => gotoLink(item?.forum_link)}
                         name={'To Forum'}
                     />
                 </View>

@@ -94,6 +94,7 @@ const styles = StyleSheet.create({
         paddingVertical: Platform.OS === 'ios' ? 16 : 12,
         paddingHorizontal: 8,
         borderRadius: 12,
+        color: 'black',
     },
 });
 
@@ -307,6 +308,7 @@ export const ProfileScreen = () => {
                             <View style={styles.row}>
                                 <View style={{marginRight: 8}}>
                                     <TouchableOpacity
+                                        activeOpacity={0.8}
                                         onPress={() => setSelectedProfile(0)}>
                                         <AppImage
                                             size={100}
@@ -334,6 +336,7 @@ export const ProfileScreen = () => {
                                 {profiles.length > 1 && profiles[1] && (
                                     <View style={{marginLeft: 8}}>
                                         <TouchableOpacity
+                                            activeOpacity={0.8}
                                             onPress={() =>
                                                 setSelectedProfile(1)
                                             }>
@@ -455,7 +458,7 @@ export const ProfileScreen = () => {
                         )}
 
                         <View>
-                            {questions.length > 0 &&
+                            {questions?.length > 0 &&
                                 questions.map((item: any, index: number) => (
                                     <View
                                         style={{marginVertical: 8}}

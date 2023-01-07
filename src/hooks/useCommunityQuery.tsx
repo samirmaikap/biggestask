@@ -28,13 +28,12 @@ const useCommunityQuery = () => {
     };
 
     const updateCommunities = async (payload: any, communityId: number) => {
-        const response = await request.post(
+        const response = await request.put(
             `/communities/${communityId}`,
             payload,
         );
-        if (!response?.error) {
-            await getCommunities();
-        }
+
+        console.log(response);
 
         return response;
     };

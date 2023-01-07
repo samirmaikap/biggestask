@@ -25,6 +25,7 @@ type InitialStateType = {
     parent2: any;
     surrogate: any;
     nextMilestone: any;
+    notifications: any;
 };
 
 const initialState = {
@@ -44,6 +45,7 @@ const initialState = {
     parent2: null,
     surrogate: null,
     nextMilestone: {},
+    notifications: [],
 };
 
 const AppContext = createContext<{
@@ -153,6 +155,11 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
             return {
                 ...prevState,
                 nextMilestone: action.payload,
+            };
+        case 'SET_NOTIFICATIONS':
+            return {
+                ...prevState,
+                notifications: action.payload,
             };
         default:
             return prevState;

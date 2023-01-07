@@ -17,6 +17,8 @@ import useQuestionQuery from '../hooks/useQuestionQuery';
 import useCommunityQuery from '../hooks/useCommunityQuery';
 import useContactQuery from '../hooks/useContactQuery';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import messaging from '@react-native-firebase/messaging';
+import useNotificationsQuery from '../hooks/useNotificationsQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -37,13 +39,15 @@ type Props = {
 const Root = (props: Props) => {
     const {theme} = props;
     const {state, dispatch} = useAppContext();
-    const {getMe} = useAuthQuery();
+    const {getMe, updateFcmToken} = useAuthQuery();
     const [isLoading, setLoading] = useState(true);
     const {getWeeklyUpdate, getJourney, getNextMilestone} = useJourneyQuery();
     const {getMilestones} = useMilestoneQuery();
-    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+    const {getParentQuestions, getSurrogateQuestions, askQuestion} =
+        useQuestionQuery();
     const {getCommunities} = useCommunityQuery();
     const {getContacts} = useContactQuery();
+    const {getNotifications} = useNotificationsQuery();
     const [isFirstLoad, setIsFirstLoad] = useState(true);
     const [journey, setJourney] = useState<any>(null);
 
@@ -73,6 +77,7 @@ const Root = (props: Props) => {
                 setJourney(response.journey);
             }
             await getJourney();
+            // await askQuestion();
             preloadData();
         }
 
@@ -118,6 +123,7 @@ const Root = (props: Props) => {
         getSurrogateQuestions();
         getCommunities();
         getContacts();
+        getNotifications();
     };
 
     return (

@@ -79,6 +79,7 @@ export const ProvidersScreen = () => {
                 title={'Your Contacts'}
                 actions={[
                     <TouchableOpacity
+                        activeOpacity={0.8}
                         key={'t-1'}
                         onPress={() => {
                             setActiveContactId(null);

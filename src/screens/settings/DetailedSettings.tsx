@@ -86,7 +86,7 @@ export const DetailedSettingsScreen = () => {
                             ]}>
                             <AppText color={Colors.grey_3}>Language</AppText>
                             <View>
-                                <TouchableOpacity>
+                                <TouchableOpacity activeOpacity={0.8}>
                                     <AppText color={Colors.primary}>
                                         Change
                                     </AppText>
@@ -109,7 +109,7 @@ export const DetailedSettingsScreen = () => {
                             ]}>
                             <AppText color={Colors.grey_3}>Location</AppText>
                             <View>
-                                <TouchableOpacity>
+                                <TouchableOpacity activeOpacity={0.8}>
                                     <AppText color={Colors.primary}>
                                         Edit
                                     </AppText>

@@ -25,6 +25,7 @@ const styles = StyleSheet.create({
         paddingVertical: Platform.OS === 'ios' ? 16 : 12,
         paddingHorizontal: 8,
         borderRadius: 12,
+        color: 'black',
     },
 });
 
@@ -80,7 +81,7 @@ export const ContactForm = (props: Props) => {
             return;
         }
 
-        if (phone.length !== 10) {
+        if (phone && phone.length !== 10) {
             toast.show('Phone number must be 10 digit');
             return;
         }
@@ -91,10 +92,12 @@ export const ContactForm = (props: Props) => {
             title: selectedTitle,
             phone,
         };
+        console.log('payload', payload);
         setLoading(true);
         const response = contact?.id
             ? await updateContact(payload, contact?.id)
             : await createContact(payload);
+        console.log('response', response);
 
         setLoading(false);
         if (response?.error) {
