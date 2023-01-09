@@ -29,17 +29,15 @@ export function formatPhoneNumber(phoneNumberString) {
 }
 
 export function getLatestQuestion(parentQuestions, surrogateQuestions, role) {
-    let questions = [];
-    console.log('role', role);
     if (role === 'surrogate' && surrogateQuestions.length > 0) {
-        questions = surrogateQuestions.filter(item => !item.answer);
-    } else {
-        if (parentQuestions.length > 0) {
-            questions = parentQuestions.filter(item => !item.answer);
-        }
+        const questions = surrogateQuestions.filter(item => !item.answer);
+        return questions.length > 0 ? questions[0] : null;
+    } else if (role === 'parent' && parentQuestions.length > 0) {
+        const questions = parentQuestions.filter(item => !item.answer);
+        return questions.length > 0 ? questions[0] : null;
     }
 
-    return questions.length > 0 ? questions[0] : null;
+    return [];
 }
 
 export function getLatestAnswerByOther(
@@ -47,16 +45,15 @@ export function getLatestAnswerByOther(
     surrogateQuestions,
     role,
 ) {
-    let questions = [];
     if (role === 'parent' && surrogateQuestions.length > 0) {
-        questions = surrogateQuestions.filter(item => item.answer);
-    } else {
-        if (parentQuestions.length > 0) {
-            questions = parentQuestions.filter(item => item.answer);
-        }
+        const questions = surrogateQuestions.filter(item => item.answer);
+        return questions.length > 0 ? questions[0] : null;
+    } else if (role === 'surrogate' && parentQuestions.length > 0) {
+        const questions = parentQuestions.filter(item => item.answer);
+        return questions.length > 0 ? questions[0] : null;
     }
 
-    return questions.length > 0 ? questions[0] : null;
+    return [];
 }
 
 export function getActiveQuestions(
@@ -111,7 +108,6 @@ export function toSlug(text) {
         return text;
     }
 
-    console.log('text', text);
     text = text
         .replace(/[`~!@#$%^&*()_\-+=\[\]{};:'"\\|\/,.<>?\s]/g, ' ')
         .toLowerCase();

@@ -33,8 +33,6 @@ const useCommunityQuery = () => {
             payload,
         );
 
-        console.log(response);
-
         return response;
     };
 

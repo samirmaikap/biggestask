@@ -73,11 +73,11 @@ export const MilestonesScreen = () => {
         }
     }, [selectedItems]);
 
-    // useEffect(() => {
-    //     (async () => {
-    //         await getMilestones();
-    //     })();
-    // }, []);
+    useEffect(() => {
+        (async () => {
+            await getMilestones();
+        })();
+    }, []);
 
     const toggleSelectAll = () => {
         if (state.milestones.length === selectedItems.length) {

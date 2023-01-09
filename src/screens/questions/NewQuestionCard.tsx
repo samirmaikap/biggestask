@@ -74,8 +74,6 @@ export const NewQuestionCard = (props: Props) => {
     const {updateQuestion} = useQuestionQuery();
     const [requestSheetClose, setRequestSheetClose] = useState(false);
 
-    console.log('questionId', questionId);
-
     const handleUpdateQuestion = async () => {
         if (!answer) {
             toast.show('Please add an answer');

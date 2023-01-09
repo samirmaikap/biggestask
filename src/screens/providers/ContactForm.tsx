@@ -92,12 +92,10 @@ export const ContactForm = (props: Props) => {
             title: selectedTitle,
             phone,
         };
-        console.log('payload', payload);
         setLoading(true);
         const response = contact?.id
             ? await updateContact(payload, contact?.id)
             : await createContact(payload);
-        console.log('response', response);
 
         setLoading(false);
         if (response?.error) {

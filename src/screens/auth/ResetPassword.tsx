@@ -83,11 +83,6 @@ export const ResetPasswordScreen = () => {
             return;
         }
 
-        console.log('p', {
-            password: password,
-            confirmPassword: confirmPassword,
-            email: state.tempEmail,
-        });
         const response = await changePassword({
             password: password,
             password_confirmation: confirmPassword,

@@ -13,9 +13,7 @@ const useRequest = () => {
 
     const post = async (url: string, payload: any) => {
         return await apiInstance
-            .post(url, payload, {
-                headers: {},
-            })
+            .post(url, payload)
             .then(res => res.data)
             .catch(e => {
                 return parseResponse(e);
@@ -50,6 +48,7 @@ const useRequest = () => {
     };
 
     const parseResponse = (e: any) => {
+        console.log('error occured', e);
         if (e?.response.status === 422) {
             const errors = Object.values(e?.response?.data.message).flat();
             return {
@@ -61,7 +60,7 @@ const useRequest = () => {
 
         return {
             ...e?.response?.data,
-            status: e?.response.status,
+            status: e?.response && e?.response.status ? e?.response.status : e,
         };
     };
 

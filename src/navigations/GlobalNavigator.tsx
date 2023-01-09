@@ -139,8 +139,6 @@ const GlobalNavigator = (props: any) => {
         state.user?.journey && state.user?.journey.surrogate_id;
     const surrogateInvited =
         state.user?.journey && state.user?.journey.surrogate_invited;
-    console.log('surrogateInvited', surrogateInvited);
-    console.log('hasSurrogate', hasSurrogate);
     return (
         <NavigationContainer theme={theme}>
             {isLoggedIn

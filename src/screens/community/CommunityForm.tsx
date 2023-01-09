@@ -59,7 +59,6 @@ export const CommunityForm = (props: Props) => {
 
     useEffect(() => {
         if (community) {
-            console.log('value', community);
             setPayload({
                 title: community?.title,
                 description: community?.description,

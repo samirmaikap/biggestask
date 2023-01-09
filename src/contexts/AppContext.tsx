@@ -183,7 +183,6 @@ export const AppProvider = (props: Props) => {
                     : null;
 
                 if (authToken) {
-                    console.log('authToken', authToken);
                     dispatch({
                         type: 'SET_TOKEN',
                         payload: authToken,

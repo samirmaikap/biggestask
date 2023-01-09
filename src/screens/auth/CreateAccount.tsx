@@ -21,6 +21,7 @@ import {useToast} from 'react-native-toast-notifications';
 import {useAppContext} from '../../contexts/AppContext';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import messaging from '@react-native-firebase/messaging';
+import useQuestionQuery from '../../hooks/useQuestionQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -56,6 +57,7 @@ export const CreateAccountScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
     const {state, dispatch} = useAppContext();
+    const {askQuestion} = useQuestionQuery();
 
     const {register, updateFcmToken} = useAuthQuery();
 
@@ -120,8 +122,6 @@ export const CreateAccountScreen = () => {
         setLoading(true);
         const response = await register(payload);
         setLoading(false);
-
-        console.log('account respons', response);
 
         if (response?.error) {
             toast.show(response?.message);

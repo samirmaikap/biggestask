@@ -53,7 +53,6 @@ function useAuthQuery() {
     };
 
     const register = async (payload: any) => {
-        console.log('payload', payload);
         const response = await request.post('/register', payload);
         if (!response?.error) {
             if (response?.token) {

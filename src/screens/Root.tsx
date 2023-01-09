@@ -53,7 +53,6 @@ const Root = (props: Props) => {
 
     useEffect(() => {
         (async () => {
-            console.log('init called');
             await init();
         })();
     }, []);
@@ -61,7 +60,6 @@ const Root = (props: Props) => {
     useEffect(() => {
         (async () => {
             if (!isLoading) {
-                console.log('init called again');
                 await init();
             }
         })();
@@ -77,8 +75,8 @@ const Root = (props: Props) => {
                 setJourney(response.journey);
             }
             await getJourney();
-            // await askQuestion();
-            preloadData();
+            getNotifications();
+            getMilestones();
         }
 
         const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');
@@ -114,17 +112,6 @@ const Root = (props: Props) => {
     //         setLoading(false);
     //     })();
     // }, [state.authToken]);
-
-    const preloadData = async () => {
-        getWeeklyUpdate();
-        getNextMilestone();
-        getMilestones();
-        getParentQuestions();
-        getSurrogateQuestions();
-        getCommunities();
-        getContacts();
-        getNotifications();
-    };
 
     return (
         <View style={styles.container}>

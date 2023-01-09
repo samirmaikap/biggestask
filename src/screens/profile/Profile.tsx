@@ -145,8 +145,6 @@ export const ProfileScreen = () => {
     const spectatorRole =
         state.user?.user_type === 'surrogate' ? 'parent' : 'surrogate';
 
-    console.log(isSpectator ? spectatorRole : state.user?.user_type);
-
     let questions = getInActiveQuestions(
         state.parentQuestions,
         state.surrogateQuestions,
@@ -225,8 +223,6 @@ export const ProfileScreen = () => {
         await getMe();
         await getJourney();
     };
-
-    console.log(profiles[0].avatar);
 
     const renderBottomSheet = () => {
         return (

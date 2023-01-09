@@ -37,7 +37,7 @@ const useQuestionQuery = () => {
     };
 
     const askQuestion = async () => {
-        const response = await request.post('/questions/ask', {});
+        const response = await request.post('/questions/ask', {create: true});
         return response;
     };
 

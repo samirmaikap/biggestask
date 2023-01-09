@@ -44,6 +44,13 @@ export const QuestionsScreen = () => {
     const [inActiveQuestions, setInActiveQuestions] = useState([]);
     const isParent = state.user?.user_type === 'parent';
 
+    useEffect(() => {
+        (async () => {
+            await getParentQuestions();
+            await getParentQuestions();
+        })();
+    }, []);
+
     const handleUpdateFrequency = async () => {
         const payload = {
             question_frequency: value,
@@ -74,7 +81,6 @@ export const QuestionsScreen = () => {
     }, []);
 
     useEffect(() => {
-        console.log('chec');
         const activeQ = getActiveQuestions(
             state.parentQuestions,
             state.surrogateQuestions,

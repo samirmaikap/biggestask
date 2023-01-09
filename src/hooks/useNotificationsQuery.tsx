@@ -7,7 +7,6 @@ const useNotificationsQuery = () => {
 
     const getNotifications = async () => {
         const response = await request.get('/notifications');
-        console.log('response', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_NOTIFICATIONS',

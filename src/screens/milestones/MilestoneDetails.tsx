@@ -449,8 +449,6 @@ export const MilestoneDetailsScreen = () => {
         );
     };
 
-    console.log('activeMilestone?.image', activeMilestone);
-
     return (
         <View style={styles.container}>
             <StackHeader

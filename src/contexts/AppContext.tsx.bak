@@ -38,7 +38,7 @@ const AppContext = createContext<{
 });
 
 const setLoginParams = async (token: any) => {
-    console.log('set token called');
+
     apiInstance.defaults.headers.post['Content-Type'] = 'multipart/form-data';
     apiInstance.defaults.headers.common.Authorization = token
         ? `Bearer ${token}`
@@ -86,7 +86,6 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
                 tempEmailVerified: action.payload,
             };
         case 'SET_COMMUNITIES':
-            console.log('update....communties', action.payload);
             return {
                 ...prevState,
                 communities: action.payload,

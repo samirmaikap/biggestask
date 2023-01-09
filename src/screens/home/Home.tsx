@@ -74,7 +74,9 @@ export const HomeScreen = () => {
 
     const {updateFcmToken} = useAuthQuery();
     const {getWeeklyUpdate, getNextMilestone} = useJourneyQuery();
-    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+    const {getParentQuestions, getSurrogateQuestions, askQuestion} =
+        useQuestionQuery();
+    const role = state.user?.user_type;
 
     const navigation = useNavigation<StackNavigationProp<any>>();
 
@@ -88,6 +90,7 @@ export const HomeScreen = () => {
         (async () => {
             await getWeeklyUpdate();
             await getNextMilestone();
+            await askQuestion();
             await getParentQuestions();
             await getSurrogateQuestions();
         })();
@@ -98,13 +101,13 @@ export const HomeScreen = () => {
     let latestQuestion = getLatestQuestion(
         state.parentQuestions,
         state.surrogateQuestions,
-        state.user?.user_type,
+        role,
     );
 
     let latestAnswer = getLatestAnswerByOther(
         state.parentQuestions,
         state.surrogateQuestions,
-        state.user?.user_type,
+        role,
     );
 
     const handleOnAnswer = async () => {
@@ -126,10 +129,6 @@ export const HomeScreen = () => {
     const unreadNotificationCount =
         state.notifications?.length > 0 &&
         state.notifications.filter((item: any) => !item.is_read).length;
-
-    useEffect(() => {
-        console.log(state.milestones);
-    }, [state.milestones]);
 
     useEffect(() => {
         console.log(state.nextMilestone);
@@ -268,7 +267,7 @@ export const HomeScreen = () => {
                     )}
 
                     {/*Section Last Questions*/}
-                    {latestQuestion && (
+                    {latestQuestion && latestQuestion?.id && (
                         <View style={styles.title}>
                             <AppText
                                 variant={'custom'}
@@ -278,7 +277,7 @@ export const HomeScreen = () => {
                             </AppText>
                         </View>
                     )}
-                    {latestQuestion && (
+                    {latestQuestion && latestQuestion?.id && (
                         <NewQuestionCard
                             onSaved={handleOnAnswer}
                             questionId={latestQuestion?.id}
@@ -287,7 +286,7 @@ export const HomeScreen = () => {
                     )}
 
                     {/*Section Your Surrogate*/}
-                    {latestAnswer && (
+                    {latestAnswer && latestAnswer?.id && (
                         <View style={styles.title}>
                             <AppText
                                 variant={'custom'}
@@ -301,7 +300,7 @@ export const HomeScreen = () => {
                         </View>
                     )}
 
-                    {latestAnswer && (
+                    {latestAnswer && latestAnswer?.id && (
                         <QuestionCard
                             time={latestAnswer?.time}
                             title={latestAnswer?.question.text}
