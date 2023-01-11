@@ -7,6 +7,8 @@ import {LocationPin} from '../../components/icons/LocationPin';
 import {AppCard} from '../../components/AppCard';
 import React, {useState} from 'react';
 import {format} from 'date-fns';
+import {AppImage} from '../../components/AppImage';
+import {images} from '../../utils/constants';
 
 const styles = StyleSheet.create({
     container: {
@@ -59,8 +61,26 @@ export const MilestoneCard = (props: Props) => {
                     : {borderColor: 'white'},
             ]}>
             <AppCard padding={16}>
-                <AppText variant={'h4'}>{item?.name}</AppText>
-                <AppSpacing gap={24} />
+                <View
+                    style={[
+                        styles.row,
+                        {
+                            justifyContent: 'space-between',
+                            alignItems: 'center',
+                        },
+                    ]}>
+                    <AppText variant={'h4'}>{item?.name}</AppText>
+                    <AppSpacing gap={16} isHorizontal={true} />
+                    <AppImage
+                        size={40}
+                        isLocal={!item?.image}
+                        uri={
+                            item?.image ? item?.image : images.DEFAULT_MILESTONE
+                        }
+                    />
+                </View>
+
+                <AppSpacing gap={16} />
                 <View
                     style={[
                         styles.row,

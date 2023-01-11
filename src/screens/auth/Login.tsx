@@ -55,8 +55,8 @@ export const LoginScreen = () => {
     const insets = useSafeAreaInsets();
     const navigation = useNavigation<StackNavigationProp<any>>();
     const [loading, setLoading] = useState(false);
-    const [email, setEmail] = useState('maikap.samir@gmail.com');
-    const [password, setPassword] = useState('secret');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
     const [emailError, setEmailError] = useState(false);
     const [passwordError, setPasswordError] = useState(false);
     const {login, updateFcmToken} = useAuthQuery();

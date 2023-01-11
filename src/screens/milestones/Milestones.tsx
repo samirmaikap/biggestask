@@ -28,6 +28,7 @@ import {useAppContext} from '../../contexts/AppContext';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import {useToast} from 'react-native-toast-notifications';
 import useJourneyQuery from '../../hooks/useJourneyQuery';
+import useQuestionQuery from '../../hooks/useQuestionQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -63,7 +64,8 @@ export const MilestonesScreen = () => {
     const toast = useToast();
 
     const {getMilestones, resetMilestones} = useMilestoneQuery();
-    const {getNextMilestone} = useJourneyQuery();
+    const {getNextMilestone, getWeeklyUpdate, getJourney} = useJourneyQuery();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
 
     useEffect(() => {
         if (selectedItems?.length > 0) {
@@ -130,6 +132,10 @@ export const MilestonesScreen = () => {
                     setSelectedItems([]);
                     await getMilestones();
                     await getNextMilestone();
+                    await getWeeklyUpdate();
+                    await getJourney();
+                    await getParentQuestions();
+                    await getSurrogateQuestions();
                 },
             },
         ]);

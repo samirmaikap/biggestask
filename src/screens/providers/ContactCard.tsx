@@ -81,14 +81,14 @@ export const ContactCard = (props: Props) => {
                     </View>
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
-                            Agency Email
+                            {item?.title} Email
                         </AppText>
                         <AppSpacing />
                         <AppText>{item?.email}</AppText>
                     </View>
                     <View style={styles.textItem}>
                         <AppText variant={'caption'} color={Colors.grey_3}>
-                            Agency phone number
+                            {item?.title} phone number
                         </AppText>
                         <AppSpacing />
                         <AppText>

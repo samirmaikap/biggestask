@@ -9,6 +9,8 @@ import {ContactForm} from './ContactForm';
 import {AppSpacing} from '../../components/AppSpacing';
 import useContactQuery from '../../hooks/useContactQuery';
 import {useAppContext} from '../../contexts/AppContext';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {AppCard} from '../../components/AppCard';
 
 const styles = StyleSheet.create({
     container: {
@@ -26,6 +28,7 @@ export const ProvidersScreen = () => {
     const {getContacts} = useContactQuery();
     const [requestSheetClose, setRequestSheetClose] = useState(false);
     const [activeContactId, setActiveContactId] = useState(null);
+    const [isContactsLoading, setIsContactsLoading] = useState(true);
 
     const handleOnContactSave = async () => {
         setRequestSheetClose(true);
@@ -35,6 +38,7 @@ export const ProvidersScreen = () => {
     useEffect(() => {
         (async () => {
             await getContacts();
+            setIsContactsLoading(false);
         })();
     }, []);
 
@@ -93,6 +97,43 @@ export const ProvidersScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
+                    {isContactsLoading && (
+                        <AppCard padding={16}>
+                            <SkeletonPlaceholder borderRadius={4}>
+                                <SkeletonPlaceholder.Item
+                                    flexDirection="row"
+                                    alignItems="center">
+                                    <SkeletonPlaceholder.Item
+                                        width={60}
+                                        height={60}
+                                        borderRadius={50}
+                                    />
+                                    <SkeletonPlaceholder.Item marginLeft={20}>
+                                        <SkeletonPlaceholder.Item
+                                            width={200}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                    </SkeletonPlaceholder.Item>
+                                </SkeletonPlaceholder.Item>
+                            </SkeletonPlaceholder>
+                        </AppCard>
+                    )}
+
                     {state.contacts.map((item: {id: any}, index: any) => {
                         return (
                             <View
@@ -107,8 +148,10 @@ export const ProvidersScreen = () => {
                             </View>
                         );
                     })}
-                    {state.contacts?.length === 0 && (
-                        <AppText>No contacts found</AppText>
+                    {!isContactsLoading && state.contacts?.length === 0 && (
+                        <View style={{marginTop: 16}}>
+                            <AppText>No contacts found</AppText>
+                        </View>
                     )}
                 </View>
             </ScrollView>

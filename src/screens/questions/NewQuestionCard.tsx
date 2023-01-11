@@ -104,7 +104,9 @@ export const NewQuestionCard = (props: Props) => {
         onSaved();
 
         setAnswer('');
-        setSelectedUser(null);
+        setSelectedUser(
+            state.user?.user_type === 'surrogate' ? state.surrogate?.id : null,
+        );
     };
 
     return (

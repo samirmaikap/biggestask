@@ -110,6 +110,10 @@ function useAuthQuery() {
         const response = await request.put('/me/frequency', payload);
         return response;
     };
+    const updateShowPregnancy = async (payload: any) => {
+        const response = await request.put('/me/show-pregnancy', payload);
+        return response;
+    };
     const updateFcmToken = async (fcmToken: any) => {
         const response = await request.put('/me', {
             fcm_token: fcmToken,
@@ -142,6 +146,7 @@ function useAuthQuery() {
         logout,
         updateMe,
         updateFrequency,
+        updateShowPregnancy,
         updateFcmToken,
         requestResetPassword,
         changePassword,

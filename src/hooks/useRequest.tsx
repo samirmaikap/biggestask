@@ -13,7 +13,9 @@ const useRequest = () => {
 
     const post = async (url: string, payload: any) => {
         return await apiInstance
-            .post(url, payload)
+            .post(url, payload, {
+                headers: {},
+            })
             .then(res => res.data)
             .catch(e => {
                 return parseResponse(e);

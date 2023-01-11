@@ -75,8 +75,8 @@ const Root = (props: Props) => {
                 setJourney(response.journey);
             }
             await getJourney();
+            await getMilestones();
             getNotifications();
-            getMilestones();
         }
 
         const isFirstFromStorage = await AsyncStorage.getItem('skip_intro');

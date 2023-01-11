@@ -16,6 +16,8 @@ import {CommunityForm} from './CommunityForm';
 import {useNavigation} from '@react-navigation/native';
 import {useAppContext} from '../../contexts/AppContext';
 import useCommunityQuery from '../../hooks/useCommunityQuery';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import {AppCard} from '../../components/AppCard';
 
 const styles = StyleSheet.create({
     container: {
@@ -42,6 +44,7 @@ export const PostsScreen = () => {
     const {getCommunities} = useCommunityQuery();
     const [requestSheetClose, setRequestSheetClose] = useState(false);
     const [activeCommunity, setActiveCommunity] = useState(null);
+    const [isPostsLoading, setIsPostsLoading] = useState(true);
 
     const handleOnSaved = async () => {
         setRequestSheetClose(true);
@@ -51,6 +54,7 @@ export const PostsScreen = () => {
     useEffect(() => {
         (async () => {
             await getCommunities();
+            setIsPostsLoading(false);
         })();
     }, []);
 
@@ -98,7 +102,35 @@ export const PostsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {state?.communities && state.communities?.length > 0 ? (
+                    {isPostsLoading && (
+                        <AppCard padding={16}>
+                            <SkeletonPlaceholder borderRadius={4}>
+                                <SkeletonPlaceholder.Item
+                                    flexDirection="row"
+                                    alignItems="center">
+                                    <SkeletonPlaceholder.Item
+                                        width={60}
+                                        height={60}
+                                        borderRadius={50}
+                                    />
+                                    <SkeletonPlaceholder.Item marginLeft={20}>
+                                        <SkeletonPlaceholder.Item
+                                            width={200}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                    </SkeletonPlaceholder.Item>
+                                </SkeletonPlaceholder.Item>
+                            </SkeletonPlaceholder>
+                        </AppCard>
+                    )}
+
+                    {state?.communities &&
+                        state.communities?.length > 0 &&
                         state.communities.map(function (item: any, index: any) {
                             return (
                                 <View
@@ -115,9 +147,12 @@ export const PostsScreen = () => {
                                     />
                                 </View>
                             );
-                        })
-                    ) : (
-                        <AppText>No communities created Yet</AppText>
+                        })}
+
+                    {!isPostsLoading && state.communities?.length === 0 && (
+                        <View style={{marginTop: 16}}>
+                            <AppText>No Community found</AppText>
+                        </View>
                     )}
                 </View>
             </ScrollView>

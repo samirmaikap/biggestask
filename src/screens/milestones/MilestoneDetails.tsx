@@ -27,7 +27,7 @@ import {LocationPin} from '../../components/icons/LocationPin';
 import {format} from 'date-fns';
 import AppButton from '../../components/AppButton';
 import App from '../../../App';
-import {useRoute} from '@react-navigation/native';
+import {useNavigation, useRoute} from '@react-navigation/native';
 import {useAppContext} from '../../contexts/AppContext';
 import {useHeaderHeight} from '@react-navigation/elements';
 import usePlaceSearchQuery from '../../hooks/usePlaceSearchQuery';
@@ -42,6 +42,8 @@ import get = Reflect.get;
 import useJourneyQuery from '../../hooks/useJourneyQuery';
 import {act} from 'react-test-renderer';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import {StackNavigationProp} from '@react-navigation/stack';
+import useQuestionQuery from '../../hooks/useQuestionQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -149,11 +151,15 @@ export const MilestoneDetailsScreen = () => {
     const {updateMilestone, createMilestone, getMilestones} =
         useMilestoneQuery();
     const {getNextMilestone} = useJourneyQuery();
+    const navigation = useNavigation<StackNavigationProp<any>>();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+    const {getWeeklyUpdate, getJourney} = useJourneyQuery();
 
     useEffect(() => {
         if (activeMilestoneId) {
             const m = state.milestones.find(
-                (item: {id: any}) => item.id === activeMilestoneId,
+                (item: {id: any}) =>
+                    item.id.toString() === activeMilestoneId.toString(),
             );
             if (m) {
                 setActiveMilestone(m);
@@ -270,6 +276,13 @@ export const MilestoneDetailsScreen = () => {
 
         await getMilestones();
         await getNextMilestone();
+        if (!activeMilestone?.id) {
+            navigation.goBack();
+        }
+        await getParentQuestions();
+        await getSurrogateQuestions();
+        await getWeeklyUpdate();
+        await getJourney();
     };
 
     const hasImage = imageResponse?.uri || activeMilestone?.feature_image;
@@ -555,6 +568,7 @@ export const MilestoneDetailsScreen = () => {
                             <AppText variant={'title'}>Notes</AppText>
                             <AppSpacing />
                             <AppTextInput
+                                disabled={!activeMilestone?.id}
                                 multiline={true}
                                 height={150}
                                 numberOfLines={10}
@@ -659,6 +673,7 @@ export const MilestoneDetailsScreen = () => {
             </KeyboardAvoidingView>
             <DatePicker
                 modal
+                minimumDate={new Date()}
                 open={openDatepicker}
                 date={date ? date : new Date()}
                 onConfirm={(d: any) => {

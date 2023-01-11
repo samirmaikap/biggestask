@@ -30,11 +30,33 @@ export function formatPhoneNumber(phoneNumberString) {
 
 export function getLatestQuestion(parentQuestions, surrogateQuestions, role) {
     if (role === 'surrogate' && surrogateQuestions.length > 0) {
-        const questions = surrogateQuestions.filter(item => !item.answer);
+        const questions = surrogateQuestions.filter(
+            item => !item.answer && !item?.is_alert_question,
+        );
         return questions.length > 0 ? questions[0] : null;
     } else if (role === 'parent' && parentQuestions.length > 0) {
-        const questions = parentQuestions.filter(item => !item.answer);
+        const questions = parentQuestions.filter(
+            item => !item.answer && !item?.is_alert_question,
+        );
         return questions.length > 0 ? questions[0] : null;
+    }
+
+    return [];
+}
+
+export function getAlertQuestions(parentQuestions, surrogateQuestions, role) {
+    if (role === 'surrogate' && surrogateQuestions.length > 0) {
+        const questions = surrogateQuestions.filter(
+            item => !item?.milestone?.surrogate_note && item?.is_alert_question,
+        );
+
+        return questions.length > 0 ? questions : [];
+    } else if (role === 'parent' && parentQuestions.length > 0) {
+        const questions = parentQuestions.filter(
+            item => !item?.milestone?.parent_note && item?.is_alert_question,
+        );
+
+        return questions.length > 0 ? questions : [];
     }
 
     return [];
@@ -46,10 +68,14 @@ export function getLatestAnswerByOther(
     role,
 ) {
     if (role === 'parent' && surrogateQuestions.length > 0) {
-        const questions = surrogateQuestions.filter(item => item.answer);
+        const questions = surrogateQuestions.filter(
+            item => item.answer && !item?.is_alert_question,
+        );
         return questions.length > 0 ? questions[0] : null;
     } else if (role === 'surrogate' && parentQuestions.length > 0) {
-        const questions = parentQuestions.filter(item => item.answer);
+        const questions = parentQuestions.filter(
+            item => item.answer && !item?.is_alert_question,
+        );
         return questions.length > 0 ? questions[0] : null;
     }
 
@@ -63,14 +89,18 @@ export function getActiveQuestions(
     length = 0,
 ) {
     if (role === 'surrogate' && surrogateQuestions.length > 0) {
-        const questions = surrogateQuestions.filter(item => !item.answer);
+        const questions = surrogateQuestions.filter(
+            item => !item.answer && !item?.is_alert_question,
+        );
         if (length) {
             return questions.splice(0, length);
         }
         return questions;
     } else {
         if (parentQuestions.length > 0) {
-            const questions = parentQuestions.filter(item => !item.answer);
+            const questions = parentQuestions.filter(
+                item => !item.answer && !item?.is_alert_question,
+            );
             if (length) {
                 return questions.splice(0, length);
             }
@@ -87,14 +117,18 @@ export function getInActiveQuestions(
     length = 0,
 ) {
     if (role === 'surrogate' && surrogateQuestions.length > 0) {
-        const questions = surrogateQuestions.filter(item => item.answer);
+        const questions = surrogateQuestions.filter(
+            item => item.answer && !item?.is_alert_question,
+        );
         if (length) {
             return questions.splice(0, length);
         }
         return questions;
     } else {
         if (parentQuestions.length > 0) {
-            const questions = parentQuestions.filter(item => item.answer);
+            const questions = parentQuestions.filter(
+                item => item.answer && !item?.is_alert_question,
+            );
             if (length) {
                 return questions.splice(0, length);
             }

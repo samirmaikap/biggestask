@@ -22,6 +22,9 @@ import {AppProvider, useAppContext} from './src/contexts/AppContext';
 import messaging from '@react-native-firebase/messaging';
 import {Alert} from 'react-native';
 import useNotificationsQuery from './src/hooks/useNotificationsQuery';
+import {useNavigation} from '@react-navigation/native';
+import {StackNavigationProp} from '@react-navigation/stack';
+import Screens from './src/navigations/Screens';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 

@@ -23,7 +23,11 @@ import useJourneyQuery from '../../hooks/useJourneyQuery';
 import {format} from 'date-fns';
 import {AppImage} from '../../components/AppImage';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
-import {getLatestAnswerByOther, getLatestQuestion} from '../../utils/utils';
+import {
+    getAlertQuestions,
+    getLatestAnswerByOther,
+    getLatestQuestion,
+} from '../../utils/utils';
 import messaging from '@react-native-firebase/messaging';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import {PlusCircleIcon} from '../../components/icons/PlusCircleIcon';
@@ -31,6 +35,7 @@ import {NotificationsIcon} from '../../components/icons/NotificationsIcon';
 import {useNavigation} from '@react-navigation/native';
 import Screens, {NavigationKeyType} from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
+import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 
 const styles = StyleSheet.create({
     container: {
@@ -80,6 +85,43 @@ export const HomeScreen = () => {
 
     const navigation = useNavigation<StackNavigationProp<any>>();
 
+    const [isWeekUpdateLoading, setIsWeekUpdateLoading] = useState(true);
+    const [isNextMilestoneLoading, setIsNextMilestoneLoading] = useState(true);
+    const [isQuestionsLoading, setIsQuestionsLoading] = useState(true);
+
+    useEffect(() => {
+        messaging().onNotificationOpenedApp(remoteMessage => {
+            handleRemoteMessage(remoteMessage);
+            console.log(
+                'Notification caused app to open from background state:',
+                remoteMessage,
+            );
+        });
+
+        messaging()
+            .getInitialNotification()
+            .then(remoteMessage => {
+                if (remoteMessage) {
+                    handleRemoteMessage(remoteMessage);
+                    console.log(
+                        'Notification caused app to open from quit state:',
+                        remoteMessage,
+                    );
+                }
+            });
+    }, []);
+
+    const handleRemoteMessage = (remoteMessage: any) => {
+        const milestoneId = remoteMessage?.data?.milestoneId;
+        if (milestoneId) {
+            setTimeout(() => {
+                navigation.navigate(Screens.MilestoneDetails, {
+                    activeMilestoneId: milestoneId,
+                });
+            }, 1000);
+        }
+    };
+
     useEffect(() => {
         (async () => {
             await requestUserPermission();
@@ -89,14 +131,23 @@ export const HomeScreen = () => {
     useEffect(() => {
         (async () => {
             await getWeeklyUpdate();
+            setIsWeekUpdateLoading(false);
             await getNextMilestone();
+            setIsNextMilestoneLoading(false);
             await askQuestion();
             await getParentQuestions();
             await getSurrogateQuestions();
+            setIsQuestionsLoading(false);
         })();
     }, []);
 
     const nextMilestoneDate = state.nextMilestone?.date_time;
+
+    const alertQuestions = getAlertQuestions(
+        state.parentQuestions,
+        state.surrogateQuestions,
+        role,
+    );
 
     let latestQuestion = getLatestQuestion(
         state.parentQuestions,
@@ -134,6 +185,9 @@ export const HomeScreen = () => {
         console.log(state.nextMilestone);
     }, [state.nextMilestone]);
 
+    const shouldShowWeeklyUpdate =
+        state.weeklyUpdate && state?.weeklyUpdate?.id;
+
     return (
         <View style={styles.container}>
             <StatusBar backgroundColor="white" barStyle="dark-content" />
@@ -158,7 +212,7 @@ export const HomeScreen = () => {
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {state.weeklyUpdate && state?.weeklyUpdate?.id && (
+                    {!!state.user?.show_pregnancy && shouldShowWeeklyUpdate && (
                         <View style={styles.title}>
                             <AppText
                                 variant={'custom'}
@@ -169,7 +223,32 @@ export const HomeScreen = () => {
                         </View>
                     )}
 
-                    {state.weeklyUpdate && state?.weeklyUpdate?.id && (
+                    {isWeekUpdateLoading && (
+                        <AppCard marginVertical={16} padding={16}>
+                            <SkeletonPlaceholder borderRadius={4}>
+                                <SkeletonPlaceholder.Item
+                                    flexDirection="column"
+                                    alignItems="center">
+                                    <SkeletonPlaceholder.Item
+                                        marginBottom={20}
+                                        marginTop={20}
+                                        alignItems="center">
+                                        <SkeletonPlaceholder.Item
+                                            width={200}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                    </SkeletonPlaceholder.Item>
+                                </SkeletonPlaceholder.Item>
+                            </SkeletonPlaceholder>
+                        </AppCard>
+                    )}
+
+                    {!!state.user?.show_pregnancy && shouldShowWeeklyUpdate && (
                         <AppCard padding={16}>
                             <View
                                 style={[
@@ -196,6 +275,45 @@ export const HomeScreen = () => {
                         </AppCard>
                     )}
 
+                    {alertQuestions?.length > 0 &&
+                        alertQuestions.map((item: any, index: any) => {
+                            return (
+                                <View
+                                    key={`alert-${index}`}
+                                    style={{marginVertical: 16}}>
+                                    <AppCard padding={16}>
+                                        <AppText variant="h2">
+                                            {item?.question.text}
+                                        </AppText>
+                                        <AppSpacing gap={16} />
+                                        <AppButton
+                                            onPress={() =>
+                                                navigation.navigate(
+                                                    Screens.MilestoneDetails,
+                                                    {
+                                                        activeMilestoneId:
+                                                            item?.milestone_id,
+                                                    },
+                                                )
+                                            }
+                                            contentStyle={
+                                                AppStyles.buttonContent
+                                            }
+                                            textColor={Colors.grey_2}
+                                            style={[
+                                                AppStyles.button,
+                                                {
+                                                    borderColor: Colors.grey_4,
+                                                },
+                                            ]}
+                                            mode={'outlined'}>
+                                            Share Feedback
+                                        </AppButton>
+                                    </AppCard>
+                                </View>
+                            );
+                        })}
+
                     {/*Section Next Milestone*/}
                     <View style={styles.title}>
                         <AppText
@@ -205,68 +323,102 @@ export const HomeScreen = () => {
                             Next Milestone
                         </AppText>
                     </View>
-                    {state.nextMilestone && state.nextMilestone?.id ? (
-                        <AppCard padding={16}>
-                            <View
-                                style={[
-                                    styles.row,
-                                    {
-                                        justifyContent: 'center',
-                                        alignItems: 'center',
-                                    },
-                                ]}>
-                                <AppImage
-                                    size={200}
-                                    resizeMode={'contain'}
-                                    isLocal={!state.nextMilestone.image}
-                                    uri={
-                                        state.nextMilestone.image
-                                            ? state.nextMilestone.image
-                                            : images.DEFAULT_MILESTONE
-                                    }
-                                />
-                            </View>
-                            <AppText variant="h2">
-                                {state.nextMilestone?.name}
-                            </AppText>
-                            <AppSpacing />
-                            <View style={styles.row}>
-                                <View>
-                                    <CalendarIcon
-                                        size={16}
-                                        color={Colors.grey_3}
+
+                    {isNextMilestoneLoading && (
+                        <AppCard marginVertical={16} padding={16}>
+                            <SkeletonPlaceholder borderRadius={4}>
+                                <SkeletonPlaceholder.Item
+                                    flexDirection="column"
+                                    alignItems="center">
+                                    <SkeletonPlaceholder.Item
+                                        width={60}
+                                        height={60}
+                                        borderRadius={50}
                                     />
-                                </View>
-                                <AppSpacing isHorizontal={true} />
-                                <AppText
-                                    variant={'custom'}
-                                    size={12}
-                                    color={Colors.grey_3}>
-                                    {nextMilestoneDate
-                                        ? format(
-                                            new Date(nextMilestoneDate),
-                                            "MM/dd/yyyy 'at' h:mm a",
-                                        )
-                                        : 'Not yet scheduled'}
-                                </AppText>
-                            </View>
-                            <AppSpacing gap={16} />
-                            {/*<AppButton*/}
-                            {/*    contentStyle={AppStyles.buttonContent}*/}
-                            {/*    textColor={Colors.grey_2}*/}
-                            {/*    style={[*/}
-                            {/*        AppStyles.button,*/}
-                            {/*        {borderColor: Colors.grey_4},*/}
-                            {/*    ]}*/}
-                            {/*    mode={'outlined'}>*/}
-                            {/*    Ask Gestational Carrier*/}
-                            {/*</AppButton>*/}
+                                    <SkeletonPlaceholder.Item
+                                        marginBottom={20}
+                                        marginTop={20}>
+                                        <SkeletonPlaceholder.Item
+                                            width={120}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                    </SkeletonPlaceholder.Item>
+                                </SkeletonPlaceholder.Item>
+                            </SkeletonPlaceholder>
                         </AppCard>
-                    ) : (
-                        <AppText>Not available</AppText>
                     )}
 
-                    {/*Section Last Questions*/}
+                    {state.nextMilestone && state.nextMilestone?.id && (
+                        <TouchableOpacity
+                            activeOpacity={0.8}
+                            onPress={() =>
+                                navigation.navigate(Screens.Milestones)
+                            }>
+                            <AppCard padding={16}>
+                                <View
+                                    style={[
+                                        styles.row,
+                                        {
+                                            justifyContent: 'center',
+                                            alignItems: 'center',
+                                        },
+                                    ]}>
+                                    <AppImage
+                                        size={200}
+                                        resizeMode={'contain'}
+                                        isLocal={!state.nextMilestone.image}
+                                        uri={
+                                            state.nextMilestone.image
+                                                ? state.nextMilestone.image
+                                                : images.DEFAULT_MILESTONE
+                                        }
+                                    />
+                                </View>
+                                <AppText variant="h2">
+                                    {state.nextMilestone?.name}
+                                </AppText>
+                                <AppSpacing />
+                                <View style={styles.row}>
+                                    <View>
+                                        <CalendarIcon
+                                            size={16}
+                                            color={Colors.grey_3}
+                                        />
+                                    </View>
+                                    <AppSpacing isHorizontal={true} />
+                                    <AppText
+                                        variant={'custom'}
+                                        size={12}
+                                        color={Colors.grey_3}>
+                                        {nextMilestoneDate
+                                            ? format(
+                                                new Date(nextMilestoneDate),
+                                                "MM/dd/yyyy 'at' h:mm a",
+                                            )
+                                            : 'Not yet scheduled'}
+                                    </AppText>
+                                </View>
+                                <AppSpacing gap={16} />
+                                {/*<AppButton*/}
+                                {/*    contentStyle={AppStyles.buttonContent}*/}
+                                {/*    textColor={Colors.grey_2}*/}
+                                {/*    style={[*/}
+                                {/*        AppStyles.button,*/}
+                                {/*        {borderColor: Colors.grey_4},*/}
+                                {/*    ]}*/}
+                                {/*    mode={'outlined'}>*/}
+                                {/*    Ask Gestational Carrier*/}
+                                {/*</AppButton>*/}
+                            </AppCard>
+                        </TouchableOpacity>
+                    )}
+
+                    {/*Section Latest Questions*/}
                     {latestQuestion && latestQuestion?.id && (
                         <View style={styles.title}>
                             <AppText
@@ -277,6 +429,31 @@ export const HomeScreen = () => {
                             </AppText>
                         </View>
                     )}
+                    {isQuestionsLoading && (
+                        <AppCard marginVertical={16} padding={16}>
+                            <SkeletonPlaceholder borderRadius={4}>
+                                <SkeletonPlaceholder.Item
+                                    flexDirection="column"
+                                    alignItems="center">
+                                    <SkeletonPlaceholder.Item
+                                        marginBottom={20}
+                                        marginTop={20}
+                                        alignItems="center">
+                                        <SkeletonPlaceholder.Item
+                                            width={200}
+                                            height={20}
+                                        />
+                                        <SkeletonPlaceholder.Item
+                                            marginTop={6}
+                                            width={80}
+                                            height={20}
+                                        />
+                                    </SkeletonPlaceholder.Item>
+                                </SkeletonPlaceholder.Item>
+                            </SkeletonPlaceholder>
+                        </AppCard>
+                    )}
+
                     {latestQuestion && latestQuestion?.id && (
                         <NewQuestionCard
                             onSaved={handleOnAnswer}

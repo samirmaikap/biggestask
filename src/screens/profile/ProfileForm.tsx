@@ -45,7 +45,11 @@ export const ProfileForm = (props: Props) => {
         state.user?.gender ? state.user?.gender : 'male',
     );
     const [openDatepicker, setOpenDatepicker] = useState(false);
-    const [date, setDate] = useState(new Date());
+    var startDate = new Date();
+    startDate.setFullYear(startDate.getFullYear() - 25);
+    const [date, setDate] = useState(
+        state.user?.dob ? new Date(state.user?.dob) : null,
+    );
     const [name, setName] = useState(state.user?.name);
     const [address, setAddress] = useState(state.user?.address);
     const [phone, setPhone] = useState(state.user?.phone);
@@ -178,7 +182,7 @@ export const ProfileForm = (props: Props) => {
                             },
                         ]}>
                         <AppText>
-                            {format(new Date(date), 'yyyy-MM-dd')}
+                            {date ? format(new Date(date), 'yyyy-MM-dd') : null}
                         </AppText>
                     </View>
                 </TouchableOpacity>
@@ -207,8 +211,9 @@ export const ProfileForm = (props: Props) => {
             </View>
             <DatePicker
                 modal
+                mode="date"
                 open={openDatepicker}
-                date={date}
+                date={date ? new Date(date) : new Date(startDate)}
                 onConfirm={(d: any) => {
                     setOpenDatepicker(false);
                     setDate(d);
