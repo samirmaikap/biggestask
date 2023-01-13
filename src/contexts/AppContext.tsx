@@ -26,6 +26,7 @@ type InitialStateType = {
     surrogate: any;
     nextMilestone: any;
     notifications: any;
+    timeZone: any;
 };
 
 const initialState = {
@@ -46,6 +47,7 @@ const initialState = {
     surrogate: null,
     nextMilestone: {},
     notifications: [],
+    timeZone: null,
 };
 
 const AppContext = createContext<{
@@ -73,6 +75,11 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
             return {
                 ...prevState,
                 isFirstLoad: action.payload,
+            };
+        case 'SET_TIME_ZONE':
+            return {
+                ...prevState,
+                timeZone: action.payload,
             };
         case 'SET_TOKEN':
             setLoginParams(action.payload);

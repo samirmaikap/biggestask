@@ -43,12 +43,22 @@ const useMilestoneQuery = () => {
         return response;
     };
 
+    const requestMilestoneDate = async (milestoneId: number) => {
+        const response = await request.post(
+            `/milestones/${milestoneId}/request-date`,
+            {value: true},
+        );
+
+        return response;
+    };
+
     return {
         getMilestones,
         createMilestone,
         updateMilestone,
         deleteMilestone,
         resetMilestones,
+        requestMilestoneDate,
     };
 };
 

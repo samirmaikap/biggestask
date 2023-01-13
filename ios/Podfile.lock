@@ -365,6 +365,8 @@ PODS:
     - RCTTypeSafety
     - React-Core
     - ReactCommon/turbomodule/core
+  - react-native-timezone (2.1.1):
+    - React-Core
   - React-perflogger (0.69.1)
   - React-RCTActionSheet (0.69.1):
     - React-Core/RCTActionSheetHeaders (= 0.69.1)
@@ -519,6 +521,7 @@ DEPENDENCIES:
   - react-native-date-picker (from `../node_modules/react-native-date-picker`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
+  - react-native-timezone (from `../node_modules/react-native-timezone`)
   - React-perflogger (from `../node_modules/react-native/ReactCommon/reactperflogger`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
   - React-RCTAnimation (from `../node_modules/react-native/Libraries/NativeAnimation`)
@@ -613,6 +616,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-image-picker"
   react-native-safe-area-context:
     :path: "../node_modules/react-native-safe-area-context"
+  react-native-timezone:
+    :path: "../node_modules/react-native-timezone"
   React-perflogger:
     :path: "../node_modules/react-native/ReactCommon/reactperflogger"
   React-RCTActionSheet:
@@ -703,6 +708,7 @@ SPEC CHECKSUMS:
   react-native-date-picker: 93e43b3084cea595b4d68b1405d6d99849663bd6
   react-native-image-picker: 60f4246eb5bb7187fc15638a8c1f13abd3820695
   react-native-safe-area-context: 99b24a0c5acd0d5dcac2b1a7f18c49ea317be99a
+  react-native-timezone: c1dad97b34a5b2ab435212f5f814546b2c961606
   React-perflogger: c9161ff0f1c769993cd11d2751e4331ff4ceb7cd
   React-RCTActionSheet: 2d885b0bea76a5254ef852939273edd8de116180
   React-RCTAnimation: 353fa4fc3c19060068832dd32e555182ec07be45
@@ -728,6 +734,6 @@ SPEC CHECKSUMS:
   RNSVG: 3a79c0c4992213e4f06c08e62730c5e7b9e4dc17
   Yoga: 7ab6e3ee4ce47d7b789d1cb520163833e515f452
 
-PODFILE CHECKSUM: a6616e4c851a7363742098dc725a97d09e9f1b7f
+PODFILE CHECKSUM: b29e6f19019235edf4a6f1b9ab9b2ef24784fe03
 
 COCOAPODS: 1.11.3

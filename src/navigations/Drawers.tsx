@@ -15,7 +15,7 @@ import {ContactProviderIcon} from '../components/icons/ContactProviderIcons';
 import {SettingsIcon} from '../components/icons/SettingsIcon';
 import {Switch} from 'react-native-paper';
 import {LogoutIcon} from '../components/icons/LogoutIcon';
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {AppText} from '../components/AppText';
 import {FONT_NAME, images} from '../utils/constants';
@@ -66,23 +66,31 @@ export const Drawers = (props: any) => {
     const {logout} = useAuthQuery();
     const {state} = useAppContext();
     const toast = useToast();
+    const [initialLoading, setInitialLoading] = useState(true);
 
     const [showPregnancy, setShowPregnancy] = useState(
         !!state.user?.show_pregnancy,
     );
+    useEffect(() => {
+        setTimeout(() => {
+            setInitialLoading(false);
+        }, 1000);
+    }, []);
 
     const {updateShowPregnancy, getMe} = useAuthQuery();
 
     const handleUpdateShowPregnancy = async (v: any) => {
-        const response = await updateShowPregnancy({show_pregnancy: v});
-        if (response?.error) {
-            toast.show(response?.message);
-            return;
-        }
+        if (!initialLoading) {
+            const response = await updateShowPregnancy({show_pregnancy: v});
+            if (response?.error) {
+                toast.show(response?.message);
+                return;
+            }
 
-        toast.show('Settings updated');
-        props.navigation.dispatch(DrawerActions.closeDrawer);
-        await getMe();
+            toast.show('Settings updated');
+            props.navigation.dispatch(DrawerActions.closeDrawer);
+            await getMe();
+        }
     };
 
     return (
