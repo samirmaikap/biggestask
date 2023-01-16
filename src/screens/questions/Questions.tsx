@@ -112,12 +112,12 @@ export const QuestionsScreen = () => {
                     <AppText>
                         Get to know your{' '}
                         {isParent ? 'Gestational Carrier' : 'Intended Parents'}{' '}
-                        as the journey unfolds. The app will send you and your{' '}
+                        journey unfolds. The app will send you and your{' '}
                         {isParent ? 'Gestational Carrier' : 'Intended Parents'}{' '}
-                        questions and exchange the answers. As the journey
-                        progresses, the questions become more interesting and
-                        intimate, so that you bond naturally with each other.
-                        Select how often you'd like to answer a question
+                        and exchange the answers. As the journey progresses, the
+                        questions become more interesting and intimate, so that
+                        you bond naturally with each other. Select how often
+                        you'd like to answer a question
                     </AppText>
                     <AppSpacing gap={16} />
                     <AppText variant={'h3'}>

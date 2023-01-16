@@ -1,5 +1,5 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React, {useContext, useEffect, useState} from 'react';
+import React from 'react';
 import Screens from './Screens';
 import {createDrawerNavigator} from '@react-navigation/drawer';
 import RootNavigator from './RootNavigator';
@@ -16,7 +16,6 @@ import colors from '../theme/colors';
 import {StyleSheet} from 'react-native';
 import {SurrogateInviteScreen} from '../screens/invite/SurrogateInvite';
 import {WaitingSurrogateScreen} from '../screens/invite/WaitingSurrogateScreen';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import {ResetPasswordScreen} from '../screens/auth/ResetPassword';
 
 const Drawer = createDrawerNavigator();

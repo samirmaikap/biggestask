@@ -69,6 +69,7 @@ type Props = {
     textAlign?: any;
     maxLines?: number;
     textUnderline?: boolean;
+    adjustsFontSizeToFit?: boolean;
 };
 
 const renderH1 = (props: Props, children: any) => {
@@ -110,9 +111,11 @@ const renderH3 = (props: Props, children: any) => {
         color = defaultColor,
         textStyle = 'normal',
         textAlign = 'auto',
+        adjustsFontSizeToFit = false,
     } = props;
     return (
         <Text
+            adjustsFontSizeToFit={adjustsFontSizeToFit}
             style={[
                 styles.h3,
                 {textAlign: textAlign, color: color, fontStyle: textStyle},

@@ -6,7 +6,6 @@ import appStyles from '../theme/AppStyles';
 import {MenuIcon} from './icons/MenuIcon';
 import {AppText} from './AppText';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {setUser} from '../contexts/actions';
 
 const styles = StyleSheet.create({
     row: {

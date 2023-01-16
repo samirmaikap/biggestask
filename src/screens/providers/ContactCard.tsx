@@ -1,14 +1,14 @@
 import React from 'react';
 import {AppCard} from '../../components/AppCard';
 import {Divider, useTheme} from 'react-native-paper';
-import {Image, Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Linking, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {AppSpacing} from '../../components/AppSpacing';
 import {PencilIcon} from '../../components/icons/PencilIcon';
 import {images} from '../../utils/constants';
 import {AppCompactButton} from '../../components/AppCompactButton';
 import {Colors} from '../../theme/colors';
-import {formatPhoneNumber, toSlug} from '../../utils/utils';
+import {formatPhoneNumber} from '../../utils/utils';
 import {AppImage} from '../../components/AppImage';
 import {useToast} from 'react-native-toast-notifications';
 

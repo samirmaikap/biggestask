@@ -15,13 +15,12 @@ import {DocumentIcon} from '../../components/icons/DocumentIcon';
 import {DetailedSettingsIcon} from '../../components/icons/DetailedSettingsIcon';
 import {useNavigation} from '@react-navigation/native';
 import {AppSpacing} from '../../components/AppSpacing';
-import {Button, Divider} from 'react-native-paper';
+import {Divider} from 'react-native-paper';
 import {AppText} from '../../components/AppText';
 import AppStyles from '../../theme/AppStyles';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
-import useContactQuery from '../../hooks/useContactQuery';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import {useToast} from 'react-native-toast-notifications';
 

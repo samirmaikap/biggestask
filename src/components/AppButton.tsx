@@ -1,7 +1,6 @@
-import React from 'react';
+import React, {ReactNode, RefAttributes} from 'react';
 import {$DeepPartial} from '@callstack/react-theme-provider';
-import {RefAttributes, ReactNode} from 'react';
-import {ViewProps, View, StyleProp, ViewStyle, TextStyle} from 'react-native';
+import {StyleProp, TextStyle, View, ViewProps, ViewStyle} from 'react-native';
 import {Button, SurfaceProps} from 'react-native-paper';
 import {IconSource} from 'react-native-paper/lib/typescript/components/Icon';
 import {InternalTheme} from 'react-native-paper/lib/typescript/types';

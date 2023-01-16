@@ -1,6 +1,5 @@
 import {DrawerContentScrollView, DrawerItem} from '@react-navigation/drawer';
 import {
-    Alert,
     Platform,
     StyleSheet,
     TouchableOpacity,
@@ -15,15 +14,13 @@ import {ContactProviderIcon} from '../components/icons/ContactProviderIcons';
 import {SettingsIcon} from '../components/icons/SettingsIcon';
 import {Switch} from 'react-native-paper';
 import {LogoutIcon} from '../components/icons/LogoutIcon';
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {AppText} from '../components/AppText';
-import {FONT_NAME, images} from '../utils/constants';
+import {FONT_NAME} from '../utils/constants';
 import Screens from './Screens';
-import {NotificationsIcon} from '../components/icons/NotificationsIcon';
 import useAuthQuery from '../hooks/useAuthQuery';
-import {DrawerActions, useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
+import {DrawerActions} from '@react-navigation/native';
 import {useAppContext} from '../contexts/AppContext';
 import {useToast} from 'react-native-toast-notifications';
 
@@ -108,8 +105,11 @@ export const Drawers = (props: any) => {
                     <View>
                         <AppImage uri={state.user?.avatar} />
                     </View>
-                    <View style={{marginLeft: 16}}>
-                        <AppText maxLines={1} variant="h3">
+                    <View style={{flex: 1, marginLeft: 16}}>
+                        <AppText
+                            adjustsFontSizeToFit={true}
+                            maxLines={1}
+                            variant="h3">
                             {state.user?.name}
                         </AppText>
                         <AppText color={primaryColor}>

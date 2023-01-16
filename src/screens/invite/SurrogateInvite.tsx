@@ -1,14 +1,5 @@
-import React, {useContext, useState} from 'react';
-import {
-    Image,
-    Keyboard,
-    Platform,
-    SafeAreaView,
-    StatusBar,
-    StyleSheet,
-    Text,
-    View,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Image, Keyboard, Platform, StyleSheet, View} from 'react-native';
 import useInvitationQuery from '../../hooks/useInvitationQuery';
 import {useToast} from 'react-native-toast-notifications';
 import useAuthQuery from '../../hooks/useAuthQuery';

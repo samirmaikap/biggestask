@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     Alert,
     ScrollView,
@@ -9,26 +9,22 @@ import {
 } from 'react-native';
 import TabHeader from '../../components/TabHeader';
 import {AppText} from '../../components/AppText';
-import {Button} from 'react-native-paper';
 import {TransparentIcon} from '../../components/TransparentIcon';
 import {PlusIcon} from '../../components/icons/PlusIcon';
 import AppStyles from '../../theme/AppStyles';
 import {AppSpacing} from '../../components/AppSpacing';
-import {AppCard} from '../../components/AppCard';
-import {CalendarIcon} from '../../components/icons/CalendarIcon';
-import {LocationPin} from '../../components/icons/LocationPin';
 import {SheetLine} from '../../components/SheetLine';
 import {Colors} from '../../theme/colors';
 import Screens from '../../navigations/Screens';
 import {useNavigation} from '@react-navigation/native';
 import {StackNavigationProp} from '@react-navigation/stack';
-import {MilestoneCard} from './MilestoneCard';
 import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import {useToast} from 'react-native-toast-notifications';
 import useJourneyQuery from '../../hooks/useJourneyQuery';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+import {MilestoneCard} from './MilestoneCard';
 
 const styles = StyleSheet.create({
     container: {

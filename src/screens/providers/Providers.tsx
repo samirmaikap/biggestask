@@ -61,8 +61,8 @@ export const ProvidersScreen = () => {
                     contact={
                         activeContactId
                             ? state.contacts.find(
-                                (item: {id: number}) =>
-                                    item.id === activeContactId,
+                                  (item: {id: number}) =>
+                                      item.id === activeContactId,
                             )
                             : null
                     }

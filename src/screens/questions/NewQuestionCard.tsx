@@ -1,4 +1,4 @@
-import {Button, useTheme} from 'react-native-paper';
+import {useTheme} from 'react-native-paper';
 import AppStyles from '../../theme/AppStyles';
 import {StyleSheet, View} from 'react-native';
 import {AppText} from '../../components/AppText';

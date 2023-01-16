@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import {StyleSheet} from 'react-native';
 import colors from '../theme/colors';
 import Screens from './Screens';

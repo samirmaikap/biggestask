@@ -1,18 +1,17 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
     ImageBackground,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
     StyleSheet,
-    Text,
     TouchableOpacity,
     useWindowDimensions,
     View,
 } from 'react-native';
 import {AppText} from '../../components/AppText';
 import {Logo} from '../../components/icons/Logo';
-import {Button, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {AppSpacing} from '../../components/AppSpacing';
 import AppStyles from '../../theme/AppStyles';
 import {images} from '../../utils/constants';
@@ -26,7 +25,6 @@ import AppButton from '../../components/AppButton';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import {useToast} from 'react-native-toast-notifications';
 import {useAppContext} from '../../contexts/AppContext';
-import messaging from '@react-native-firebase/messaging';
 
 const styles = StyleSheet.create({
     container: {

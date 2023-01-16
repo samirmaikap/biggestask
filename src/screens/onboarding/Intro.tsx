@@ -1,7 +1,6 @@
 import React from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import {Image, StyleSheet, View} from 'react-native';
-import {Button} from 'react-native-paper';
 import AppStyles from '../../theme/AppStyles';
 import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';

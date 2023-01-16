@@ -6,7 +6,6 @@ import {Colors} from '../../theme/colors';
 import {TransparentIcon} from '../../components/TransparentIcon';
 import {DocumentIcon} from '../../components/icons/DocumentIcon';
 import {AppSpacing} from '../../components/AppSpacing';
-import {toRgba} from '../../utils/utils';
 
 const styles = StyleSheet.create({
     container: {

@@ -1,5 +1,4 @@
 import useRequest from './useRequest';
-import {useContext} from 'react';
 import {useAppContext} from '../contexts/AppContext';
 
 const useAttachmentsQuery = () => {

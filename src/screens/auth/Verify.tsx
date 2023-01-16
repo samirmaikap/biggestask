@@ -1,18 +1,15 @@
-import React, {useContext, useState} from 'react';
+import React, {useState} from 'react';
 import {
     Image,
-    ImageBackground,
     KeyboardAvoidingView,
     Platform,
     ScrollView,
     StyleSheet,
-    TouchableOpacity,
     useWindowDimensions,
     View,
 } from 'react-native';
 import {AppText} from '../../components/AppText';
-import {Logo} from '../../components/icons/Logo';
-import {Button, TextInput} from 'react-native-paper';
+import {TextInput} from 'react-native-paper';
 import {AppSpacing} from '../../components/AppSpacing';
 import AppStyles from '../../theme/AppStyles';
 import {images} from '../../utils/constants';
@@ -20,7 +17,6 @@ import {Colors} from '../../theme/colors';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {useNavigation, useRoute} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
-import {SheetLine} from '../../components/SheetLine';
 import {StackNavigationProp} from '@react-navigation/stack';
 import AppButton from '../../components/AppButton';
 import useAuthQuery from '../../hooks/useAuthQuery';

@@ -1,6 +1,5 @@
 import useRequest from './useRequest';
 import {useAppContext} from '../contexts/AppContext';
-import {useEffect} from 'react';
 
 const useCommunityQuery = () => {
     const request = useRequest();

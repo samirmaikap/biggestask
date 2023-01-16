@@ -8,7 +8,6 @@ import {images} from '../../utils/constants';
 import {AppCompactButton} from '../../components/AppCompactButton';
 import {Colors} from '../../theme/colors';
 import {AppImage} from '../../components/AppImage';
-import {Link} from '@react-navigation/native';
 
 const styles = StyleSheet.create({
     row: {

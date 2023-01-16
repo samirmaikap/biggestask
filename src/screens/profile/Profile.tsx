@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {
-    Alert,
     Keyboard,
     KeyboardAvoidingView,
     Platform,
@@ -31,7 +30,6 @@ import {useToast} from 'react-native-toast-notifications';
 import useInvitationQuery from '../../hooks/useInvitationQuery';
 import {useRoute} from '@react-navigation/native';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {format} from 'date-fns';
 import useAttachmentsQuery from '../../hooks/useAttachmentsQuery';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import useJourneyQuery from '../../hooks/useJourneyQuery';
@@ -280,13 +278,13 @@ export const ProfileScreen = () => {
                 actions={
                     isEditable
                         ? [
-                              <TouchableOpacity
-                                  key={'t-1'}
-                                  activeOpacity={0.8}
-                                  onPress={() => setIsEditing(!isEditing)}>
-                                  <PencilIcon />
-                              </TouchableOpacity>,
-                          ]
+                            <TouchableOpacity
+                                key={'t-1'}
+                                activeOpacity={0.8}
+                                onPress={() => setIsEditing(!isEditing)}>
+                                <PencilIcon />
+                            </TouchableOpacity>,
+                        ]
                         : []
                 }
             />
@@ -348,16 +346,16 @@ export const ProfileScreen = () => {
                                             )}
                                             {isEditing &&
                                                 selectedProfile === 1 && (
-                                                    <TouchableOpacity
-                                                        activeOpacity={0.8}
-                                                        style={
-                                                            styles.imageButton
-                                                        }>
-                                                        <CameraIcon
-                                                            color={'white'}
-                                                        />
-                                                    </TouchableOpacity>
-                                                )}
+                                                <TouchableOpacity
+                                                    activeOpacity={0.8}
+                                                    style={
+                                                        styles.imageButton
+                                                    }>
+                                                    <CameraIcon
+                                                        color={'white'}
+                                                    />
+                                                </TouchableOpacity>
+                                            )}
                                             <View
                                                 style={
                                                     styles.indicatorContainer

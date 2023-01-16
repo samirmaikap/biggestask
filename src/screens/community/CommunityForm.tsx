@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';
-import {Button} from 'react-native-paper';
 import AppStyles from '../../theme/AppStyles';
 import {BottomSheetTextInput} from '@gorhom/bottom-sheet';
 import {AppSpacing} from '../../components/AppSpacing';

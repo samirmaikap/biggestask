@@ -1,15 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import {Colors} from '../../theme/colors';
-import {Button, RadioButton, TextInput} from 'react-native-paper';
+import {RadioButton, TextInput} from 'react-native-paper';
 import {AppText} from '../../components/AppText';
 import {PhoneIcon} from '../../components/icons/PhoneIcon';
 import {EmailIcon} from '../../components/icons/EmailIcon';
 import {LocationPin} from '../../components/icons/LocationPin';
-import {CalendarIcon} from '../../components/icons/CalendarIcon';
 import {UserIcon} from '../../components/icons/UserIcon';
 import AppStyles from '../../theme/AppStyles';
-import DropDownPicker from 'react-native-dropdown-picker';
 import {AppSpacing} from '../../components/AppSpacing';
 import AppButton from '../../components/AppButton';
 import DatePicker from 'react-native-date-picker';
