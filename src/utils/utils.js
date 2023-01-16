@@ -160,7 +160,7 @@ export function toSlug(text) {
 }
 
 export function getLocalDateTime(dateTime, timezone) {
-    return format(new Date(dateTime), 'dd/MM/yyyy h:mm a', {
+    return format(new Date(dateTime), 'MM/dd/yyyy h:mm a', {
         timeZone: timezone,
     });
 }
