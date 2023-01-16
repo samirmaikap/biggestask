@@ -282,15 +282,8 @@ export const HomeScreen = () => {
                                         key={`alert-${index}`}
                                         style={{marginVertical: 16}}>
                                         <AppCard padding={16}>
-                                            <AppText variant="h2">
-                                                {item?.question_id === 246
-                                                    ? `${item?.question.text.replace(
-                                                        '?',
-                                                        ' ',
-                                                    )}for ${
-                                                        item?.milestone.name
-                                                    }?`
-                                                    : item?.question.text}
+                                            <AppText variant="h3">
+                                                {item?.question.text}
                                             </AppText>
                                             <AppSpacing gap={16} />
                                             <AppButton

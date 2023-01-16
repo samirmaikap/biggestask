@@ -5,9 +5,8 @@ import {
     Provider as PaperProvider,
     configureFonts,
     MD3LightTheme,
-    Surface,
 } from 'react-native-paper';
-import {LogBox, Platform} from 'react-native';
+import {LogBox} from 'react-native';
 import colors from './src/theme/colors';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
@@ -17,14 +16,11 @@ import {MD3Type} from 'react-native-paper/lib/typescript/types';
 import {FONT_NAME} from './src/utils/constants';
 import RNBootSplash from 'react-native-bootsplash';
 import {ToastProvider} from 'react-native-toast-notifications';
-import {apiInstance} from './src/utils/service';
-import {AppProvider, useAppContext} from './src/contexts/AppContext';
+import {AppProvider} from './src/contexts/AppContext';
 import messaging from '@react-native-firebase/messaging';
-import {Alert} from 'react-native';
 import useNotificationsQuery from './src/hooks/useNotificationsQuery';
-import {useNavigation} from '@react-navigation/native';
-import {StackNavigationProp} from '@react-navigation/stack';
-import Screens from './src/navigations/Screens';
+import useQuestionQuery from './src/hooks/useQuestionQuery';
+import useMilestoneQuery from './src/hooks/useMilestoneQuery';
 
 LogBox.ignoreLogs(['Remote debugger is in a']);
 
@@ -84,6 +80,8 @@ const lightTheme = {
 
 export default function App() {
     const {getNotifications} = useNotificationsQuery();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+    const {getMilestones} = useMilestoneQuery();
     useEffect(() => {
         const init = async () => {
             // …do multiple sync or async tasks
@@ -97,6 +95,9 @@ export default function App() {
     useEffect(() => {
         const unsubscribe = messaging().onMessage(async remoteMessage => {
             await getNotifications();
+            await getParentQuestions();
+            await getSurrogateQuestions();
+            await getMilestones();
         });
 
         return unsubscribe;

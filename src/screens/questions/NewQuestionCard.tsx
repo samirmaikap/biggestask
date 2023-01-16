@@ -147,7 +147,6 @@ export const NewQuestionCard = (props: Props) => {
                             AppStyles.textInput,
                             {padding: 16, minHeight: 100},
                         ]}
-                        value={answer}
                         onChangeText={e => setAnswer(e)}
                     />
                     <AppSpacing gap={16} />
