@@ -49,7 +49,7 @@ const menus = [
     {
         name: 'Help',
         icon: <HelpIcon />,
-        link: 'https://thebiggestask.com/the-biggest-ask-surrogacy-service/',
+        link: 'https://thebiggestask.com',
     },
     {
         name: 'About',

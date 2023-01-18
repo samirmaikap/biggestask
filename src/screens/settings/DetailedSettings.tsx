@@ -78,51 +78,51 @@ export const DetailedSettingsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    <View style={styles.settingGroup}>
-                        <View
-                            style={[
-                                styles.row,
-                                {justifyContent: 'space-between'},
-                            ]}>
-                            <AppText color={Colors.grey_3}>Language</AppText>
-                            <View>
-                                <TouchableOpacity activeOpacity={0.8}>
-                                    <AppText color={Colors.primary}>
-                                        Change
-                                    </AppText>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <AppSpacing gap={8} />
-                        <View>
-                            <AppText fontWeight={'600'}>English</AppText>
-                        </View>
-                    </View>
+                    {/*<View style={styles.settingGroup}>*/}
+                    {/*    <View*/}
+                    {/*        style={[*/}
+                    {/*            styles.row,*/}
+                    {/*            {justifyContent: 'space-between'},*/}
+                    {/*        ]}>*/}
+                    {/*        <AppText color={Colors.grey_3}>Language</AppText>*/}
+                    {/*        <View>*/}
+                    {/*            <TouchableOpacity activeOpacity={0.8}>*/}
+                    {/*                <AppText color={Colors.primary}>*/}
+                    {/*                    Change*/}
+                    {/*                </AppText>*/}
+                    {/*            </TouchableOpacity>*/}
+                    {/*        </View>*/}
+                    {/*    </View>*/}
+                    {/*    <AppSpacing gap={8} />*/}
+                    {/*    <View>*/}
+                    {/*        <AppText fontWeight={'600'}>English</AppText>*/}
+                    {/*    </View>*/}
+                    {/*</View>*/}
 
-                    <Divider />
+                    {/*<Divider />*/}
 
-                    <View style={styles.settingGroup}>
-                        <View
-                            style={[
-                                styles.row,
-                                {justifyContent: 'space-between'},
-                            ]}>
-                            <AppText color={Colors.grey_3}>Location</AppText>
-                            <View>
-                                <TouchableOpacity activeOpacity={0.8}>
-                                    <AppText color={Colors.primary}>
-                                        Edit
-                                    </AppText>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <AppSpacing gap={8} />
-                        <View>
-                            <AppText fontWeight={'600'}>London, UK</AppText>
-                        </View>
-                    </View>
+                    {/*<View style={styles.settingGroup}>*/}
+                    {/*    <View*/}
+                    {/*        style={[*/}
+                    {/*            styles.row,*/}
+                    {/*            {justifyContent: 'space-between'},*/}
+                    {/*        ]}>*/}
+                    {/*        <AppText color={Colors.grey_3}>Location</AppText>*/}
+                    {/*        <View>*/}
+                    {/*            <TouchableOpacity activeOpacity={0.8}>*/}
+                    {/*                <AppText color={Colors.primary}>*/}
+                    {/*                    Edit*/}
+                    {/*                </AppText>*/}
+                    {/*            </TouchableOpacity>*/}
+                    {/*        </View>*/}
+                    {/*    </View>*/}
+                    {/*    <AppSpacing gap={8} />*/}
+                    {/*    <View>*/}
+                    {/*        <AppText fontWeight={'600'}>London, UK</AppText>*/}
+                    {/*    </View>*/}
+                    {/*</View>*/}
 
-                    <Divider />
+                    {/*<Divider />*/}
 
                     <View style={styles.settingGroup}>
                         <View

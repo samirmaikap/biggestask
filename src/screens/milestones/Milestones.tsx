@@ -149,7 +149,7 @@ export const MilestonesScreen = () => {
                         <AppText textAlign={'center'}>
                             {state.user?.user_type === 'surrogate'
                                 ? 'Update this section as soon as you set your appointment so that your IPs are informed as well'
-                                : 'Check back as your gestational carrier updates her appointments along with the surrogacy journey'}
+                                : 'Check back as your gestational carrier updates her appointments during the surrogacy journey'}
                         </AppText>
                         <AppSpacing gap={16} />
                         {state.user.id === state.surrogate?.id && (
