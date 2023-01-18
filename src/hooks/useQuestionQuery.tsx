@@ -35,16 +35,16 @@ const useQuestionQuery = () => {
         return response;
     };
 
-    const askQuestion = async () => {
-        const response = await request.post('/questions/ask', {create: true});
-        return response;
-    };
+    // const askQuestion = async () => {
+    //     const response = await request.post('/questions/ask', {create: true});
+    //     return response;
+    // };
 
     return {
         getParentQuestions,
         getSurrogateQuestions,
         updateQuestion,
-        askQuestion,
+        // askQuestion,
     };
 };
 

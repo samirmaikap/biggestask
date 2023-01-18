@@ -22,6 +22,8 @@ import {useAppContext} from '../../contexts/AppContext';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import messaging from '@react-native-firebase/messaging';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+// @ts-ignore
+import TimeZone from 'react-native-timezone';
 
 const styles = StyleSheet.create({
     container: {
@@ -57,7 +59,6 @@ export const CreateAccountScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const toast = useToast();
     const {state, dispatch} = useAppContext();
-    const {askQuestion} = useQuestionQuery();
 
     const {register, updateFcmToken} = useAuthQuery();
 
@@ -114,9 +115,16 @@ export const CreateAccountScreen = () => {
             return;
         }
 
+        const fcmToken = await messaging().getToken();
+        const timeZone = await TimeZone.getTimeZone()
+            .then((zone: any) => zone)
+            .catch((e: any) => console.log('e', e));
+
         const payload = {
             ...formData,
             email: state.tempEmail,
+            fcm_token: fcmToken,
+            timezone: timeZone,
         };
 
         setLoading(true);
@@ -126,12 +134,6 @@ export const CreateAccountScreen = () => {
         if (response?.error) {
             toast.show(response?.message);
             return;
-        }
-
-        const fcmToken = await messaging().getToken();
-        if (fcmToken) {
-            await updateFcmToken(fcmToken);
-            // user has a device token
         }
 
         toast.show('Account Created');

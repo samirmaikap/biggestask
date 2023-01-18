@@ -1,4 +1,5 @@
 import {format} from 'date-fns-tz';
+import moment from 'moment-timezone';
 
 export const toRgba = (hex, alpha) => {
     let r = parseInt(hex.slice(1, 3), 16),
@@ -50,8 +51,6 @@ export function getLatestQuestion(parentQuestions, surrogateQuestions, role) {
 }
 
 export function getAlertQuestions(parentQuestions, surrogateQuestions, role) {
-    console.log('surrogateQuestions', surrogateQuestions);
-    console.log('parentQuestions', parentQuestions);
     if (role === 'surrogate' && surrogateQuestions.length > 0) {
         const questions = surrogateQuestions.filter(
             item => !item?.milestone?.surrogate_note && item?.is_alert_question,
@@ -160,16 +159,7 @@ export function toSlug(text) {
 }
 
 export function getLocalDateTime(dateTime, timezone) {
-    return format(new Date(dateTime), 'MM/dd/yyyy h:mm a', {
-        timeZone: timezone,
-    });
-}
-
-export function getUTCDateTime(dateTime, timezone = '') {
-    console.log('date.toISOString()', dateTime.toISOString());
-    return format(new Date(dateTime), 'yyyy-MM-dd HH:mm:ss', {
-        timeZone: 'UTC',
-    });
+    return moment(dateTime).tz(timezone).format('MM/D/Y h:mm a z');
 }
 
 export function timeout(delay) {

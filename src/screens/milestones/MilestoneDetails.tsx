@@ -283,10 +283,10 @@ export const MilestoneDetailsScreen = () => {
     };
 
     const handleRequestDate = async (v: boolean) => {
+        setRequestDate(v);
         if (v) {
             await requestMilestoneDate(activeMilestoneId);
         }
-        setRequestDate(v);
     };
 
     const hasImage = imageResponse?.uri || activeMilestone?.feature_image;
@@ -433,7 +433,7 @@ export const MilestoneDetailsScreen = () => {
                                 />
                                 <View style={{flex: 1}}>
                                     <AppText>
-                                            Request a date from a gestational
+                                            Request date from your gestational
                                             carrier
                                     </AppText>
                                 </View>

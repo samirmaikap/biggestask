@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {
+    RefreshControl,
     ScrollView,
     StatusBar,
     StyleSheet,
@@ -34,6 +35,7 @@ import {useNavigation} from '@react-navigation/native';
 import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
+import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -77,8 +79,8 @@ export const HomeScreen = () => {
 
     const {updateFcmToken, updateTimezone} = useAuthQuery();
     const {getWeeklyUpdate, getNextMilestone} = useJourneyQuery();
-    const {getParentQuestions, getSurrogateQuestions, askQuestion} =
-        useQuestionQuery();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+    const {getMilestones} = useMilestoneQuery();
     const role = state.user?.user_type;
 
     const navigation = useNavigation<StackNavigationProp<any>>();
@@ -86,6 +88,8 @@ export const HomeScreen = () => {
     const [isWeekUpdateLoading, setIsWeekUpdateLoading] = useState(true);
     const [isNextMilestoneLoading, setIsNextMilestoneLoading] = useState(true);
     const [isQuestionsLoading, setIsQuestionsLoading] = useState(true);
+
+    const [refreshing, setRefreshing] = React.useState(false);
 
     useEffect(() => {
         messaging().onNotificationOpenedApp(remoteMessage => {
@@ -129,17 +133,22 @@ export const HomeScreen = () => {
     }, []);
 
     useEffect(() => {
+        console.log('refresh data');
         (async () => {
-            await getWeeklyUpdate();
-            setIsWeekUpdateLoading(false);
-            await getNextMilestone();
-            setIsNextMilestoneLoading(false);
-            await askQuestion();
-            await getParentQuestions();
-            await getSurrogateQuestions();
-            setIsQuestionsLoading(false);
+            await refreshData();
         })();
     }, []);
+
+    const refreshData = async () => {
+        await getWeeklyUpdate();
+        setIsWeekUpdateLoading(false);
+        await getNextMilestone();
+        setIsNextMilestoneLoading(false);
+        await getParentQuestions();
+        await getSurrogateQuestions();
+        setIsQuestionsLoading(false);
+        await getMilestones();
+    };
 
     const nextMilestoneDate = state.nextMilestone?.parsed_date_time;
 
@@ -148,8 +157,6 @@ export const HomeScreen = () => {
         state.surrogateQuestions,
         role,
     );
-
-    console.log('aler q', alertQuestions);
 
     let latestQuestion = getLatestQuestion(
         state.parentQuestions,
@@ -207,6 +214,16 @@ export const HomeScreen = () => {
             />
 
             <ScrollView
+                refreshControl={
+                    <RefreshControl
+                        refreshing={refreshing}
+                        onRefresh={async () => {
+                            setRefreshing(true);
+                            await refreshData();
+                            setRefreshing(false);
+                        }}
+                    />
+                }
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
