@@ -43,7 +43,7 @@ const socialLinks = [
     //     icon: images.TWITTER,
     // },
     {
-        link: 'https://instagram.com/thebiggestask ',
+        link: 'https://instagram.com/thebiggestask',
         icon: images.INSTAGRAM,
     },
     {
@@ -72,7 +72,9 @@ export const AboutScreen = () => {
                     </View>
                     <AppSpacing gap={32} />
                     <View>
-                        <AppText variant={'h3'}>About BiggestAsk App</AppText>
+                        <AppText variant={'h3'}>
+                            About The Biggest Ask App
+                        </AppText>
                         <AppSpacing gap={8} />
                         <AppText color={Colors.grey_2}>
                             This app is meant to be used in conjunction with our

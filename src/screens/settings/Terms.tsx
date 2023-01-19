@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     innerContainer: {
-        padding: 16,
+        paddingVertical: 16,
     },
     row: {
         flexDirection: 'row',
@@ -29,6 +29,12 @@ export const TermsScreen = () => {
     const [loading, setLoading] = useState(true);
     const headerHeight = useHeaderHeight();
     console.log('headerHeight', headerHeight);
+
+    const runFirst = `
+      document.getElementsByClassName('site-header')[0].style.display = 'none';
+      document.getElementsByClassName('elementor-section-wrap')[0].style.display = 'none';
+      true; // note: this is required, or you'll sometimes get silent failures
+    `;
 
     // useEffect(() => {
     //     (async () => {
@@ -75,8 +81,9 @@ export const TermsScreen = () => {
                             onLoadStart={() => setLoading(true)}
                             onLoadEnd={() => setLoading(false)}
                             originWhitelist={['*']}
+                            injectedJavaScript={runFirst}
                             source={{
-                                uri: 'https://www.termsfeed.com/live/edab016b-a267-40b7-8891-36738897da1e',
+                                uri: 'https://thebiggestask.com/eula/',
                             }}
                         />
                     </View>

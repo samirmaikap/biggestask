@@ -43,10 +43,17 @@ export const DetailedSettingsScreen = () => {
     const {state} = useAppContext();
     const {updateMe, getMe} = useAuthQuery();
     const {getJourney} = useJourneyQuery();
+    const [isLoading, setIsLoading] = useState(true);
 
     const [notificationEnabled, setNotificationEnabled] = useState(
         state.user.notification_enabled,
     );
+
+    useEffect(() => {
+        setTimeout(() => {
+            setIsLoading(false);
+        }, 1000);
+    }, []);
 
     const handleUpdateSettings = async () => {
         const payload = {
@@ -66,7 +73,9 @@ export const DetailedSettingsScreen = () => {
 
     useEffect(() => {
         (async () => {
-            await handleUpdateSettings();
+            if (!isLoading) {
+                await handleUpdateSettings();
+            }
         })();
     }, [notificationEnabled]);
 
