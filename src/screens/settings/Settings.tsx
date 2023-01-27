@@ -23,6 +23,7 @@ import AppButton from '../../components/AppButton';
 import {useAppContext} from '../../contexts/AppContext';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import {useToast} from 'react-native-toast-notifications';
+import {useCalendarEvents} from '../../hooks/useCalendarEvents';
 
 const styles = StyleSheet.create({
     container: {
@@ -77,6 +78,7 @@ export const SettingsScreen = () => {
     const {state} = useAppContext();
     const navigation = useNavigation<StackNavigationProp<any>>();
     const {resetMilestones, getMilestones} = useMilestoneQuery();
+    const {refreshCalendarEvents} = useCalendarEvents();
     const toast = useToast();
 
     const handleResetMilestones = async () => {
@@ -101,6 +103,7 @@ export const SettingsScreen = () => {
 
                         toast.show(response?.message);
                         await getMilestones();
+                        await refreshCalendarEvents();
                     },
                 },
             ]);

@@ -36,6 +36,7 @@ import Screens from '../../navigations/Screens';
 import {StackNavigationProp} from '@react-navigation/stack';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
+import {useCalendarEvents} from '../../hooks/useCalendarEvents';
 
 const styles = StyleSheet.create({
     container: {
@@ -83,6 +84,9 @@ export const HomeScreen = () => {
     const {getMilestones} = useMilestoneQuery();
     const role = state.user?.user_type;
 
+    const {checkCalendarPermissions, refreshCalendarEvents} =
+        useCalendarEvents();
+
     const navigation = useNavigation<StackNavigationProp<any>>();
 
     const [isWeekUpdateLoading, setIsWeekUpdateLoading] = useState(true);
@@ -115,27 +119,30 @@ export const HomeScreen = () => {
 
     const handleRemoteMessage = async (remoteMessage: any) => {
         const type = remoteMessage?.data?.type;
-        getParentQuestions();
-        getSurrogateQuestions();
-        if (type && type === 'milestone') {
-            const milestoneId = remoteMessage?.data?.milestoneId;
-            if (milestoneId) {
+        if (remoteMessage?.data) {
+            getParentQuestions();
+            getSurrogateQuestions();
+            if (type && type === 'milestone') {
+                const milestoneId = remoteMessage?.data?.milestoneId;
+                if (milestoneId) {
+                    setTimeout(() => {
+                        navigation.navigate(Screens.MilestoneDetails, {
+                            activeMilestoneId: milestoneId,
+                        });
+                    }, 1000);
+                }
+            } else {
                 setTimeout(() => {
-                    navigation.navigate(Screens.MilestoneDetails, {
-                        activeMilestoneId: milestoneId,
-                    });
+                    navigation.navigate(Screens.Questions);
                 }, 1000);
             }
-        } else {
-            setTimeout(() => {
-                navigation.navigate(Screens.Questions);
-            }, 1000);
         }
     };
 
     useEffect(() => {
         (async () => {
             await requestUserPermission();
+            await checkCalendarPermissions();
         })();
     }, []);
 
@@ -155,6 +162,7 @@ export const HomeScreen = () => {
         await getSurrogateQuestions();
         setIsQuestionsLoading(false);
         await getMilestones();
+        await refreshCalendarEvents();
     };
 
     const nextMilestoneDate = state.nextMilestone?.parsed_date_time;

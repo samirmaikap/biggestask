@@ -27,6 +27,7 @@ type InitialStateType = {
     nextMilestone: any;
     notifications: any;
     timeZone: any;
+    calendarEvents: any;
 };
 
 const initialState = {
@@ -48,6 +49,7 @@ const initialState = {
     nextMilestone: {},
     notifications: [],
     timeZone: null,
+    calendarEvents: [],
 };
 
 const AppContext = createContext<{
@@ -167,6 +169,11 @@ function appReducer(prevState: any, action: {type: any; payload: any}) {
             return {
                 ...prevState,
                 notifications: action.payload,
+            };
+        case 'SET_CALENDAR_EVENTS':
+            return {
+                ...prevState,
+                calendarEvents: action.payload,
             };
         default:
             return prevState;

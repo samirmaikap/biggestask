@@ -25,6 +25,7 @@ import {useToast} from 'react-native-toast-notifications';
 import useJourneyQuery from '../../hooks/useJourneyQuery';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
 import {MilestoneCard} from './MilestoneCard';
+import {useCalendarEvents} from '../../hooks/useCalendarEvents';
 
 const styles = StyleSheet.create({
     container: {
@@ -63,6 +64,8 @@ export const MilestonesScreen = () => {
     const {getNextMilestone, getWeeklyUpdate, getJourney} = useJourneyQuery();
     const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
 
+    const {refreshCalendarEvents} = useCalendarEvents();
+
     useEffect(() => {
         if (selectedItems?.length > 0) {
             setSelectionVisible(true);
@@ -74,6 +77,7 @@ export const MilestonesScreen = () => {
     useEffect(() => {
         (async () => {
             await getMilestones();
+            await refreshCalendarEvents();
         })();
     }, []);
 

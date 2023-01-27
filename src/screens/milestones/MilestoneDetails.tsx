@@ -37,6 +37,7 @@ import useJourneyQuery from '../../hooks/useJourneyQuery';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {StackNavigationProp} from '@react-navigation/stack';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+import {useCalendarEvents} from '../../hooks/useCalendarEvents';
 
 const styles = StyleSheet.create({
     container: {
@@ -151,6 +152,7 @@ export const MilestoneDetailsScreen = () => {
     const navigation = useNavigation<StackNavigationProp<any>>();
     const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
     const {getWeeklyUpdate, getJourney} = useJourneyQuery();
+    const {refreshCalendarEvents} = useCalendarEvents();
 
     useEffect(() => {
         if (activeMilestoneId) {
@@ -271,7 +273,13 @@ export const MilestoneDetailsScreen = () => {
             activeMilestone?.id ? 'Milestone updated' : 'Milestone created',
         );
 
-        await getMilestones();
+        await getMilestones().then(() => {
+            setTimeout(() => {
+                (async () => {
+                    await refreshCalendarEvents();
+                })();
+            }, 500);
+        });
         await getNextMilestone();
         if (!activeMilestone?.id) {
             navigation.goBack();

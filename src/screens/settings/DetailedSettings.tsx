@@ -16,6 +16,7 @@ import {useToast} from 'react-native-toast-notifications';
 import useAuthQuery from '../../hooks/useAuthQuery';
 import useJourneyQuery from '../../hooks/useJourneyQuery';
 import {useAppContext} from '../../contexts/AppContext';
+import {useCalendarEvents} from '../../hooks/useCalendarEvents';
 
 const styles = StyleSheet.create({
     container: {
@@ -43,11 +44,18 @@ export const DetailedSettingsScreen = () => {
     const {state} = useAppContext();
     const {updateMe, getMe} = useAuthQuery();
     const {getJourney} = useJourneyQuery();
+    const {refreshCalendarEvents} = useCalendarEvents();
     const [isLoading, setIsLoading] = useState(true);
 
     const [notificationEnabled, setNotificationEnabled] = useState(
         state.user.notification_enabled,
     );
+
+    const [receiveNewsletter, setReceiveNewsLetter] = useState(
+        state.user.receive_newsletter,
+    );
+
+    const [syncCalendar, setSyncCalendar] = useState(state.user.sync_calendar);
 
     useEffect(() => {
         setTimeout(() => {
@@ -58,6 +66,8 @@ export const DetailedSettingsScreen = () => {
     const handleUpdateSettings = async () => {
         const payload = {
             notification_enabled: notificationEnabled,
+            receive_newsletter: receiveNewsletter,
+            sync_calendar: syncCalendar,
         };
 
         const response = await updateMe(payload);
@@ -77,7 +87,15 @@ export const DetailedSettingsScreen = () => {
                 await handleUpdateSettings();
             }
         })();
-    }, [notificationEnabled]);
+    }, [notificationEnabled, receiveNewsletter, syncCalendar]);
+
+    useEffect(() => {
+        if (state.user?.sync_calendar) {
+            (async () => {
+                await refreshCalendarEvents();
+            })();
+        }
+    }, [state.user?.sync_calendar]);
 
     return (
         <View style={styles.container}>
@@ -87,52 +105,6 @@ export const DetailedSettingsScreen = () => {
                 showsVerticalScrollIndicator={false}
                 contentContainerStyle={{flexGrow: 1}}>
                 <View style={styles.innerContainer}>
-                    {/*<View style={styles.settingGroup}>*/}
-                    {/*    <View*/}
-                    {/*        style={[*/}
-                    {/*            styles.row,*/}
-                    {/*            {justifyContent: 'space-between'},*/}
-                    {/*        ]}>*/}
-                    {/*        <AppText color={Colors.grey_3}>Language</AppText>*/}
-                    {/*        <View>*/}
-                    {/*            <TouchableOpacity activeOpacity={0.8}>*/}
-                    {/*                <AppText color={Colors.primary}>*/}
-                    {/*                    Change*/}
-                    {/*                </AppText>*/}
-                    {/*            </TouchableOpacity>*/}
-                    {/*        </View>*/}
-                    {/*    </View>*/}
-                    {/*    <AppSpacing gap={8} />*/}
-                    {/*    <View>*/}
-                    {/*        <AppText fontWeight={'600'}>English</AppText>*/}
-                    {/*    </View>*/}
-                    {/*</View>*/}
-
-                    {/*<Divider />*/}
-
-                    {/*<View style={styles.settingGroup}>*/}
-                    {/*    <View*/}
-                    {/*        style={[*/}
-                    {/*            styles.row,*/}
-                    {/*            {justifyContent: 'space-between'},*/}
-                    {/*        ]}>*/}
-                    {/*        <AppText color={Colors.grey_3}>Location</AppText>*/}
-                    {/*        <View>*/}
-                    {/*            <TouchableOpacity activeOpacity={0.8}>*/}
-                    {/*                <AppText color={Colors.primary}>*/}
-                    {/*                    Edit*/}
-                    {/*                </AppText>*/}
-                    {/*            </TouchableOpacity>*/}
-                    {/*        </View>*/}
-                    {/*    </View>*/}
-                    {/*    <AppSpacing gap={8} />*/}
-                    {/*    <View>*/}
-                    {/*        <AppText fontWeight={'600'}>London, UK</AppText>*/}
-                    {/*    </View>*/}
-                    {/*</View>*/}
-
-                    {/*<Divider />*/}
-
                     <View style={styles.settingGroup}>
                         <View
                             style={[
@@ -186,7 +158,8 @@ export const DetailedSettingsScreen = () => {
                             </AppText>
                             <View>
                                 <Switch
-                                    value={true}
+                                    onValueChange={v => setReceiveNewsLetter(v)}
+                                    value={!!receiveNewsletter}
                                     style={{
                                         transform: [
                                             {
@@ -208,7 +181,49 @@ export const DetailedSettingsScreen = () => {
                         </View>
                         <AppSpacing gap={8} />
                         <View>
-                            <AppText fontWeight={'600'}>Enabled</AppText>
+                            <AppText fontWeight={'600'}>
+                                {receiveNewsletter ? 'Enabled' : 'Disabled'}
+                            </AppText>
+                        </View>
+                    </View>
+                    <Divider />
+                    <View style={styles.settingGroup}>
+                        <View
+                            style={[
+                                styles.row,
+                                {justifyContent: 'space-between'},
+                            ]}>
+                            <AppText color={Colors.grey_3}>
+                                Sync Calendar with Milestone dates
+                            </AppText>
+                            <View>
+                                <Switch
+                                    onValueChange={v => setSyncCalendar(v)}
+                                    value={!!syncCalendar}
+                                    style={{
+                                        transform: [
+                                            {
+                                                scaleX:
+                                                    Platform?.OS === 'ios'
+                                                        ? 0.7
+                                                        : 1,
+                                            },
+                                            {
+                                                scaleY:
+                                                    Platform?.OS === 'ios'
+                                                        ? 0.7
+                                                        : 1,
+                                            },
+                                        ],
+                                    }}
+                                />
+                            </View>
+                        </View>
+                        <AppSpacing gap={8} />
+                        <View>
+                            <AppText fontWeight={'600'}>
+                                {syncCalendar ? 'Enabled' : 'Disabled'}
+                            </AppText>
                         </View>
                     </View>
                 </View>
