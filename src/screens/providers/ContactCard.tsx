@@ -41,10 +41,20 @@ export const ContactCard = (props: Props) => {
     const {item, onEditPress} = props;
     const theme = useTheme();
     const toast = useToast();
+    const isBiggestAsk = item?.email === 'hello@thebiggestask.com';
 
     const makeCall = () => {
         if (item?.phone) {
             Linking.openURL(`tel:${item?.phone}`);
+        } else {
+            toast.show('Phone number is invalid');
+            return;
+        }
+    };
+
+    const makeSms = () => {
+        if (item?.phone) {
+            Linking.openURL(`sms:${item?.phone}`);
         } else {
             toast.show('Phone number is invalid');
             return;
@@ -112,8 +122,8 @@ export const ContactCard = (props: Props) => {
                 </View>
                 <View style={{flex: 1, marginLeft: 8}}>
                     <AppCompactButton
-                        onPress={() => makeCall()}
-                        name={'Call'}
+                        onPress={() => (isBiggestAsk ? makeSms() : makeCall())}
+                        name={isBiggestAsk ? 'Text' : 'Call'}
                     />
                 </View>
             </View>

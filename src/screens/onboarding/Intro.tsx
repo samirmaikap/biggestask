@@ -64,8 +64,8 @@ const slides = [
     },
     {
         key: 4,
-        title: 'Join a Community',
-        text: "Either through The Biggest Ask community or through your agency's community, stay connected and ask our members any questions you have about the journey. ",
+        title: 'Feel Supported',
+        text: 'The Biggest Ask is always right behind you cheering you on for every appointment and there to hear about how it went. Send us messages and updates through the app to tell us how things are going.',
         image: require('../../assets/images/4.webp'),
     },
 ];

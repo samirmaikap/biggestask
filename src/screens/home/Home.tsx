@@ -114,15 +114,22 @@ export const HomeScreen = () => {
     }, []);
 
     const handleRemoteMessage = async (remoteMessage: any) => {
-        const milestoneId = remoteMessage?.data?.milestoneId;
-        if (milestoneId) {
+        const type = remoteMessage?.data?.type;
+        getParentQuestions();
+        getSurrogateQuestions();
+        if (type && type === 'milestone') {
+            const milestoneId = remoteMessage?.data?.milestoneId;
+            if (milestoneId) {
+                setTimeout(() => {
+                    navigation.navigate(Screens.MilestoneDetails, {
+                        activeMilestoneId: milestoneId,
+                    });
+                }, 1000);
+            }
+        } else {
             setTimeout(() => {
-                navigation.navigate(Screens.MilestoneDetails, {
-                    activeMilestoneId: milestoneId,
-                });
+                navigation.navigate(Screens.Questions);
             }, 1000);
-            getParentQuestions();
-            getSurrogateQuestions();
         }
     };
 
