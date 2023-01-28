@@ -76,8 +76,13 @@ export const MilestonesScreen = () => {
 
     useEffect(() => {
         (async () => {
-            await getMilestones();
-            await refreshCalendarEvents();
+            await getMilestones().then(() => {
+                setTimeout(() => {
+                    (async () => {
+                        await refreshCalendarEvents();
+                    })();
+                }, 500);
+            });
         })();
     }, []);
 

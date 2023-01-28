@@ -161,8 +161,13 @@ export const HomeScreen = () => {
         await getParentQuestions();
         await getSurrogateQuestions();
         setIsQuestionsLoading(false);
-        await getMilestones();
-        await refreshCalendarEvents();
+        await getMilestones().then(() => {
+            setTimeout(() => {
+                (async () => {
+                    await refreshCalendarEvents();
+                })();
+            }, 500);
+        });
     };
 
     const nextMilestoneDate = state.nextMilestone?.parsed_date_time;
@@ -506,8 +511,9 @@ export const HomeScreen = () => {
                                 size={16}>
                                 Your{' '}
                                 {state.user?.user_type === 'parent'
-                                    ? 'Gestational Carrier'
-                                    : 'Parents'}
+                                    ? "Gestational Carrier's"
+                                    : "Intended Parents'"}{' '}
+                                Answers
                             </AppText>
                         </View>
                     )}

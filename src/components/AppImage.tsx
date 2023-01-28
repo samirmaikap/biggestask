@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
-import {ActivityIndicator} from 'react-native-paper';
+import {ActivityIndicator, useTheme} from 'react-native-paper';
 
 const styles = StyleSheet.create({
     container: {
@@ -33,6 +33,7 @@ type Props = {
 
 export const AppImage = (props: Props) => {
     const [isLoading, setIsLoading] = useState(true);
+    const theme = useTheme();
     const {
         size = 56,
         roundness = 12,
@@ -48,7 +49,7 @@ export const AppImage = (props: Props) => {
             ]}>
             {isLoading && (
                 <View style={[styles.overlay, {width: size, height: size}]}>
-                    <ActivityIndicator color={'white'} />
+                    <ActivityIndicator color={theme.colors.primary} />
                 </View>
             )}
             <Image

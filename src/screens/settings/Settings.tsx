@@ -102,8 +102,13 @@ export const SettingsScreen = () => {
                         }
 
                         toast.show(response?.message);
-                        await getMilestones();
-                        await refreshCalendarEvents();
+                        await getMilestones().then(() => {
+                            setTimeout(() => {
+                                (async () => {
+                                    await refreshCalendarEvents();
+                                })();
+                            }, 500);
+                        });
                     },
                 },
             ]);
