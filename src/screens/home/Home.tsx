@@ -296,7 +296,12 @@ export const HomeScreen = () => {
                                     </AppText>
                                     <AppSpacing gap={8} />
                                     <AppText>
-                                        {state.weeklyUpdate.description}
+                                        {state.user?.user_type === 'parent'
+                                            ? state.weeklyUpdate.description.replace(
+                                                'The baby',
+                                                'Your baby',
+                                            )
+                                            : state.weeklyUpdate.description}
                                     </AppText>
                                 </View>
                                 <View>

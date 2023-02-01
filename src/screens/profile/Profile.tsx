@@ -147,7 +147,7 @@ export const ProfileScreen = () => {
         state.parentQuestions,
         state.surrogateQuestions,
         isSpectator ? spectatorRole : state.user?.user_type,
-        2,
+        isSpectator ? 0 : 2,
     );
 
     const isEditable = state.user?.id === profiles[selectedProfile].id;
