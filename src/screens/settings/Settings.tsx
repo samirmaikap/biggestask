@@ -24,6 +24,8 @@ import {useAppContext} from '../../contexts/AppContext';
 import useMilestoneQuery from '../../hooks/useMilestoneQuery';
 import {useToast} from 'react-native-toast-notifications';
 import {useCalendarEvents} from '../../hooks/useCalendarEvents';
+import useJourneyQuery from '../../hooks/useJourneyQuery';
+import useQuestionQuery from '../../hooks/useQuestionQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -77,8 +79,10 @@ const menus = [
 export const SettingsScreen = () => {
     const {state} = useAppContext();
     const navigation = useNavigation<StackNavigationProp<any>>();
-    const {resetMilestones, getMilestones} = useMilestoneQuery();
     const {refreshCalendarEvents} = useCalendarEvents();
+    const {getMilestones, resetMilestones} = useMilestoneQuery();
+    const {getNextMilestone, getWeeklyUpdate, getJourney} = useJourneyQuery();
+    const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
     const toast = useToast();
 
     const handleResetMilestones = async () => {
@@ -106,6 +110,12 @@ export const SettingsScreen = () => {
                             setTimeout(() => {
                                 (async () => {
                                     await refreshCalendarEvents();
+                                    await getMilestones();
+                                    await getNextMilestone();
+                                    await getWeeklyUpdate();
+                                    await getJourney();
+                                    await getParentQuestions();
+                                    await getSurrogateQuestions();
                                 })();
                             }, 500);
                         });

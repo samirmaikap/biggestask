@@ -13,6 +13,7 @@ const useQuestionQuery = () => {
                 payload: response,
             });
         }
+        console.log('response', response);
         return response;
     };
 

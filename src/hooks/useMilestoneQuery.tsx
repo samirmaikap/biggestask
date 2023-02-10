@@ -38,7 +38,6 @@ const useMilestoneQuery = () => {
 
     const resetMilestones = async (payload: any) => {
         const response = await request.post('/milestones/reset', payload);
-
         return response;
     };
 

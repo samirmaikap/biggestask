@@ -27,7 +27,9 @@ export const QuestionsScreen = () => {
     const {state} = useAppContext();
     const [openDropdown, setOpenDropdown] = useState(false);
     const [value, setValue] = useState(
-        state.user.question_frequency.toString(),
+        state?.user?.question_frequency
+            ? state?.user?.question_frequency.toString()
+            : '1',
     );
     const [items, setItems] = useState([
         {label: 'Every day', value: '1'},
