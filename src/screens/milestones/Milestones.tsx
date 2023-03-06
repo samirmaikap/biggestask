@@ -186,7 +186,7 @@ export const MilestonesScreen = () => {
                                         </TransparentIcon>
                                     )}
                                     style={AppStyles.button}>
-                                    Add New Milestone
+                                    Add New Appointment
                                 </AppButton>
                             </View>
                         )}

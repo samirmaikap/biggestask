@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useState} from 'react';
 import AppIntroSlider from 'react-native-app-intro-slider';
-import {Image, StyleSheet, View} from 'react-native';
+import {Image, StyleSheet, useWindowDimensions, View} from 'react-native';
 import AppStyles from '../../theme/AppStyles';
 import {AppText} from '../../components/AppText';
 import {Colors} from '../../theme/colors';
@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: '100%',
-        height: '70%',
+        resizeMode: 'contain',
     },
     dot: {
         width: 5,
@@ -77,7 +77,16 @@ export const IntroScreen = () => {
     const _renderItem = ({item}) => {
         return (
             <View style={styles.slide}>
-                <Image style={styles.image} source={item.image} />
+                <View style={{flex: 1}}>
+                    <Image
+                        style={[
+                            styles.image,
+                            {flex: 1, width: '100%', height: '100%'},
+                        ]}
+                        source={item.image}
+                    />
+                </View>
+
                 <View
                     style={{
                         padding: 16,

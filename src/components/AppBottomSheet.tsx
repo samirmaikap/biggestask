@@ -1,9 +1,16 @@
 import React, {useCallback, useEffect, useMemo, useRef, useState} from 'react';
-import {Keyboard, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {
+    Keyboard,
+    ScrollView,
+    StyleSheet,
+    TouchableOpacity,
+    View,
+} from 'react-native';
 import {Portal, useTheme} from 'react-native-paper';
 import BottomSheet, {
     BottomSheetBackdrop,
     BottomSheetBackdropProps,
+    BottomSheetScrollView,
     BottomSheetView,
 } from '@gorhom/bottom-sheet';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
@@ -128,7 +135,7 @@ export const AppBottomSheet = (props: Props) => {
                     keyboardBehavior={'interactive'}
                     keyboardBlurBehavior={'restore'}
                     animateOnMount={true}>
-                    <BottomSheetView style={contentContainerStyle}>
+                    <BottomSheetScrollView style={contentContainerStyle}>
                         <TouchableOpacity
                             activeOpacity={0.8}
                             onPress={() => Keyboard.dismiss()}>
@@ -138,7 +145,7 @@ export const AppBottomSheet = (props: Props) => {
                                 {children}
                             </View>
                         </TouchableOpacity>
-                    </BottomSheetView>
+                    </BottomSheetScrollView>
                 </BottomSheet>
             </Portal>
         </View>

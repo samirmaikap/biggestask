@@ -354,7 +354,7 @@ export const MilestoneDetailsScreen = () => {
                                 style={[
                                     AppStyles.textInput,
                                     {
-                                        paddingVertical: 16,
+                                        justifyContent: 'center',
                                         height: 50,
                                         paddingHorizontal: 8,
                                     },
