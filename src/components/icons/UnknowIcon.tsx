@@ -8,7 +8,7 @@ type Props = {
 export const UnknownIcon = (props: Props) => {
     const {size = 88} = props;
     return (
-        <Svg width={size} height={size} viewBox="0 0 88 88">
+        <Svg width={size} height={size} fill="none" viewBox="0 0 88 88">
             <Rect
                 x={0.5}
                 y={0.5}

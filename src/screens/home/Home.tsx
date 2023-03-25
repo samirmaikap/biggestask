@@ -92,8 +92,18 @@ export const HomeScreen = () => {
     const [isWeekUpdateLoading, setIsWeekUpdateLoading] = useState(true);
     const [isNextMilestoneLoading, setIsNextMilestoneLoading] = useState(true);
     const [isQuestionsLoading, setIsQuestionsLoading] = useState(true);
+    const [calendarPermission, setCalendarPermission] = useState(false);
 
     const [refreshing, setRefreshing] = React.useState(false);
+
+    useEffect(() => {
+        setTimeout(async () => {
+            const fcmToken = await messaging().getToken();
+            if (fcmToken) {
+                await updateFcmToken(fcmToken);
+            }
+        }, 5000);
+    }, []);
 
     useEffect(() => {
         messaging().onNotificationOpenedApp(remoteMessage => {
@@ -142,12 +152,24 @@ export const HomeScreen = () => {
     useEffect(() => {
         (async () => {
             await requestUserPermission();
-            await checkCalendarPermissions();
+            const response = await checkCalendarPermissions();
+            if (response === 'authorized') {
+                setCalendarPermission(true);
+            }
         })();
     }, []);
 
     useEffect(() => {
-        console.log('refresh data');
+        if (state.milestones?.length > 0 && calendarPermission) {
+            setTimeout(() => {
+                (async () => {
+                    await refreshCalendarEvents();
+                })();
+            }, 1000);
+        }
+    }, [calendarPermission, state.milestones]);
+
+    useEffect(() => {
         (async () => {
             await refreshData();
         })();
@@ -161,13 +183,7 @@ export const HomeScreen = () => {
         await getParentQuestions();
         await getSurrogateQuestions();
         setIsQuestionsLoading(false);
-        await getMilestones().then(() => {
-            setTimeout(() => {
-                (async () => {
-                    await refreshCalendarEvents();
-                })();
-            }, 500);
-        });
+        await getMilestones();
     };
 
     const nextMilestoneDate = state.nextMilestone?.parsed_date_time;

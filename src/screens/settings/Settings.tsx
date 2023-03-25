@@ -26,6 +26,7 @@ import {useToast} from 'react-native-toast-notifications';
 import {useCalendarEvents} from '../../hooks/useCalendarEvents';
 import useJourneyQuery from '../../hooks/useJourneyQuery';
 import useQuestionQuery from '../../hooks/useQuestionQuery';
+import useAuthQuery from '../../hooks/useAuthQuery';
 
 const styles = StyleSheet.create({
     container: {
@@ -83,6 +84,7 @@ export const SettingsScreen = () => {
     const {getMilestones, resetMilestones} = useMilestoneQuery();
     const {getNextMilestone, getWeeklyUpdate, getJourney} = useJourneyQuery();
     const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
+    const {deleteAccount, logout} = useAuthQuery();
     const toast = useToast();
 
     const handleResetMilestones = async () => {
@@ -125,6 +127,27 @@ export const SettingsScreen = () => {
         } else {
             toast.show('No milestones available to reset');
         }
+    };
+
+    const confirmDeleteAccount = () => {
+        Alert.alert(
+            'Delete Account?',
+            'If you delete your account, all data associated with your account will be deleted.',
+            [
+                {
+                    text: 'Cancel',
+                },
+                {
+                    text: 'Confirm',
+                    onPress: async () => {
+                        const response = await deleteAccount();
+                        if (response?.success) {
+                            await logout();
+                        }
+                    },
+                },
+            ],
+        );
     };
 
     return (
@@ -184,6 +207,23 @@ export const SettingsScreen = () => {
                             style={AppStyles.button}
                             mode={'contained'}>
                             Reset Milestones
+                        </AppButton>
+                    </View>
+                    <View style={{marginTop: 16}}>
+                        <AppButton
+                            onPress={confirmDeleteAccount}
+                            contentStyle={AppStyles.buttonContent}
+                            style={[
+                                AppStyles.button,
+                                {
+                                    backgroundColor: 'transparent',
+                                    borderWidth: 1,
+                                    borderColor: 'red',
+                                },
+                            ]}
+                            textColor={'red'}
+                            mode={'contained'}>
+                            Delete Account
                         </AppButton>
                     </View>
                 </View>

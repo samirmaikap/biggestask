@@ -144,6 +144,11 @@ function useAuthQuery() {
         return response;
     };
 
+    const deleteAccount = async () => {
+        const response = await request.remove('/me');
+        return response;
+    };
+
     return {
         login,
         register,
@@ -158,6 +163,7 @@ function useAuthQuery() {
         requestResetPassword,
         changePassword,
         updateTimezone,
+        deleteAccount,
     };
 }
 

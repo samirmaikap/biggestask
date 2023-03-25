@@ -10,7 +10,7 @@ type Props = {
 export const Logo = (props: Props) => {
     const {size = 500} = props;
     return (
-        <Svg width={size} height={size} viewBox="0 0 125 125">
+        <Svg width={size} height={size} fill={'none'} viewBox="0 0 125 125">
             <Circle
                 cx={62.5}
                 cy={62.5}

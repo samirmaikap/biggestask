@@ -10,9 +10,9 @@ type Props = {
 export const SearchIcon = (props: Props) => {
     const {color = 'black', size = 24} = props;
     return (
-        <Svg width={size} height={size} viewBox="0 0 24 24">
+        <Svg width={size} height={size} fill="none" viewBox="0 0 24 24">
             <G clipPath="url(#clip0_456_17401)">
-                <Rect width={24} height={24} fill="white"/>
+                <Rect width={24} height={24} fill="white" />
                 <Path
                     fillRule="evenodd"
                     clipRule="evenodd"
@@ -32,7 +32,7 @@ export const SearchIcon = (props: Props) => {
             </G>
             <Defs>
                 <ClipPath id="clip0_456_17401">
-                    <Rect width={24} height={24} fill="white"/>
+                    <Rect width={24} height={24} fill="white" />
                 </ClipPath>
             </Defs>
         </Svg>

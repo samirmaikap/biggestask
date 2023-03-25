@@ -137,6 +137,7 @@ export const LoginScreen = () => {
                                 }}>
                                 <AppText variant={'h3'}>Login</AppText>
                                 <Logo size={150} />
+
                                 <AppText
                                     textAlign={'center'}
                                     variant={'h1'}

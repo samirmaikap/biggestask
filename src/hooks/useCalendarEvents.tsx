@@ -7,7 +7,7 @@ export const useCalendarEvents = () => {
     const {state, dispatch} = useAppContext();
 
     const checkCalendarPermissions = async () => {
-        await RNCalendarEvents.requestPermissions(false);
+        return await RNCalendarEvents.requestPermissions(false);
     };
 
     const refreshCalendarEvents = async () => {
@@ -26,7 +26,6 @@ export const useCalendarEvents = () => {
 
     const syncCalendarEvents = (calendarEvents: any) => {
         const milestones = state.milestones;
-        console.log('state.calendarEvents', calendarEvents);
         if (milestones?.length > 0) {
             milestones.forEach(async (milestone: any) => {
                 if (milestone?.date_time) {
@@ -34,10 +33,6 @@ export const useCalendarEvents = () => {
                         (event: any) =>
                             event.local_event_id.toString() ===
                             milestone.milestone_default_id.toString(),
-                    );
-                    console.log(
-                        milestone.milestone_default_id + 'is exists',
-                        currentEvent,
                     );
                     if (!currentEvent) {
                         await createCalendarEvent(

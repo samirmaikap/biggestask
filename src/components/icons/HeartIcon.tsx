@@ -10,7 +10,7 @@ type Props = {
 export const HeartIcon = (props: Props) => {
     const {color = 'black', size = 24} = props;
     return (
-        <Svg width={size} height={size} viewBox="0 0 24 24">
+        <Svg width={size} height={size} fill={'none'} viewBox="0 0 24 24">
             <G clipPath="url(#clip0_3156_8388)">
                 <Path
                     fillRule="evenodd"

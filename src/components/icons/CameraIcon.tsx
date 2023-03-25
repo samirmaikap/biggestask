@@ -10,7 +10,7 @@ type Props = {
 export const CameraIcon = (props: Props) => {
     const {color = 'black'} = props;
     return (
-        <Svg width={24} height={25} viewBox="0 0 24 25">
+        <Svg width={24} fill="none" height={25} viewBox="0 0 24 25">
             <G clipPath="url(#clip0_77_11545)">
                 <Path
                     d="M12 4.52136H15"
