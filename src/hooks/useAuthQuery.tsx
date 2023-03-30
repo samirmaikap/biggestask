@@ -10,7 +10,6 @@ function useAuthQuery() {
         const response = await request
             .get('/me')
             .catch(e => console.log('e', e));
-        console.log('res', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_USER',
@@ -96,14 +95,17 @@ function useAuthQuery() {
     };
 
     const logout = async () => {
-        dispatch({
-            type: 'UNSET_TOKEN',
-            payload: null,
-        });
-        dispatch({
-            type: 'SET_USER',
-            payload: null,
-        });
+        const response = await request.post('/logout', {});
+        if (!response?.error) {
+            dispatch({
+                type: 'UNSET_TOKEN',
+                payload: null,
+            });
+            dispatch({
+                type: 'SET_USER',
+                payload: null,
+            });
+        }
     };
 
     const updateFrequency = async (payload: any) => {

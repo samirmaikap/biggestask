@@ -7,14 +7,12 @@ export const useScreenInfoQuery = () => {
 
     const getTerms = async () => {
         const response = await request.get('/info/terms');
-        console.log('res', response);
 
         return response;
     };
 
     const getPrivacyPolicy = async () => {
         const response = await request.get('/info/privacy-policy');
-        console.log('res', response);
 
         return response;
     };

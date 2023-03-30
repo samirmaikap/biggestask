@@ -43,7 +43,6 @@ const useJourneyQuery = () => {
 
     const getNextMilestone = async () => {
         const response = await request.get('/journey/next-milestone');
-        console.log('response', response);
         if (!response?.error) {
             dispatch({
                 type: 'SET_NEXT_MILESTONE',

@@ -41,8 +41,6 @@ export const useCalendarEvents = () => {
                             milestone?.parsed_date_time,
                         );
                     } else {
-                        console.log('d1', currentEvent?.date_time);
-                        console.log('d2', milestone?.parsed_date_time);
                         if (
                             currentEvent?.date_time.toString() !==
                             milestone?.parsed_date_time.toString()

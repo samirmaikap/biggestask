@@ -1,4 +1,4 @@
-import React, {StrictMode, useEffect} from 'react';
+import React, {StrictMode, useEffect, useState} from 'react';
 import Root from './src/screens/Root';
 import {
     DefaultTheme,
@@ -10,7 +10,10 @@ import {LogBox} from 'react-native';
 import colors from './src/theme/colors';
 import 'react-native-reanimated';
 import 'react-native-gesture-handler';
-import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {
+    SafeAreaProvider,
+    useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {MD3Type} from 'react-native-paper/lib/typescript/types';
 import {FONT_NAME} from './src/utils/constants';
@@ -82,9 +85,15 @@ export default function App() {
     const {getNotifications} = useNotificationsQuery();
     const {getParentQuestions, getSurrogateQuestions} = useQuestionQuery();
     const {getMilestones} = useMilestoneQuery();
+    const [notificationPermission, setNotificationPermission] = useState(false);
     useEffect(() => {
         const init = async () => {
-            // …do multiple sync or async tasks
+            const authStatus = await messaging().requestPermission();
+            const enabled =
+                authStatus === messaging.AuthorizationStatus.AUTHORIZED ||
+                authStatus === messaging.AuthorizationStatus.PROVISIONAL;
+
+            setNotificationPermission(enabled);
         };
 
         init().finally(async () => {
@@ -93,15 +102,16 @@ export default function App() {
     }, []);
 
     useEffect(() => {
-        const unsubscribe = messaging().onMessage(async remoteMessage => {
-            await getNotifications();
-            await getParentQuestions();
-            await getSurrogateQuestions();
-            await getMilestones();
-        });
-
-        return unsubscribe;
-    }, []);
+        if (notificationPermission) {
+            const unsubscribe = messaging().onMessage(async remoteMessage => {
+                await getNotifications();
+                await getParentQuestions();
+                await getSurrogateQuestions();
+                await getMilestones();
+            });
+            return unsubscribe;
+        }
+    }, [notificationPermission]);
 
     return (
         <ToastProvider offsetBottom={40} offsetTop={40}>
