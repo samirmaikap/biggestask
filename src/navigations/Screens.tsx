@@ -23,7 +23,8 @@ export type NavigationKeyType =
     | 'Intro'
     | 'AccountSetup'
     | 'InviteSurrogate'
-    | 'WaitingSurrogate';
+    | 'WaitingSurrogate'
+    | 'Passcode';
 
 const Screens: {[key in NavigationKeyType]: string} = {
     AuthNavigator: 'AuthNavigator',
@@ -51,6 +52,7 @@ const Screens: {[key in NavigationKeyType]: string} = {
     AccountSetup: 'CreateAccount',
     InviteSurrogate: 'InviteSurrogate',
     WaitingSurrogate: 'WaitingSurrogate',
+    Passcode: 'Passcode',
 };
 
 export default Screens;

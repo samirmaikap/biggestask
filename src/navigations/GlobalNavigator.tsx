@@ -17,6 +17,7 @@ import {StyleSheet} from 'react-native';
 import {SurrogateInviteScreen} from '../screens/invite/SurrogateInvite';
 import {WaitingSurrogateScreen} from '../screens/invite/WaitingSurrogateScreen';
 import {ResetPasswordScreen} from '../screens/auth/ResetPassword';
+import {PasscodeScreen} from '../screens/auth/Passcode';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -99,7 +100,7 @@ const renderWaitingNavs = (themeColors: any) => {
 const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
     return (
         <Stack.Navigator
-            initialRouteName={isFirstLoad ? Screens.Intro : Screens.Login}
+            initialRouteName={isFirstLoad ? Screens.Passcode : Screens.Login}
             screenOptions={{
                 headerShown: false,
                 cardStyle: styles.cardStyle,
@@ -113,6 +114,7 @@ const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
                 headerShadowVisible: false,
                 headerBackTitleVisible: false,
             }}>
+            <Stack.Screen name={Screens.Passcode} component={PasscodeScreen} />
             <Stack.Screen name={Screens.Intro} component={IntroScreen} />
             <Stack.Screen name={Screens.Login} component={LoginScreen} />
             <Stack.Screen name={Screens.Email} component={EmailScreen} />
