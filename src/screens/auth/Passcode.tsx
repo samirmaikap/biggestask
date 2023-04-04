@@ -19,6 +19,7 @@ import {AppSpacing} from '../../components/AppSpacing';
 import {images} from '../../utils/constants';
 import AppButton from '../../components/AppButton';
 import AppStyles from '../../theme/AppStyles';
+import {Logo} from '../../components/icons/Logo';
 
 export const PasscodeScreen = () => {
     const insets = useSafeAreaInsets();
@@ -56,8 +57,10 @@ export const PasscodeScreen = () => {
                         showsVerticalScrollIndicator={false}>
                         <View style={[styles.innerContainer]}>
                             <View style={{height: insets.top, width: '100%'}} />
-                            <AppSpacing gap={height * 0.2} />
-                            <View>
+                            <AppSpacing gap={height * 0.1} />
+                            <View style={{alignItems: 'center'}}>
+                                <Logo size={150} />
+                                <AppSpacing gap={32} />
                                 <Text
                                     style={{
                                         textAlign: 'center',
