@@ -65,7 +65,7 @@ const slides = [
     {
         key: 4,
         title: 'Feel Supported',
-        text: 'The Biggest Ask is always right behind you cheering you on for every appointment and there to hear about how it went. Send us messages and updates through the app to tell us how things are going.',
+        text: 'The Biggest Ask is always right behind you cheering you on during your journey. Follow us on Instagram @thebiggestask and @thebiggestaskapp to join our community.',
         image: require('../../assets/images/4.webp'),
     },
 ];

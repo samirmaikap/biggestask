@@ -125,6 +125,7 @@ export const CreateAccountScreen = () => {
             email: state.tempEmail,
             fcm_token: fcmToken,
             timezone: timeZone,
+            is_lite: true,
         };
 
         setLoading(true);

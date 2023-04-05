@@ -7,6 +7,11 @@ import {
     StyleSheet,
     TouchableOpacity,
     View,
+    Alert,
+    Text,
+    Modal,
+    Linking,
+    Pressable,
 } from 'react-native';
 import StackHeader from '../../components/StackHeader';
 import {images} from '../../utils/constants';
@@ -102,6 +107,18 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         color: 'black',
     },
+    centeredView: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 20,
+    },
+    modalView: {
+        width: '100%',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        padding: 35,
+    },
 });
 
 export const MilestoneDetailsScreen = () => {
@@ -119,6 +136,7 @@ export const MilestoneDetailsScreen = () => {
     const headerHeight = useHeaderHeight();
 
     const [locations, setLocations] = useState([]);
+    const isLite = state.journey.is_lite;
 
     const [searchTerm, setSearchTerm] = useState('');
     const [title, setTitle] = useState('');
@@ -136,6 +154,8 @@ export const MilestoneDetailsScreen = () => {
     const [selectedLocation, setSelectedLocation] = useState<any>({});
     const [requestSheetClose, setRequestSheetClose] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const [showTooltip, setShowTooltip] = useState(false);
 
     const insets = useSafeAreaInsets();
 
@@ -294,6 +314,14 @@ export const MilestoneDetailsScreen = () => {
         setRequestDate(v);
         if (v) {
             await requestMilestoneDate(activeMilestoneId);
+        }
+    };
+
+    const handleSharePress = () => {
+        if (isLite) {
+            setShowTooltip(true);
+        } else {
+            setShareBiggestask(!shareBiggestask);
         }
     };
 
@@ -635,15 +663,13 @@ export const MilestoneDetailsScreen = () => {
                         <AppSpacing gap={16} />
                         <TouchableOpacity
                             activeOpacity={0.8}
-                            onPress={() => setShareBiggestask(!shareBiggestask)}
+                            onPress={() => handleSharePress()}
                             style={styles.row}>
                             <Checkbox.Android
                                 status={
                                     shareBiggestask ? 'checked' : 'unchecked'
                                 }
-                                onPress={() => {
-                                    setShareBiggestask(!shareBiggestask);
-                                }}
+                                onPress={() => handleSharePress()}
                             />
                             <AppSpacing isHorizontal={true} />
                             <AppText>Share with the Biggest Ask</AppText>
@@ -680,6 +706,53 @@ export const MilestoneDetailsScreen = () => {
                     setOpenDatepicker(false);
                 }}
             />
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={showTooltip}
+                onRequestClose={() => {
+                    setShowTooltip(!showTooltip);
+                }}>
+                <View
+                    style={[
+                        styles.centeredView,
+                        {backgroundColor: 'rgba(0, 0, 0, 0.5)'},
+                    ]}>
+                    <View style={styles.modalView}>
+                        <Text
+                            style={{
+                                fontWeight: 'bold',
+                                fontSize: 20,
+                                marginBottom: 20,
+                                textAlign: 'center',
+                            }}>
+                            Feature not available
+                        </Text>
+                        <Text style={{textAlign: 'center'}}>
+                            Option only available for program members. Click
+                            here for more information.
+                        </Text>
+                        <Text
+                            style={{
+                                textAlign: 'center',
+                                color: 'blue',
+                                textDecorationLine: 'underline',
+                            }}
+                            onPress={() =>
+                                Linking.openURL(
+                                    'https://thebiggestask.com/surrogacy-program/',
+                                )
+                            }>
+                            https://thebiggestask.com/surrogacy-program/
+                        </Text>
+                        <View style={{marginTop: 20, alignItems: 'center'}}>
+                            <Pressable onPress={() => setShowTooltip(false)}>
+                                <Text style={{fontWeight: 'bold'}}>OKAY</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </View>
+            </Modal>
         </View>
     );
 };

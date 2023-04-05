@@ -55,6 +55,9 @@ export const SurrogateInviteScreen = () => {
 
     const [openSheet, setOpenSheet] = useState(false);
     const [email, setEmail] = useState('');
+    const isSurrogate = state.user?.user_type === 'surrogate';
+
+    console.log('isSurrogate', isSurrogate);
 
     const handleInvitePress = async () => {
         if (!email) {
@@ -66,7 +69,7 @@ export const SurrogateInviteScreen = () => {
 
         const response = await sendInvitation({
             email: email,
-            type: 'surrogate',
+            type: isSurrogate ? 'parent' : 'surrogate',
         });
 
         setLoading(false);
@@ -95,11 +98,17 @@ export const SurrogateInviteScreen = () => {
                 isOpen={openSheet}
                 onClose={() => setOpenSheet(false)}>
                 <View style={{alignItems: 'center', justifyContent: 'center'}}>
-                    <AppText variant={'h2'}>Invite Gestational Carrier</AppText>
+                    <AppText variant={'h2'}>
+                        {isSurrogate
+                            ? 'Invite Intended Parent'
+                            : 'Invite Gestational Carrier'}
+                    </AppText>
                 </View>
                 <AppSpacing gap={16} />
                 <AppText variant={'title'}>
-                    Gestational Carrier's Email Address
+                    {isSurrogate
+                        ? "Intended Parent's Email Address"
+                        : " Gestational Carrier's Email Address"}
                 </AppText>
                 <AppSpacing />
                 <BottomSheetTextInput
@@ -140,8 +149,15 @@ export const SurrogateInviteScreen = () => {
                 <UnknownIcon size={88} />
                 <View style={{paddingVertical: 16, paddingHorizontal: 32}}>
                     <AppText textAlign={'center'} variant={'h2'}>
-                        You don't have a Gestational Carrier yet. Add a
-                        Gestational Carrier to your profile
+                        You don't have a{' '}
+                        {isSurrogate
+                            ? 'Intended Parent'
+                            : 'Gestational Carrier'}{' '}
+                        yet. Add a{' '}
+                        {isSurrogate
+                            ? 'Intended Parent'
+                            : 'Gestational Carrier'}{' '}
+                        to your profile
                     </AppText>
                 </View>
                 <View style={{flex: 1}} />
@@ -150,7 +166,10 @@ export const SurrogateInviteScreen = () => {
                         onPress={() => setOpenSheet(true)}
                         mode={'contained'}
                         icon={() => <HeartIcon color={'white'} />}>
-                        Add Gestational Carrier
+                        Add{' '}
+                        {isSurrogate
+                            ? 'Intended Parent'
+                            : 'Gestational Carrier'}{' '}
                     </AppButton>
                 </View>
                 <AppSpacing gap={16} />

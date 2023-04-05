@@ -80,6 +80,7 @@ export const LoginScreen = () => {
         const response = await login({
             email: email,
             password: password,
+            is_lite: true,
         });
 
         setLoading(false);

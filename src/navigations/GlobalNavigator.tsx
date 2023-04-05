@@ -17,7 +17,6 @@ import {StyleSheet} from 'react-native';
 import {SurrogateInviteScreen} from '../screens/invite/SurrogateInvite';
 import {WaitingSurrogateScreen} from '../screens/invite/WaitingSurrogateScreen';
 import {ResetPasswordScreen} from '../screens/auth/ResetPassword';
-import {PasscodeScreen} from '../screens/auth/Passcode';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
@@ -100,7 +99,7 @@ const renderWaitingNavs = (themeColors: any) => {
 const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
     return (
         <Stack.Navigator
-            initialRouteName={isFirstLoad ? Screens.Passcode : Screens.Login}
+            initialRouteName={isFirstLoad ? Screens.Intro : Screens.Login}
             screenOptions={{
                 headerShown: false,
                 cardStyle: styles.cardStyle,
@@ -114,7 +113,6 @@ const renderAuthNavs = (themeColors: any, isFirstLoad: boolean) => {
                 headerShadowVisible: false,
                 headerBackTitleVisible: false,
             }}>
-            <Stack.Screen name={Screens.Passcode} component={PasscodeScreen} />
             <Stack.Screen name={Screens.Intro} component={IntroScreen} />
             <Stack.Screen name={Screens.Login} component={LoginScreen} />
             <Stack.Screen name={Screens.Email} component={EmailScreen} />
@@ -136,16 +134,25 @@ const GlobalNavigator = (props: any) => {
     const {theme, isFirstLoad, journey, isLoggedIn} = props;
     const {state} = useAppContext();
     const themeColors = colors.light;
-    const hasSurrogate =
-        state.user?.journey && state.user?.journey.surrogate_id;
-    const surrogateInvited =
-        state.user?.journey && state.user?.journey.surrogate_invited;
+    // const hasSurrogate =
+    //     state.user?.journey && state.user?.journey.surrogate_id;
+    // const hasParent = state.user?.journey && state.user?.journey.parent_1_id;
+    // const surrogateInvited =
+    //     state.user?.journey && state.user?.journey.surrogate_invited;
+    // const parentInvited =
+    //     state.user?.journey && state.user?.journey.parent_invited;
+
+    const isCompleteAccount =
+        state.user?.journey?.parent_1_id && state.user?.journey?.surrogate_id;
+    const invitations = state.user?.journey?.invitations;
+    const hasPendingInvitation = invitations?.length > 0;
+
     return (
         <NavigationContainer theme={theme}>
             {isLoggedIn
-                ? hasSurrogate
+                ? isCompleteAccount
                     ? renderDrawerNavs()
-                    : surrogateInvited
+                    : hasPendingInvitation
                         ? renderWaitingNavs(themeColors)
                         : renderInvitationNavs(themeColors)
                 : renderAuthNavs(themeColors, isFirstLoad)}

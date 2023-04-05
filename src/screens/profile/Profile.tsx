@@ -101,7 +101,8 @@ export const ProfileScreen = () => {
     // @ts-ignore
     const {isSpectator} = route.params;
     const {state} = useAppContext();
-    const isUserParent = state.journey.is_user_parent;
+    console.log('state.journey', state.journey);
+    const isUserParent = state?.journey.is_user_parent;
     const isParent1Self = state.journey.is_parent1_self;
     const [isEditing, setIsEditing] = useState(false);
     const [selectedProfile, setSelectedProfile] = useState<number>(

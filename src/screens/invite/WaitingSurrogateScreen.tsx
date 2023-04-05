@@ -7,6 +7,7 @@ import {Colors} from '../../theme/colors';
 import AppButton from '../../components/AppButton';
 import {HeartIcon} from '../../components/icons/HeartIcon';
 import React from 'react';
+import {useAppContext} from '../../contexts/AppContext';
 
 const styles = StyleSheet.create({
     backgroundImage: {
@@ -33,6 +34,8 @@ const styles = StyleSheet.create({
 });
 
 export const WaitingSurrogateScreen = () => {
+    const {state} = useAppContext();
+    const isSurrogate = state.user?.user_type === 'surrogate';
     return (
         <View style={styles.container}>
             <Image
@@ -48,9 +51,11 @@ export const WaitingSurrogateScreen = () => {
                         textAlign={'center'}
                         color={Colors.primary}
                         variant={'h2'}>
-                        {
-                            'Hang Tight. We are waiting for your gestational carrier to accept the invitation'
-                        }
+                        Hang Tight. We are waiting for your{' '}
+                        {isSurrogate
+                            ? 'intended parent'
+                            : 'gestational carrier'}{' '}
+                        to accept the invitation
                     </AppText>
                 </View>
                 <View style={{flex: 1}} />
@@ -59,7 +64,10 @@ export const WaitingSurrogateScreen = () => {
                         disabled={true}
                         mode={'contained'}
                         icon={() => <HeartIcon color={Colors.grey_3} />}>
-                        Add Gestational Carrier
+                        Add{' '}
+                        {isSurrogate
+                            ? 'Intended Parent'
+                            : 'Gestational Carrier'}
                     </AppButton>
                 </View>
                 <AppSpacing gap={32} />
