@@ -1,4 +1,4 @@
-package com.biggestask;
+package com.biggestask.lite;
 
 import android.app.Application;
 import android.content.Context;

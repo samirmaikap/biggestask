@@ -1,4 +1,4 @@
-package com.biggestask;
+package com.biggestask.lite;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
