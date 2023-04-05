@@ -9,7 +9,7 @@ pod 'FirebaseCoreInternal', :modular_headers => true
 pod 'GoogleUtilities', :modular_headers => true
 pod 'FirebaseCore', :modular_headers => true
 
-target 'biggestask' do
+target 'TheBiggestAsk' do
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -33,7 +33,7 @@ target 'biggestask' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
-  target 'biggestaskTests' do
+  target 'TheBiggestAskTests' do
     inherit! :complete
     # Pods for testing
   end

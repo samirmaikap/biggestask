@@ -29,6 +29,49 @@
             {
               "client_id": "894303583156-8hskm4gjv4o3fhevs5jumpm2sma1i82e.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "894303583156-3vn7g0f3snf01fbbrr9okq1msh544r97.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.biggestask.lite"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:894303583156:android:e0785ffe38d37c26c090e1",
+        "android_client_info": {
+          "package_name": "com.biggestask.lite"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "894303583156-8hskm4gjv4o3fhevs5jumpm2sma1i82e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXtrDNf5IkcrbADzKAjd_PvtgaiihF9w0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "894303583156-8hskm4gjv4o3fhevs5jumpm2sma1i82e.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "894303583156-3vn7g0f3snf01fbbrr9okq1msh544r97.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.biggestask.lite"
+              }
             }
           ]
         }
